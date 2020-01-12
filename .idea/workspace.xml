@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="" />
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/appointmentController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +179,7 @@
       <workItem from="1578561173196" duration="1665000" />
       <workItem from="1578573916950" duration="27270000" />
       <workItem from="1578685976811" duration="10862000" />
-      <workItem from="1578796499408" duration="633000" />
+      <workItem from="1578796499408" duration="2796000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -232,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578796952538</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="optimize live chat w/ push notif">
+      <created>1578797184608</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1578797184608</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,29 +288,29 @@
       <screen x="0" y="23" width="1440" height="816" />
     </state>
     <state x="408" y="166" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959763410" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1578797158100">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1578797181578">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1578797158100" />
-    <state width="1398" height="365" key="GridCell.Tab.0.bottom" timestamp="1578796975193">
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1578797181578" />
+    <state width="1398" height="248" key="GridCell.Tab.0.bottom" timestamp="1578799061162">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="365" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1578796975193" />
+    <state width="1398" height="248" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1578799061162" />
     <state width="1398" height="269" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1578573789475" />
-    <state width="1398" height="365" key="GridCell.Tab.0.center" timestamp="1578796975191">
+    <state width="1398" height="248" key="GridCell.Tab.0.center" timestamp="1578799061161">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="365" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1578796975191" />
+    <state width="1398" height="248" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1578799061161" />
     <state width="1398" height="269" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1578573789473" />
-    <state width="1398" height="365" key="GridCell.Tab.0.left" timestamp="1578796975189">
+    <state width="1398" height="248" key="GridCell.Tab.0.left" timestamp="1578799061160">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="365" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1578796975189" />
+    <state width="1398" height="248" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1578799061160" />
     <state width="1398" height="269" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1578573789472" />
-    <state width="1398" height="365" key="GridCell.Tab.0.right" timestamp="1578796975192">
+    <state width="1398" height="248" key="GridCell.Tab.0.right" timestamp="1578799061161">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="365" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1578796975192" />
+    <state width="1398" height="248" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1578799061161" />
     <state width="1398" height="269" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1578573789474" />
     <state x="308" y="192" key="IDE.errors.dialog" timestamp="1577443767350">
       <screen x="0" y="0" width="1440" height="900" />
@@ -308,10 +320,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1578797141662" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1578796973785">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1578797658330">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1578796973785" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1578797658330" />
     <state x="397" y="281" key="com.intellij.ide.util.TipDialog" timestamp="1578573918075">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
