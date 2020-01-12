@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/model.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/types/subdocument.js" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1SZ66knC8a49Mc1eGUjq1u3PsAc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="GO_FMT" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.13.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/uploads" />
+      <recent name="$PROJECT_DIR$/images" />
+    </key>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="" />
+      <created>1571758597248</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571758597248</updated>
+      <workItem from="1571758599124" duration="64000" />
+      <workItem from="1571758877570" duration="720000" />
+      <workItem from="1572173632899" duration="20000" />
+      <workItem from="1572358576683" duration="4959000" />
+      <workItem from="1572536029593" duration="6797000" />
+      <workItem from="1572609296567" duration="66000" />
+      <workItem from="1572672137445" duration="779000" />
+      <workItem from="1572682851753" duration="1380000" />
+      <workItem from="1572689471368" duration="486000" />
+      <workItem from="1572691238929" duration="728000" />
+      <workItem from="1572776043551" duration="5668000" />
+      <workItem from="1573400974693" duration="2120000" />
+      <workItem from="1573445022037" duration="11197000" />
+      <workItem from="1573473420580" duration="32000" />
+      <workItem from="1573481368184" duration="174000" />
+      <workItem from="1573483460246" duration="2436000" />
+      <workItem from="1573532640731" duration="1485000" />
+      <workItem from="1573538619371" duration="8304000" />
+      <workItem from="1573564409974" duration="2784000" />
+      <workItem from="1573629863120" duration="1627000" />
+      <workItem from="1573996944458" duration="6000000" />
+      <workItem from="1574072309423" duration="1381000" />
+      <workItem from="1574256762152" duration="1557000" />
+      <workItem from="1574322956285" duration="18000" />
+      <workItem from="1574420662010" duration="532000" />
+      <workItem from="1574425823455" duration="618000" />
+      <workItem from="1574491324481" duration="206000" />
+      <workItem from="1574506471281" duration="4443000" />
+      <workItem from="1574946186693" duration="2046000" />
+      <workItem from="1574949028484" duration="3525000" />
+      <workItem from="1574959749090" duration="29000" />
+      <workItem from="1574959795932" duration="352000" />
+      <workItem from="1574962150134" duration="867000" />
+      <workItem from="1575109006163" duration="4982000" />
+      <workItem from="1575116222776" duration="5369000" />
+      <workItem from="1575879666234" duration="700000" />
+      <workItem from="1575889726454" duration="4067000" />
+      <workItem from="1575987267793" duration="2850000" />
+      <workItem from="1576045130942" duration="2247000" />
+      <workItem from="1576048798625" duration="2709000" />
+      <workItem from="1576069694624" duration="11000" />
+      <workItem from="1576074146636" duration="749000" />
+      <workItem from="1576117312649" duration="1351000" />
+      <workItem from="1576119301544" duration="1368000" />
+      <workItem from="1577442904924" duration="4754000" />
+      <workItem from="1577535986134" duration="17242000" />
+      <workItem from="1577713673503" duration="873000" />
+      <workItem from="1577716388974" duration="1753000" />
+      <workItem from="1577794364313" duration="926000" />
+      <workItem from="1577795516779" duration="698000" />
+      <workItem from="1577878685335" duration="598000" />
+      <workItem from="1577882494058" duration="23806000" />
+      <workItem from="1578454121520" duration="634000" />
+      <workItem from="1578473084827" duration="3512000" />
+      <workItem from="1578561173196" duration="1665000" />
+      <workItem from="1578573916950" duration="27270000" />
+      <workItem from="1578685976811" duration="10862000" />
+      <workItem from="1578796499408" duration="633000" />
+    </task>
+    <task id="LOCAL-00001" summary="add database model">
+      <created>1572361255920</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1572361255920</updated>
+    </task>
+    <task id="LOCAL-00002" summary="backend login and register">
+      <created>1572543846837</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1572543846837</updated>
+    </task>
+    <task id="LOCAL-00003" summary="backend search by distance &amp;&amp; profiling">
+      <created>1573464488237</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1573464488237</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update profile, add pet &amp;&amp; update pet">
+      <created>1573564675265</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1573564675265</updated>
+    </task>
+    <task id="LOCAL-00005" summary="update profile not tested">
+      <created>1574608201789</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1574608201789</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update profile not tested">
+      <created>1574946390903</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1574946390903</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fix profiling, intergrate with mobile">
+      <created>1577981226456</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1577981226457</updated>
+    </task>
+    <task id="LOCAL-00008" summary="optimize live chat w/ push notif">
+      <created>1578796952538</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1578796952538</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+    <MESSAGE value="add database model" />
+    <MESSAGE value="backend login and register" />
+    <MESSAGE value="backend search by distance &amp;&amp; profiling" />
+    <MESSAGE value="update profile, add pet &amp;&amp; update pet" />
+    <MESSAGE value="update profile not tested" />
+    <MESSAGE value="fix profiling, intergrate with mobile" />
+    <MESSAGE value="optimize live chat w/ push notif" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimize live chat w/ push notif" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="254" y="250" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577909878927">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="254" y="250" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1577909878927" />
+    <state x="408" y="166" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1574959763410">
+      <screen x="0" y="23" width="1440" height="816" />
+    </state>
+    <state x="408" y="166" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959763410" />
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1578797158100">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1578797158100" />
+    <state width="1398" height="365" key="GridCell.Tab.0.bottom" timestamp="1578796975193">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="365" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1578796975193" />
+    <state width="1398" height="269" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1578573789475" />
+    <state width="1398" height="365" key="GridCell.Tab.0.center" timestamp="1578796975191">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="365" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1578796975191" />
+    <state width="1398" height="269" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1578573789473" />
+    <state width="1398" height="365" key="GridCell.Tab.0.left" timestamp="1578796975189">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="365" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1578796975189" />
+    <state width="1398" height="269" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1578573789472" />
+    <state width="1398" height="365" key="GridCell.Tab.0.right" timestamp="1578796975192">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="365" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1578796975192" />
+    <state width="1398" height="269" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1578573789474" />
+    <state x="308" y="192" key="IDE.errors.dialog" timestamp="1577443767350">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="308" y="192" key="IDE.errors.dialog/0.0.1440.900@0.0.1440.900" timestamp="1577443767350" />
+    <state x="221" y="63" key="SettingsEditor" timestamp="1578797141662">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1578797141662" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1578796973785">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1578796973785" />
+    <state x="397" y="281" key="com.intellij.ide.util.TipDialog" timestamp="1578573918075">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="397" y="281" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1578573918075" />
+    <state x="397" y="263" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959795813" />
+    <state x="502" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1575902586685">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="502" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1575902586685" />
+    <state x="97" y="27" key="new project wizard" timestamp="1577535964278">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="97" y="27" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1577535964278" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1578454179455">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1578454179455" />
+  </component>
+</project>
