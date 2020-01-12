@@ -1,3 +1,4 @@
+const {pushNotif} = require("../globalHelper");
 const {userPushNotif} = require("../globalHelper");
 const {vetPushNotif} = require("../globalHelper");
 const {chat: Chat, vet: Vet, user: User} = require('../model')
@@ -27,13 +28,13 @@ exports.userSendChat = (req, res) => {
             //     to: vet,
             //     from: res.userData.id,
             // });
-            Vet.findById(vet).select("socketId").then(({socketId}) => {
+            Vet.findById(vet).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
                 io.sockets.connected[socketId].emit('newChat', {
                     message: message,
                     from: res.userData.id
                 })
+                await pushNotif(fcmToken, res.userData.username, message)
             })
-            await vetPushNotif(vet, res.userData.username, message)
         })
         .catch(err => res.status(500).json(err))
 }
@@ -52,6 +53,7 @@ exports.vetSendChat = (req, res) => {
             }
         }
     }).then(async () => {
+        res.status(200).json()
         const {io} = req
         // io.sockets.emit('newChat', {
         //     message: message,
@@ -59,14 +61,13 @@ exports.vetSendChat = (req, res) => {
         //     from: res.userData.id,
         // });
 
-        User.findById(user).select("socketId").then(({socketId}) => {
+        User.findById(user).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
             io.sockets.connected[socketId].emit('newChat', {
                 message: message,
                 from: res.userData.id
             })
+            await pushNotif(fcmToken, res.userData.username, message)
         })
-        await userPushNotif(user, res.userData.username, message)
-        res.status(200).json()
     })
         .catch(err => res.status(500).json(err))
 }

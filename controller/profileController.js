@@ -54,18 +54,16 @@ exports.update_pet = (req, res) => {
 };
 
 exports.delete_pet = (req, res) => {
-    const {petid} = req.body
+    const {petId} = req.body
     User.findByIdAndUpdate(res.userData.id, {
         $pull: {
-            pet: {
-                _id: petid
-            }
+            pet: {_id: petId}
         }
-    })
+    }).then(() => res.status(200).json())
+        .catch(err => res.status(500).json(err))
 }
 
 exports.update_profile = (req, res) => {
-    console.log(req.body)
     const {avatar, name: username, email, phoneNumber: phone, address} = req.body
     const updatedData = {username: username, phoneNumber: phone, address: address}
 

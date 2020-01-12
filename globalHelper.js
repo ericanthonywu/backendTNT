@@ -50,3 +50,26 @@ exports.vetPushNotif = async (vet, title, body) => {
         }).catch(console.log)
     })
 }
+
+exports.pushNotif = async (token, title, body) => {
+    Axios.post(`https://fcm.googleapis.com/fcm/send`, {
+        "to": token,
+        "notification": {
+            "title": title,
+            "body": body,
+            "show_in_foreground": true
+        },
+        "data": {
+            "show_in_foreground": true,
+            "title": "a",
+            "body": "a"
+        },
+        "content_available": true,
+        "show_in_foreground": true
+    }, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "key=AIzaSyBg4Nl93tC20G9IW7CIOFtDonczX6dD_bY"
+        }
+    }).catch(console.log)
+}
