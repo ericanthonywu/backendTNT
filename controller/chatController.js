@@ -29,10 +29,12 @@ exports.userSendChat = (req, res) => {
             //     from: res.userData.id,
             // });
             Vet.findById(vet).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
-                io.sockets.connected[socketId].emit('newChat', {
-                    message: message,
-                    from: res.userData.id
-                })
+                if(io.sockets.connected[socketId]) {
+                    io.sockets.connected[socketId].emit('newChat', {
+                        message: message,
+                        from: res.userData.id
+                    })
+                }
                 await pushNotif(fcmToken, res.userData.username, message)
             })
         })
@@ -62,10 +64,12 @@ exports.vetSendChat = (req, res) => {
         // });
 
         User.findById(user).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
-            io.sockets.connected[socketId].emit('newChat', {
-                message: message,
-                from: res.userData.id
-            })
+            if(io.sockets.connected[socketId]) {
+                io.sockets.connected[socketId].emit('newChat', {
+                    message: message,
+                    from: res.userData.id
+                })
+            }
             await pushNotif(fcmToken, res.userData.username, message)
         })
     })

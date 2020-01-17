@@ -37,5 +37,7 @@ router.post('/getVet', authMiddleware.authMiddleware, chatController.getVet)
 //appointment router
 router.post('/addAppointment', authMiddleware.authMiddleware, appointmentController.addAppointment)
 router.post('/showVetAvailable', authMiddleware.authMiddleware, appointmentController.showVetAvailable)
+router.post('/showUsersTodayAppointment', authMiddleware.authMiddleware, appointmentController.showUsersTodayAppointment)
+router.post('/showUserAppointment', authMiddleware.authMiddleware, appointmentController.showUserAppointment)
 
 module.exports = router;

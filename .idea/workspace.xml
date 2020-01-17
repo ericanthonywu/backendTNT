@@ -5,8 +5,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/appointmentController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/dashboardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/dashboardController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +182,12 @@
       <workItem from="1578561173196" duration="1665000" />
       <workItem from="1578573916950" duration="27270000" />
       <workItem from="1578685976811" duration="10862000" />
-      <workItem from="1578796499408" duration="4180000" />
+      <workItem from="1578796499408" duration="4536000" />
+      <workItem from="1578801623180" duration="1229000" />
+      <workItem from="1578813279886" duration="4376000" />
+      <workItem from="1578831254233" duration="2379000" />
+      <workItem from="1578923774451" duration="1509000" />
+      <workItem from="1579246061672" duration="3929000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -252,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578799696388</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="optimize push notif">
+      <created>1578801178562</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1578801178562</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,7 +300,8 @@
     <MESSAGE value="fix profiling, intergrate with mobile" />
     <MESSAGE value="optimize live chat w/ push notif" />
     <MESSAGE value="appointment reschedule, cancel and make scheduler push notif reminder" />
-    <option name="LAST_COMMIT_MESSAGE" value="appointment reschedule, cancel and make scheduler push notif reminder" />
+    <MESSAGE value="optimize push notif" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimize push notif" />
   </component>
   <component name="WindowStateProjectService">
     <state x="254" y="250" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577909878927">
@@ -297,29 +312,33 @@
       <screen x="0" y="23" width="1440" height="816" />
     </state>
     <state x="408" y="166" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959763410" />
-    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1578799695986">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1578801178366">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1578799695986" />
-    <state width="1398" height="248" key="GridCell.Tab.0.bottom" timestamp="1578799985345">
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1578801178366" />
+    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1578801371808">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="248" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1578799985345" />
+    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1578801371808" />
+    <state width="1398" height="301" key="GridCell.Tab.0.bottom" timestamp="1579253773470">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="301" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1579253773470" />
     <state width="1398" height="269" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1578573789475" />
-    <state width="1398" height="248" key="GridCell.Tab.0.center" timestamp="1578799985343">
+    <state width="1398" height="301" key="GridCell.Tab.0.center" timestamp="1579253773468">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="248" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1578799985343" />
+    <state width="1398" height="301" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1579253773468" />
     <state width="1398" height="269" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1578573789473" />
-    <state width="1398" height="248" key="GridCell.Tab.0.left" timestamp="1578799985342">
+    <state width="1398" height="301" key="GridCell.Tab.0.left" timestamp="1579253773468">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="248" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1578799985342" />
+    <state width="1398" height="301" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1579253773468" />
     <state width="1398" height="269" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1578573789472" />
-    <state width="1398" height="248" key="GridCell.Tab.0.right" timestamp="1578799985344">
+    <state width="1398" height="301" key="GridCell.Tab.0.right" timestamp="1579253773469">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="248" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1578799985344" />
+    <state width="1398" height="301" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1579253773469" />
     <state width="1398" height="269" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1578573789474" />
     <state x="308" y="192" key="IDE.errors.dialog" timestamp="1577443767350">
       <screen x="0" y="0" width="1440" height="900" />
@@ -329,10 +348,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1578797141662" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1578799698776">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1578801180125">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1578799698776" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1578801180125" />
     <state x="397" y="281" key="com.intellij.ide.util.TipDialog" timestamp="1578573918075">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

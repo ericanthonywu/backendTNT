@@ -18,7 +18,7 @@ exports.searchVet = (req, res) => {
                     // minDistance: (minDistance || 0) * 1000,
                     spherical: true,
                     query: {
-                        username: {$regex: vet + ".*"}
+                        username: {$regex: `(?i)${vet}.*`}
                     }
                 },
             },

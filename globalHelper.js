@@ -4,19 +4,19 @@ const {user: User, vet: Vet} = require('./model')
 exports.userPushNotif = async (user, title, body) => {
     User.findById(user).select("fcmToken").then(({fcmToken}) => {
         Axios.post(`https://fcm.googleapis.com/fcm/send`, {
-            "to": fcmToken,
-            "notification": {
-                "title": title,
-                "body": body,
-                "show_in_foreground": true
+            to: fcmToken,
+            notification: {
+                title: title,
+                body: body,
+                show_in_foreground: true
             },
-            "data": {
-                "show_in_foreground": true,
-                "title": "a",
-                "body": "a"
+            data: {
+                show_in_foreground: true,
+                title: "a",
+                body: "a"
             },
-            "content_available": true,
-            "show_in_foreground": true
+            content_available: true,
+            show_in_foreground: true
         }, {
             headers: {
                 "Content-Type": "application/json",
@@ -29,19 +29,19 @@ exports.userPushNotif = async (user, title, body) => {
 exports.vetPushNotif = async (vet, title, body) => {
     Vet.findById(vet).select("fcmToken").then(({fcmToken}) => {
         Axios.post(`https://fcm.googleapis.com/fcm/send`, {
-            "to": fcmToken,
-            "notification": {
-                "title": title,
-                "body": body,
-                "show_in_foreground": true
+            to: fcmToken,
+            notification: {
+                title: title,
+                body: body,
+                show_in_foreground: true
             },
-            "data": {
-                "show_in_foreground": true,
-                "title": "a",
-                "body": "a"
+            data: {
+                show_in_foreground: true,
+                title: "a",
+                body: "a"
             },
-            "content_available": true,
-            "show_in_foreground": true
+            content_available: true,
+            show_in_foreground: true
         }, {
             headers: {
                 "Content-Type": "application/json",
@@ -51,21 +51,21 @@ exports.vetPushNotif = async (vet, title, body) => {
     })
 }
 
-exports.pushNotif = async (token, title, body) => {
+exports.pushNotif = async (fcmToken, title, body) => {
     Axios.post(`https://fcm.googleapis.com/fcm/send`, {
-        "to": token,
-        "notification": {
-            "title": title,
-            "body": body,
-            "show_in_foreground": true
+        to: fcmToken,
+        notification: {
+            title: title,
+            body: body,
+            show_in_foreground: true
         },
-        "data": {
-            "show_in_foreground": true,
-            "title": "a",
-            "body": "a"
+        data: {
+            show_in_foreground: true,
+            title: "a",
+            body: "a"
         },
-        "content_available": true,
-        "show_in_foreground": true
+        content_available: true,
+        show_in_foreground: true
     }, {
         headers: {
             "Content-Type": "application/json",
