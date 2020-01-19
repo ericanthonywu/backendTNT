@@ -1,6 +1,4 @@
 const {pushNotif} = require("../globalHelper");
-const {userPushNotif} = require("../globalHelper");
-const {vetPushNotif} = require("../globalHelper");
 const {chat: Chat, vet: Vet, user: User} = require('../model')
 
 exports.userSendChat = (req, res) => {
@@ -57,11 +55,6 @@ exports.vetSendChat = (req, res) => {
     }).then(async () => {
         res.status(200).json()
         const {io} = req
-        // io.sockets.emit('newChat', {
-        //     message: message,
-        //     to: user,
-        //     from: res.userData.id,
-        // });
 
         User.findById(user).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
             if(io.sockets.connected[socketId]) {

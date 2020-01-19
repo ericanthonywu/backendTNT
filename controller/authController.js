@@ -223,11 +223,13 @@ exports.verifyEmailVet = (req, res) => {
 exports.userFCMToken = (req, res) => {
     User.findByIdAndUpdate(res.userData.id,{
         fcmToken: req.body.fcmToken
-    }).then(() => res.status(200).json()).catch(err => res.status(500).json(err))
+    }).then(() => res.status(200).json())
+        .catch(err => res.status(500).json(err))
 }
 
 exports.vetFCMToken = (req, res) => {
     Vet.findByIdAndUpdate(res.userData.id,{
         fcmToken: req.body.fcmToken
-    }).then(() => res.status(200).json()).catch(err => res.status(500).json(err))
+    }).then(() => res.status(200).json())
+        .catch(err => res.status(500).json(err))
 }

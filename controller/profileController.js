@@ -40,7 +40,6 @@ exports.update_pet = (req, res) => {
             'pet._id': petid
         }).select("pet.$.photo")
             .then(data => fs.unlinkSync(path.join(__dirname, "../uploads/pet/" + data.pet[0].photo)))
-            .catch(err => res.status(500).json(err))
     }
     User.findOneAndUpdate({
             _id: res.userData.id,

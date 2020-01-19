@@ -16,7 +16,7 @@ const express = require('express'),
 router.post('/login', authController.login);
 router.post('/register', authController.register);
 router.post('/verify', authController.verifyEmail);
-router.post('/setFCMToken',authMiddleware.authMiddleware, authController.userFCMToken);
+router.post('/setFCMToken', authMiddleware.authMiddleware, authController.userFCMToken);
 
 //dashboard router
 router.post('/searchVet', authMiddleware.authMiddleware, dashboardController.searchVet);
@@ -24,7 +24,8 @@ router.post('/showAppointment', authMiddleware.authMiddleware, dashboardControll
 
 //profile router
 router.post('/user_profile', authMiddleware.authMiddleware, profileController.user_profile);
-router.post('/update_profile', authMiddleware.authMiddleware, profileController.update_profile)
+router.post('/update_profile', authMiddleware.authMiddleware, profileController.update_profile);
+router.post('/delete_pet', authMiddleware.authMiddleware, profileController.delete_pet);
 router.post('/add_pet', fileMiddleware.uploadPet.single('image'), authMiddleware.authMiddleware, profileController.add_pet);
 router.post('/update_pet', fileMiddleware.uploadPet.single('image'), authMiddleware.authMiddleware, profileController.update_pet);
 

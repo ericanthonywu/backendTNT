@@ -25,7 +25,6 @@ exports.addAppointment = (req, res) => {
                         const {io} = req
                         Vet.findById(vet).select("socketId username fcmToken").then(({socketId, username, fcmToken}) => {
                             scheduler.scheduleJob(_id.toString(), moment(time).subtract(15, "minutes").toISOString(), () => {
-                                console.log(fcmToken)
                                 pushNotif(fcmToken, "Appointment Reminder", `sebentar lagi ada appoinment dengan user ${res.userData.username} jangan sampai telat ya!`)
                                 userPushNotif(res.userData.id, "Appointment Reminder", `sebentar lagi ada appoinment dengan Dr. ${username} jangan sampai telat ya!`)
                             })
