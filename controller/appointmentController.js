@@ -1,6 +1,7 @@
 const {appointment: Appointment, vet: Vet} = require('../model')
 const moment = require('moment')
 const scheduler = require('node-schedule')
+const {vetPushNotif} = require("../globalHelper");
 const {userPushNotif, pushNotif} = require("../globalHelper");
 
 exports.addAppointment = (req, res) => {
@@ -60,11 +61,16 @@ exports.reScheduleAppointment = (req, res) => {
 exports.cancelAppointment = (req, res) => {
     const {id} = req.body
     Appointment.findByIdAndDelete(id)
-        .catch(err => res.status(500).json(err))
-        .finally(() => {
+        .then(() => {
             res.status(200).json()
             scheduler.scheduledJobs[id].cancel()
-        })
+        }).catch(err => res.status(500).json(err))
+    Appointment.findById(id)
+        .select("vet time")
+        .populate("vet","fcmToken")
+        .then(({vet,time}) =>
+            vetPushNotif(vet.fcmToken,"TNTforvet",`Oops.. Appointment mu pada tanggal ${moment(time).format("D MMMM HH:mm")} dengan ${res.userData.username} telah di batalkan`))
+        .catch(console.log)
 }
 
 exports.showVetAvailable = (req, res) => {
@@ -73,7 +79,7 @@ exports.showVetAvailable = (req, res) => {
     Appointment.find({
         vet: vet,
         time: {
-            $gte: moment().toISOString()
+            $gte: moment()
         }
     }).select("time")
         .then(time => res.status(200).json(time))
@@ -96,7 +102,7 @@ exports.showVetAppointment = (req, res) => {
 exports.showUserAppointment = (req, res) => {
     Appointment.find({
         user: res.userData.id,
-        time: {$gte: moment(), $lte: moment().endOf("month")}
+        // time: {$gte: moment(), $lte: moment().endOf("month")}
     }).populate("vet", "username profile_picture")
         .select("time vet")
         .then(appointment => res.status(200).json(appointment))

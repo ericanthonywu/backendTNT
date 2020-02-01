@@ -5,7 +5,10 @@ const moment = require('moment');
 const nodeMailer = require('nodemailer');
 
 exports.login = (req, res) => {
-    const {usernameOrEmail, password, loginWithGoogle, loginWithFacebook} = req.body;
+    const {usernameOrEmail, password} = req.body;
+    if (!usernameOrEmail) {
+        return res.status(400).json()
+    }
     User.findOne({
         $or: [
             {username: usernameOrEmail},
@@ -35,7 +38,6 @@ exports.login = (req, res) => {
                 username: data.username,
                 email: data.email,
                 id: data._id,
-                FCMToken: FCMToken
             }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
                 data.profile_picture = profile_picture;
                 return res.status(200).json({
@@ -50,13 +52,17 @@ exports.login = (req, res) => {
         } else {
             return res.status(404).json()
         }
-    }).catch(err => res.status(500).json(err))
+    }).catch(err => res.status(200).json(err))
 };
 exports.register = (req, res) => {
     const {username, password, email, noHp, loginWithGoogle, loginWithFacebook} = req.body;
     if (!username && !email) {
         return res.status(400).json()
     }
+    if ((!loginWithFacebook && !loginWithGoogle) && !password) {
+        return res.status(400).json()
+    }
+
     const userData = {
         username: username,
         email: email,
@@ -66,7 +72,6 @@ exports.register = (req, res) => {
     };
     if (email) {
         if (!loginWithFacebook && !loginWithGoogle) {
-            console.log('hash')
             bcrypt.hash(password, parseInt(process.env.BcryptSalt)).then(password => {
                 const token = Math.floor((Math.random() * 1000000) + 1); //generate 6 number token
                 userData.password = password
@@ -84,61 +89,117 @@ exports.register = (req, res) => {
                     }
                 });
                 const mailOption = {
-                    from: "Tail 'n Tales Email Verification",
+                    from: "Tail 'n Tales Token Verification",
                     to: email,
-                    subject: "Email Verification",
-                    html: `Hello ${username}! Thank you for registering, your token verification is <b>${token}</b>.
-                        IMPORTANT! NEVER TELL YOUR TOKEN TO ANYONE!`
+                    subject: "Token Verification",
+                    html: `Hello ${username}! <br><br>Thank you for registering, your token verification is: <br><br><p style="font-size:24px;"><b>${token}</b></p><br>
+                        IMPORTANT! NEVER TELL YOUR TOKEN TO ANYONE!
+                        <img alt="TNT Logo" src="http://tailandtale.com/wp-content/uploads/2019/08/tnt_logo_jul19-1.png"/>
+`
                 };
-                transpoter.sendMail(mailOption, err => {
-                    if (err) {
-                        return res.status(500).json(err)
-                    }
-                });
+                new User(userData).save()
+                    .then(userDataDatabase => {
+                        transpoter.sendMail(mailOption, err => {
+                            if (err) {
+                                console.log(err)
+                            }
+                        });
+                        jwt.sign({
+                                username: userData.username,
+                                email: userData.email,
+                                id: userDataDatabase._id
+                            }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) =>
+                                res.status(201).json({
+                                    _token: token,
+                                    id: userDataDatabase._id,
+                                    profile_picture: userDataDatabase.profile_picture,
+                                    username: userData.username,
+                                    email: userData.email,
+                                })
+                        )
+                    })
+                    .catch(err => res.status(500).json(err))
             }).catch(err => res.status(500).json(err))
         } else {
             userData.email_status = true;
             userData.loginWithFacebook = loginWithFacebook || false
             userData.loginWithGoogle = loginWithGoogle || false
-        }
-        new User(userData).save()
-            .then(userDataDatabase => {
-                jwt.sign({
-                    username: userData.username,
-                    email: userData.email,
-                    id: userDataDatabase._id
-                }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
-                    return res.status(201).json({
-                        _token: token,
-                        id: userDataDatabase._id,
-                        profile_picture: userDataDatabase.profile_picture,
+            new User(userData).save()
+                .then(userDataDatabase => {
+                    jwt.sign({
                         username: userData.username,
                         email: userData.email,
-                    });
+                        id: userDataDatabase._id
+                    }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
+                        return res.status(201).json({
+                            _token: token,
+                            id: userDataDatabase._id,
+                            profile_picture: userDataDatabase.profile_picture,
+                            username: userData.username,
+                            email: userData.email,
+                        });
+                    })
                 })
-            })
-            .catch(err => res.status(500).json(err))
+                .catch(err => res.status(500).json(err))
+        }
     } else {
         return res.status(403).json()
     }
 };
 
+exports.reSendEmail = (req, res) => {
+    const {email, username} = req.body
+    const token = Math.floor((Math.random() * 1000000) + 1); //generate 6 number token
+    User.findOneAndUpdate({email: email}, {
+        email_verification_token: token,
+        email_expire_token: moment(Date.now()).add(3, "minutes").toISOString(),
+    }).then(() => {
+        const transpoter = nodeMailer.createTransport({
+            host: "smtp.gmail.com",
+            port: process.env.EMAILPORT,
+            secure: true,
+            service: "Gmail",
+            requireTLS: true,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAILPASSWORD
+            }
+        });
+        const mailOption = {
+            from: "Tail 'n Tales Token Verification",
+            to: email,
+            subject: "Token Verification",
+            html: `Hello ${username}! <br><br>Thank you for registering, your token verification is: <br><br><p style="font-size:24px;"><b>${token}</b></p><br>
+                        IMPORTANT! NEVER TELL YOUR TOKEN TO ANYONE!
+                        <img alt="TNT Logo" src="http://tailandtale.com/wp-content/uploads/2019/08/tnt_logo_jul19-1.png"/>
+`
+        };
+        transpoter.sendMail(mailOption, err => {
+            if (err) {
+                return res.status(500).json(err)
+            }
+        });
+    })
+}
+
 exports.verifyEmail = (req, res) => {
     const {token, email} = req.body;
     User.countDocuments({
         email: email,
-        email_verification_token: token,
+        email_status: false,
+        email_verification_token: parseInt(token),
         email_expire_token: {$gte: moment(Date.now()).toISOString()}
     })
         .then(doc => {
             if (doc) {
                 User.findOneAndUpdate({email: email}, {email_status: true, email_verification_token: null})
-                    .then(() => res.status(202).json())
-                    .catch(err => res.status(500).json(err));
+                    .then(() => res.status(201).json())
+                    .catch(err => res.status(500).json(err))
             } else {
                 return res.status(404).json({msg: "Token not found or has been expired"})
             }
         }).catch(err => res.status(500).json(err))
+
 };
 
 exports.loginVet = (req, res) => {
@@ -221,14 +282,14 @@ exports.verifyEmailVet = (req, res) => {
 };
 
 exports.userFCMToken = (req, res) => {
-    User.findByIdAndUpdate(res.userData.id,{
+    User.findByIdAndUpdate(res.userData.id, {
         fcmToken: req.body.fcmToken
     }).then(() => res.status(200).json())
         .catch(err => res.status(500).json(err))
 }
 
 exports.vetFCMToken = (req, res) => {
-    Vet.findByIdAndUpdate(res.userData.id,{
+    Vet.findByIdAndUpdate(res.userData.id, {
         fcmToken: req.body.fcmToken
     }).then(() => res.status(200).json())
         .catch(err => res.status(500).json(err))

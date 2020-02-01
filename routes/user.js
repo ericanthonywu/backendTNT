@@ -20,7 +20,6 @@ router.post('/setFCMToken', authMiddleware.authMiddleware, authController.userFC
 
 //dashboard router
 router.post('/searchVet', authMiddleware.authMiddleware, dashboardController.searchVet);
-router.post('/showAppointment', authMiddleware.authMiddleware, dashboardController.showAppointment)
 
 //profile router
 router.post('/user_profile', authMiddleware.authMiddleware, profileController.user_profile);
@@ -30,13 +29,15 @@ router.post('/add_pet', fileMiddleware.uploadPet.single('image'), authMiddleware
 router.post('/update_pet', fileMiddleware.uploadPet.single('image'), authMiddleware.authMiddleware, profileController.update_pet);
 
 //chat router
-// router.post('/fileChat',fileMiddleware.uploadChat,authMiddleware.authMiddleware,chatController.fileChat)
+router.post('/fileChat', fileMiddleware.uploadChat.single("image"), authMiddleware.authMiddleware, chatController.fileChat)
 router.post('/sendChat', authMiddleware.authMiddleware, chatController.userSendChat)
 router.post('/showChat', authMiddleware.authMiddleware, chatController.userShowChat)
 router.post('/getVet', authMiddleware.authMiddleware, chatController.getVet)
 
 //appointment router
 router.post('/addAppointment', authMiddleware.authMiddleware, appointmentController.addAppointment)
+router.post('/reScheduleAppointment', authMiddleware.authMiddleware, appointmentController.reScheduleAppointment)
+router.post('/cancelAppointment', authMiddleware.authMiddleware, appointmentController.cancelAppointment)
 router.post('/showVetAvailable', authMiddleware.authMiddleware, appointmentController.showVetAvailable)
 router.post('/showUsersTodayAppointment', authMiddleware.authMiddleware, appointmentController.showUsersTodayAppointment)
 router.post('/showUserAppointment', authMiddleware.authMiddleware, appointmentController.showUserAppointment)

@@ -39,34 +39,3 @@ exports.searchVet = (req, res) => {
         res.status(400).json()
     }
 }
-
-exports.showAppointment = (req,res) => {
-    Appointment.find({
-        time: {
-            $gte: moment(),
-            $lte: moment().endOf('day')
-        },
-        user: res.userData.id
-    })
-        .sort({time: 1})
-        .populate('vet','username')
-        .select("vet time")
-        .limit(5)
-        .then(appointment => res.status(200).json(appointment))
-        .catch(err => res.status(500).json(err))
-}
-
-exports.showVetAppointment = (req,res) => {
-    Appointment.find({
-        vet: res.userData.id,
-        time: {
-            $gte: moment(),
-            $lte: moment().endOf('day')
-        },
-    }).sort({time: 1})
-        .populate('user','username')
-        .select("user time")
-        .limit(5)
-        .then(appointment => res.status(200).json(appointment))
-        .catch(err => res.status(500).json(err))
-}

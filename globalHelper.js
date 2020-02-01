@@ -51,7 +51,7 @@ exports.vetPushNotif = async (vet, title, body) => {
     })
 }
 
-exports.pushNotif = async (fcmToken, title, body) => {
+ exports.pushNotif = async (fcmToken, title, body) => {
     Axios.post(`https://fcm.googleapis.com/fcm/send`, {
         to: fcmToken,
         notification: {

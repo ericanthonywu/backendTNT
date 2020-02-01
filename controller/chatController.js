@@ -107,3 +107,25 @@ exports.getUser = (req, res) => {
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
+
+exports.fileChat = (req,res) => {
+    Chat.findOneAndUpdate({
+        user: res.userData.id,
+        vet: vet,
+        status: true
+    }, {
+        $push: {
+            message: {
+                user: res.userData.id,
+                message: message
+            }
+        }
+    }).setOptions({
+        setDefaultsOnInsert: true,
+        upsert: true
+    })
+        .then(async () => {
+            res.status(200).json()
+        })
+        .catch(err => res.status(500).json(err))
+}
