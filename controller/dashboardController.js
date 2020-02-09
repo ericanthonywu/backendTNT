@@ -1,5 +1,4 @@
-const {vet: Vet,appointment: Appointment} = require('../model'),
-    moment = require('moment')
+const {vet: Vet} = require('../model')
 
 exports.searchVet = (req, res) => {
     const {lat, long, vet, offset, maxDistance, minDistance} = req.body
@@ -12,7 +11,7 @@ exports.searchVet = (req, res) => {
                         coordinates: [parseFloat(long), parseFloat(lat)]
                     },
                     distanceField: "dist.calculated",
-                    // includeLocs: "dist.location",
+                    includeLocs: "dist.location",
                     distanceMultiplier: 0.001,
                     // maxDistance: (maxDistance || 0) * 1000,
                     // minDistance: (minDistance || 0) * 1000,

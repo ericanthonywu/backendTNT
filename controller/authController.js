@@ -1,4 +1,4 @@
-const {user: User, vet: Vet} = require('../model');
+const {user: User, vet: Vet, clinic: Clinic, admin: Admin} = require('../model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
@@ -14,26 +14,24 @@ exports.login = (req, res) => {
             {username: usernameOrEmail},
             {email: usernameOrEmail}
         ]
-    }).select("username password email profile_picture email_status loginWithFacebook loginWithGoogle").then(data => {
+    }).select("username password email ban profile_picture email_status loginWithFacebook loginWithGoogle").then(data => {
+        if(data.ban){
+            return res.status(403).json({msg:"You have been banned by admin"})
+        }
         if (data) {
             if (!data.email_status) {
-                return res.status(403).json()
+                return res.status(403).json({msg:"Your email has not verified"})
             }
 
             if (!data.loginWithFacebook || !data.loginWithGoogle) {
                 bcrypt.compare(password, data.password).then(check => {
                     if (!check) {
-                        return res.status(403).json()
+                        return res.status(401).json()
                     }
                 }).catch(err => res.status(500).json(err))
             }
             const {profile_picture} = data;
 
-            delete data.profile_picture;
-            delete data.password;
-            delete data.email_status;
-            delete data.loginWithFacebook;
-            delete data.loginWithGoogle;
             jwt.sign({
                 username: data.username,
                 email: data.email,
@@ -54,6 +52,7 @@ exports.login = (req, res) => {
         }
     }).catch(err => res.status(200).json(err))
 };
+
 exports.register = (req, res) => {
     const {username, password, email, noHp, loginWithGoogle, loginWithFacebook} = req.body;
     if (!username && !email) {
@@ -108,7 +107,7 @@ exports.register = (req, res) => {
                                 username: userData.username,
                                 email: userData.email,
                                 id: userDataDatabase._id
-                            }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) =>
+                            }, process.env.JWTTOKEN, {}, (err, token) =>
                                 res.status(201).json({
                                     _token: token,
                                     id: userDataDatabase._id,
@@ -130,7 +129,7 @@ exports.register = (req, res) => {
                         username: userData.username,
                         email: userData.email,
                         id: userDataDatabase._id
-                    }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
+                    }, process.env.JWTTOKEN, {}, (err, token) => {
                         return res.status(201).json({
                             _token: token,
                             id: userDataDatabase._id,
@@ -209,7 +208,10 @@ exports.loginVet = (req, res) => {
             {username: usernameOrEmail},
             {email: usernameOrEmail}
         ]
-    }).select("username password email profile_picture email_status").then(data => {
+    }).select("username password ban email profile_picture email_status").then(data => {
+        if(data.ban){
+            return res.status(403).json()
+        }
         if (data) {
             bcrypt.compare(password, data.password).then(check => {
                 if (check) {
@@ -227,7 +229,7 @@ exports.loginVet = (req, res) => {
                         });
                     },)
                 } else {
-                    return res.status(403).json()
+                    return res.status(401).json()
                 }
             }).catch(err => res.status(500).json(err))
         } else {
@@ -235,33 +237,111 @@ exports.loginVet = (req, res) => {
         }
     }).catch(err => res.status(500).json(err))
 };
+
 exports.registerVet = (req, res) => {
     const {username, password, email, noHp, street, lat, long} = req.body;
-    if (!username && !password) {
+    if (!username && !password && !email) {
         return res.status(403).json()
     }
-    if (email != null) {
-        bcrypt.hash(password, Number(process.env.BcryptSalt)).then(password => {
-            const vetData = {
-                username: username,
-                password: password,
-                email: email || null,
-                phoneNumber: noHp || "0",
-                street: street,
-                session: {
-                    coordinates: [long, lat],
-                    last_login: moment(Date.now()).toISOString()
-                }
-            };
-            new Vet(vetData).save()
-                .then(() => res.status(201).json())
-                .catch(err => res.status(500).json(err))
 
-        }).catch(err => res.status(500).json(err))
-    } else {
-        return res.status(403).json()
-    }
+    bcrypt.hash(password, Number(process.env.BcryptSalt)).then(password => {
+        const vetData = {
+            username: username,
+            password: password,
+            email: email || null,
+            phoneNumber: noHp || "0",
+            street: street,
+            session: {
+                coordinates: [long, lat],
+                last_login: moment(Date.now()).toISOString()
+            }
+        };
+        new Vet(vetData).save()
+            .then(() => res.status(201).json())
+            .catch(err => res.status(500).json(err))
+
+    }).catch(err => res.status(500).json(err))
+
 };
+
+exports.loginClinic = (req, res) => {
+    const {username, password} = req.body
+    Clinic.findOne({
+        username: username
+    }).select("password").then(data => {
+        if (!data) {
+            return res.status(404).json()
+        }
+
+        if(data.ban){
+            return res.status(403).json()
+        }
+
+        bcrypt.compare(password, data.password).then(check => {
+            if (!check) {
+                return res.status(401).json()
+            }
+
+            jwt.sign({
+                id: data.id,
+                username: data.username
+            }, process.env.JWTTOKEN, {expiresIn: 100000}, (err, token) => {
+                if (err) {
+                    return res.status(500).json(err)
+                }
+                return res.status(200).json({
+                    _token: token,
+                    username: username,
+                    id: data.id
+                })
+            })
+        }).catch(err => res.status(500).json(err))
+    })
+}
+
+exports.loginAdmin = (req, res) => {
+    const {username, password} = req.body
+    if(!username || !password){
+        return res.status(400).json()
+    }
+    Admin.findOne({
+        username: username
+    }).select("password").then(data => {
+        if (!data) {
+            return res.status(404).json()
+        }
+
+        bcrypt.compare(password, data.password).then(check => {
+            if (!check) {
+                return res.status(401).json()
+            }
+
+            jwt.sign({
+                id: data.id,
+                username: data.username
+            }, process.env.JWTTOKEN, {expiresIn: 100000}, (err, token) => {
+                if (err) {
+                    return res.status(500).json(err)
+                }
+                return res.status(200).json({
+                    _token: token,
+                    username: username,
+                    id: data.id
+                })
+            })
+        }).catch(err => res.status(500).json(err))
+    })
+}
+
+exports.migrateAdmin = (req, res) => {
+    new Admin({
+        username: "superadmin",
+        password: bcrypt.hashSync("admin", parseInt(process.env.BcryptSalt))
+    }).save()
+        .then(() => res.status(201).json())
+        .catch(err => res.status(500).json(err))
+
+}
 
 exports.verifyEmailVet = (req, res) => {
     const {token, email} = req.body;
@@ -291,6 +371,7 @@ exports.userFCMToken = (req, res) => {
 exports.vetFCMToken = (req, res) => {
     Vet.findByIdAndUpdate(res.userData.id, {
         fcmToken: req.body.fcmToken
-    }).then(() => res.status(200).json())
+    })
+        .then(() => res.status(200).json())
         .catch(err => res.status(500).json(err))
 }

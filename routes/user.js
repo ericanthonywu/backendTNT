@@ -29,10 +29,11 @@ router.post('/add_pet', fileMiddleware.uploadPet.single('image'), authMiddleware
 router.post('/update_pet', fileMiddleware.uploadPet.single('image'), authMiddleware.authMiddleware, profileController.update_pet);
 
 //chat router
-router.post('/fileChat', fileMiddleware.uploadChat.single("image"), authMiddleware.authMiddleware, chatController.fileChat)
+router.post('/fileChat', fileMiddleware.uploadChat.single("image"), authMiddleware.authMiddleware, chatController.userFileChat)
 router.post('/sendChat', authMiddleware.authMiddleware, chatController.userSendChat)
 router.post('/showChat', authMiddleware.authMiddleware, chatController.userShowChat)
 router.post('/getVet', authMiddleware.authMiddleware, chatController.getVet)
+router.post('/endChat', authMiddleware.authMiddleware, chatController.endChat)
 
 //appointment router
 router.post('/addAppointment', authMiddleware.authMiddleware, appointmentController.addAppointment)

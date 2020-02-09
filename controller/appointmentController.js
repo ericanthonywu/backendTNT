@@ -5,7 +5,7 @@ const {vetPushNotif} = require("../globalHelper");
 const {userPushNotif, pushNotif} = require("../globalHelper");
 
 exports.addAppointment = (req, res) => {
-    const {time, vet} = req.body
+    const {time, vet, clinic} = req.body
 
     if (moment(time).isValid() && vet) {
         Appointment.countDocuments({
@@ -18,6 +18,7 @@ exports.addAppointment = (req, res) => {
             if (c < 4) {
                 new Appointment({
                     vet: vet,
+                    clinic: clinic,
                     time: time,
                     user: res.userData.id
                 }).save()
@@ -29,7 +30,6 @@ exports.addAppointment = (req, res) => {
                                 pushNotif(fcmToken, "Appointment Reminder", `sebentar lagi ada appoinment dengan user ${res.userData.username} jangan sampai telat ya!`)
                                 userPushNotif(res.userData.id, "Appointment Reminder", `sebentar lagi ada appoinment dengan Dr. ${username} jangan sampai telat ya!`)
                             })
-                            pushNotif(fcmToken, "Appointment baru", `Ada appointment baru dari user ${res.userData.username} pada tanggal ${moment(time).format("D MMMM HH:mm")}`)
                             if (io.sockets.connected[socketId]) {
                                 io.sockets.connected[socketId].emit('newAppointment', {
                                     user: res.userData.username,
@@ -67,9 +67,14 @@ exports.cancelAppointment = (req, res) => {
         }).catch(err => res.status(500).json(err))
     Appointment.findById(id)
         .select("vet time")
-        .populate("vet","fcmToken")
-        .then(({vet,time}) =>
-            vetPushNotif(vet.fcmToken,"TNTforvet",`Oops.. Appointment mu pada tanggal ${moment(time).format("D MMMM HH:mm")} dengan ${res.userData.username} telah di batalkan`))
+        .populate("vet", "fcmToken")
+        .then(({vet, time}) =>
+            vetPushNotif(
+                vet.fcmToken,
+                "Appointment canceled",
+                `Oops.. your appointment at ${moment(time).format("D MMMM HH:mm")} with ${res.userData.username} has been canceled`
+            )
+        )
         .catch(console.log)
 }
 
@@ -78,6 +83,7 @@ exports.showVetAvailable = (req, res) => {
 
     Appointment.find({
         vet: vet,
+        status: 1,
         time: {
             $gte: moment()
         }
@@ -89,6 +95,7 @@ exports.showVetAvailable = (req, res) => {
 exports.showVetAppointment = (req, res) => {
     Appointment.find({
         vet: res.userData.id,
+        status: 1,
         time: {
             $gte: moment(),
             $lte: moment().endOf("day")
@@ -102,6 +109,7 @@ exports.showVetAppointment = (req, res) => {
 exports.showUserAppointment = (req, res) => {
     Appointment.find({
         user: res.userData.id,
+        status: 1,
         // time: {$gte: moment(), $lte: moment().endOf("month")}
     }).populate("vet", "username profile_picture")
         .select("time vet")
@@ -112,6 +120,7 @@ exports.showUserAppointment = (req, res) => {
 exports.showUsersTodayAppointment = (req, res) => {
     Appointment.find({
         user: res.userData.id,
+        status: 1,
         time: {
             $gte: moment(),
             $lte: moment().endOf("day")
@@ -119,5 +128,77 @@ exports.showUsersTodayAppointment = (req, res) => {
     }).populate("vet", "username profile_picture")
         .select("time vet")
         .then(appointment => res.status(200).json(appointment))
+        .catch(err => res.status(500).json(err))
+}
+
+exports.clinicAcceptAppointment = (req, res) => {
+    const {appointmentId} = req.body
+    Appointment.findByIdAndUpdate(appointmentId, {
+        status: 1
+    }).then(() => {
+        res.status(200).json()
+        Appointment.findById(appointmentId)
+            .select("user vet")
+            .populate("user", "fcmToken username")
+            .populate("vet", "fcmToken username")
+            .then(data => {
+                pushNotif(data.user.fcmToken, `Hi ${data.user.username}`, `,Your appointment to ${data.vet.username} has been confirm, we will remind you 15 minutes before the booking :) `)
+                pushNotif(data.vet.fcmToken, "Appointment baru", `New appointment from ${res.userData.username} at ${moment(data.time).format("D MMMM HH:mm")}`)
+            })
+    })
+}
+
+exports.clinicRejectAppointment = (req, res) => {
+    const {appointmentId, reason} = req.body
+    Appointment.findByIdAndUpdate(appointmentId, {
+        status: 2,
+        reason: reason
+    }).then(() => {
+        res.status(200).json()
+        Appointment.findById(appointmentId)
+            .select("user vet")
+            .populate("user", "fcmToken username")
+            .populate("vet", "username")
+            .then(data =>
+                pushNotif(
+                    data.user.fcmToken,
+                    `Sorry ${data.user.username}, your appointment has been rejected :( `,
+                    `Your appointment to ${data.vet.username} has been rejected, open notification to see why they rejected you! `
+                )
+            ).catch(err => res.status(500).json(err))
+    }).catch(err => res.status(500).json(err))
+}
+
+exports.clinicShowAllPendingAppointment = (req, res) => {
+    Appointment.find({status: 0, clinic: res.userData.id})
+        .sort({time: -1})
+        .select("user time vet")
+        .populate("user", "username")
+        .populate("vet", "username")
+        .then(data => res.status(200).json(data))
+        .catch(err => res.status(500).json(err))
+}
+
+exports.clinicShowQuickPendingAppointment = (req, res) => {
+    Appointment.find({status: 0, clinic: res.userData.id})
+        .sort({time: -1})
+        .select("user time vet")
+        .populate("user", "username")
+        .populate("vet", "username")
+        .limit(5)
+        .then(data => res.status(200).json(data))
+        .catch(err => res.status(500).json(err))
+}
+
+exports.clinicShowAllBookingAppointment = (req, res) => {
+    const {clinic, offset} = clinic
+    Appointment.find({clinic: clinic})
+        .sort({time: -1})
+        .select("user time vet")
+        .populate("user", "username")
+        .populate("vet", "username")
+        .limit(10)
+        .skip(offset || 0)
+        .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }

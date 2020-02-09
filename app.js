@@ -6,7 +6,7 @@ const logger = require('morgan');
 const bodyparser = require('body-parser');
 const io = require('socket.io')()
 require('dotenv').config({path: ".env"});
-const {user: User, vet: Vet} = require('./model')
+const {user: User, vet: Vet, clinic: Clinic} = require('./model')
 
 const app = express();
 
@@ -15,14 +15,21 @@ app.io = io
 io.on('connection', connection => {
     const {id, client} = connection.handshake.query
     if (id && client) {
-        if (client === "user") {
-            User.findByIdAndUpdate(id, {
-                socketId: connection.id
-            }).catch(console.log)
-        } else {
-            Vet.findByIdAndUpdate(id, {
-                socketId: connection.id
-            }).catch(console.log)
+        switch (client) {
+            case "user":
+                User.findByIdAndUpdate(id, {
+                    socketId: connection.id
+                }).catch(console.log)
+                break;
+            case "vet":
+                Vet.findByIdAndUpdate(id, {
+                    socketId: connection.id
+                }).catch(console.log)
+                break;
+            case "clinic":
+                Clinic.findByIdAndUpdate(id, {
+                    socketId: connection.id
+                }).catch(console.log)
         }
     }
 })
@@ -48,9 +55,13 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 const userRouter = require('./routes/user');
 const vetRouter = require('./routes/vet')
+const clinicRouter = require('./routes/clinic')
+const adminRouter = require('./routes/admin')
 
 app.use('/user', userRouter);
 app.use('/vet', vetRouter);
+app.use('/admin', adminRouter);
+app.use('/clinic', clinicRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -68,5 +79,5 @@ app.use((err, req, res) => {
     res.render('error');
 });
 
-// mongoose.connection.close()
+
 module.exports = app;

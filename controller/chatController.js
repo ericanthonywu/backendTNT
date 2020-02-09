@@ -1,5 +1,10 @@
+const scheduler = require("node-schedule");
 const {pushNotif} = require("../globalHelper");
 const {chat: Chat, vet: Vet, user: User} = require('../model')
+const moment = require('moment')
+const fs = require('fs');
+const path = require('path');
+const Axios = require('axios')
 
 exports.userSendChat = (req, res) => {
     const {vet, message} = req.body
@@ -21,13 +26,8 @@ exports.userSendChat = (req, res) => {
         .then(async () => {
             res.status(200).json()
             const {io} = req
-            // io.sockets.emit('newChat', {
-            //     message: message,
-            //     to: vet,
-            //     from: res.userData.id,
-            // });
             Vet.findById(vet).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
-                if(io.sockets.connected[socketId]) {
+                if (io.sockets.connected[socketId]) {
                     io.sockets.connected[socketId].emit('newChat', {
                         message: message,
                         from: res.userData.id
@@ -57,7 +57,7 @@ exports.vetSendChat = (req, res) => {
         const {io} = req
 
         User.findById(user).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
-            if(io.sockets.connected[socketId]) {
+            if (io.sockets.connected[socketId]) {
                 io.sockets.connected[socketId].emit('newChat', {
                     message: message,
                     from: res.userData.id
@@ -74,7 +74,7 @@ exports.userShowChat = (req, res) => {
     Chat.findOne({
         user: res.userData.id,
         vet: vet,
-    }).select("message.message message.read message.time status message.user message.vet")
+    }).select("message.message message.read message.time message.file status message.user message.vet")
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -85,7 +85,7 @@ exports.vetShowChat = (req, res) => {
     Chat.findOne({
         user: user,
         vet: res.userData.id
-    }).select("message.message message.read message.time status message.vet")
+    }).select("message.message message.read message.time message.file status message.vet")
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -108,7 +108,8 @@ exports.getUser = (req, res) => {
         .catch(err => res.status(500).json(err))
 }
 
-exports.fileChat = (req,res) => {
+exports.userFileChat = (req, res) => {
+    const {vet} = req.body;
     Chat.findOneAndUpdate({
         user: res.userData.id,
         vet: vet,
@@ -117,7 +118,7 @@ exports.fileChat = (req,res) => {
         $push: {
             message: {
                 user: res.userData.id,
-                message: message
+                file: req.file.filename
             }
         }
     }).setOptions({
@@ -126,6 +127,104 @@ exports.fileChat = (req,res) => {
     })
         .then(async () => {
             res.status(200).json()
+            const {io} = req
+            Vet.findById(vet).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
+                if (io.sockets.connected[socketId]) {
+                    io.sockets.connected[socketId].emit('newChat', {
+                        file: req.file.filename,
+                        from: res.userData.id
+                    })
+                }
+                await pushNotif(fcmToken, res.userData.username, `${res.userData.username} sent you a photo`)
+            })
         })
         .catch(err => res.status(500).json(err))
+}
+
+exports.vetFileChat = (req, res) => {
+    const {user} = req.body;
+    Chat.findOneAndUpdate({
+        vet: res.userData.id,
+        user: user,
+        status: true
+    }, {
+        $push: {
+            message: {
+                vet: res.userData.id,
+                file: req.file.filename
+            }
+        }
+    }).setOptions({
+        setDefaultsOnInsert: true,
+        upsert: true
+    })
+        .then(async () => {
+            res.status(200).json()
+            const {io} = req
+            User.findById(user).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
+                if (io.sockets.connected[socketId]) {
+                    io.sockets.connected[socketId].emit('newChat', {
+                        file: req.file.filename,
+                        from: res.userData.id
+                    })
+                }
+                await pushNotif(fcmToken, res.userData.username, `${res.userData.username} sent you a photo`)
+            })
+        })
+        .catch(err => res.status(500).json(err))
+}
+
+exports.endChat = (req, res) => {
+    const {chatId} = req.body
+    Chat.findByIdAndUpdate(chatId, {
+        status: false
+    }).then(() => {
+        res.status(200).json()
+        scheduler.scheduleJob(moment().add({month: 1}).toISOString(), () => {
+            Chat.findById(chatId)
+                .select("message.message message.time message.file message.user message.vet user vet")
+                .populate("user", "username")
+                .populate("vet", "username")
+                .populate("message.user", "username")
+                .populate("message.vet", "username")
+                .then(async ({message, user, vet}) => {
+                    Chat.findByIdAndDelete(chatId)
+                    // define file path
+                    const filePath = path.join(__dirname, `../chatBackupTemp/${chatId + Date.now().toString() + user + vet}log.txt`);
+
+                    let chatMessage = ""
+                    const turnChatIntoFile = () => {
+                        message.forEach(({message, time, file, user, vet}) => {
+                            const spaceBar = " ";
+                            let currentLineChat = moment(time).format("YYYY-MM-DD HH:mm:ss") + spaceBar; // add time it sent
+                            currentLineChat += (user ? user.username : vet.username) + ":" + spaceBar; //put sender identifier after time
+                            currentLineChat += (file ? "sent a photo" : message) + spaceBar; //add message
+
+                            chatMessage += currentLineChat + "\n" //line break at end of message
+                        })
+                    }
+                    await turnChatIntoFile()
+                    fs.writeFile(filePath, chatMessage, err => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        const form_data = new FormData();
+                        form_data.append("file", fs.createReadStream(filePath));
+                        const sendToDrive = () => {
+                            Axios.post("bla bla", form_data, {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data',
+                                },
+                            }).then(() =>
+                                fs.unlinkSync(filePath)
+                            ).catch(err => {
+                                console.log(err)
+                                sendToDrive()
+                            })
+                        }
+                        sendToDrive()
+                    })
+                })
+        })
+    }).catch(err => res.status(500).json(err))
 }
