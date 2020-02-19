@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="end chat with api drive &amp;&amp; add ban">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/appointmentController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/crudController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/crudController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authMiddleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cors/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cors/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/clinic.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinic.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +207,7 @@
       <workItem from="1581663374818" duration="1832000" />
       <workItem from="1581770190281" duration="16039000" />
       <workItem from="1582079039186" duration="625000" />
-      <workItem from="1582088233695" duration="2762000" />
+      <workItem from="1582088233695" duration="2916000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -327,7 +314,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581269806734</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="update beberapa buat admin endpoint">
+      <created>1582121595365</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1582121595365</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -366,7 +360,8 @@
     <MESSAGE value="fix bug" />
     <MESSAGE value="add chat file" />
     <MESSAGE value="end chat with api drive &amp;&amp; add ban" />
-    <option name="LAST_COMMIT_MESSAGE" value="end chat with api drive &amp;&amp; add ban" />
+    <MESSAGE value="update beberapa buat admin endpoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="update beberapa buat admin endpoint" />
   </component>
   <component name="WindowStateProjectService">
     <state x="254" y="250" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577909878927">
@@ -377,10 +372,10 @@
       <screen x="0" y="23" width="1440" height="816" />
     </state>
     <state x="408" y="166" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959763410" />
-    <state x="0" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1581270258397">
+    <state x="0" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1582121595026">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1581270258397" />
+    <state x="0" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1582121595026" />
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1581915160419">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -422,10 +417,10 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="ShowDiffWithBranchDialog/0.23.1440.877@0.23.1440.877" timestamp="1581915160420" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1581269808481">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1582121598047">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1581269808481" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1582121598047" />
     <state x="397" y="297" key="com.intellij.ide.util.TipDialog" timestamp="1582088233374">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
