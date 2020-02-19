@@ -1,13 +1,12 @@
 const {appointment: Appointment, vet: Vet} = require('../model')
 const moment = require('moment')
 const scheduler = require('node-schedule')
-const {vetPushNotif} = require("../globalHelper");
-const {userPushNotif, pushNotif} = require("../globalHelper");
+const {userPushNotif, pushNotif, vetPushNotif} = require("../globalHelper");
 
 exports.addAppointment = (req, res) => {
     const {time, vet, clinic} = req.body
 
-    if (moment(time).isValid() && vet) {
+    if (moment(time).isValid() && vet && clinic) {
         Appointment.countDocuments({
             time: {
                 $gte: moment(time),
@@ -26,7 +25,7 @@ exports.addAppointment = (req, res) => {
                         res.status(200).json()
                         const {io} = req
                         Vet.findById(vet).select("socketId username fcmToken").then(({socketId, username, fcmToken}) => {
-                            scheduler.scheduleJob(_id.toString(), moment(time).subtract(15, "minutes").toISOString(), () => {
+                            scheduler.scheduleJob(_id.toString(), moment(time).subtract(15, "minutes").toISOString(), _ => {
                                 pushNotif(fcmToken, "Appointment Reminder", `sebentar lagi ada appoinment dengan user ${res.userData.username} jangan sampai telat ya!`)
                                 userPushNotif(res.userData.id, "Appointment Reminder", `sebentar lagi ada appoinment dengan Dr. ${username} jangan sampai telat ya!`)
                             })
@@ -49,11 +48,11 @@ exports.addAppointment = (req, res) => {
 }
 
 exports.reScheduleAppointment = (req, res) => {
-    const {id, time} = req.body
+    const {id, time} = req.body;
     Appointment.findByIdAndUpdate(id, {
         time: time
-    }).then(() => {
-        res.status(200).json()
+    }).then(_ => {
+        res.status(200).json();
         scheduler.scheduledJobs[id].reschedule(moment(time).subtract(15, "minutes").toISOString())
     }).catch(err => res.status(500).json(err))
 }
@@ -61,7 +60,7 @@ exports.reScheduleAppointment = (req, res) => {
 exports.cancelAppointment = (req, res) => {
     const {id} = req.body
     Appointment.findByIdAndDelete(id)
-        .then(() => {
+        .then(_ => {
             res.status(200).json()
             scheduler.scheduledJobs[id].cancel()
         }).catch(err => res.status(500).json(err))
@@ -135,7 +134,7 @@ exports.clinicAcceptAppointment = (req, res) => {
     const {appointmentId} = req.body
     Appointment.findByIdAndUpdate(appointmentId, {
         status: 1
-    }).then(() => {
+    }).then(_ => {
         res.status(200).json()
         Appointment.findById(appointmentId)
             .select("user vet")
@@ -153,7 +152,7 @@ exports.clinicRejectAppointment = (req, res) => {
     Appointment.findByIdAndUpdate(appointmentId, {
         status: 2,
         reason: reason
-    }).then(() => {
+    }).then(_ => {
         res.status(200).json()
         Appointment.findById(appointmentId)
             .select("user vet")
@@ -202,3 +201,4 @@ exports.clinicShowAllBookingAppointment = (req, res) => {
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
+

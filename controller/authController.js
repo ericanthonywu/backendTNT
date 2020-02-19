@@ -15,37 +15,58 @@ exports.login = (req, res) => {
             {email: usernameOrEmail}
         ]
     }).select("username password email ban profile_picture email_status loginWithFacebook loginWithGoogle").then(data => {
-        if(data.ban){
-            return res.status(403).json({msg:"You have been banned by admin"})
+        if (data.ban) {
+            return res.status(403).json({msg: "You have been banned by admin"})
         }
         if (data) {
             if (!data.email_status) {
-                return res.status(403).json({msg:"Your email has not verified"})
+                return res.status(403).json({msg: "Your email has not verified"})
             }
 
-            if (!data.loginWithFacebook || !data.loginWithGoogle) {
+            if (!data.loginWithFacebook && !data.loginWithGoogle) {
                 bcrypt.compare(password, data.password).then(check => {
                     if (!check) {
                         return res.status(401).json()
                     }
-                }).catch(err => res.status(500).json(err))
-            }
-            const {profile_picture} = data;
+                    const {profile_picture} = data;
 
-            jwt.sign({
-                username: data.username,
-                email: data.email,
-                id: data._id,
-            }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
-                data.profile_picture = profile_picture;
-                return res.status(200).json({
-                    _token: token,
+                    jwt.sign({
+                        username: data.username,
+                        email: data.email,
+                        id: data._id,
+                        role: "user"
+                    }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
+                        data.profile_picture = profile_picture;
+                        return res.status(200).json({
+                            _token: token,
+                            username: data.username,
+                            profile_picture: data.profile_picture,
+                            id: data._id,
+                            email: data.email,
+                        });
+                    })
+                }).catch(err => {
+                    return res.status(500).json(err)
+                })
+            } else {
+                const {profile_picture} = data;
+
+                jwt.sign({
                     username: data.username,
-                    profile_picture: data.profile_picture,
-                    id: data._id,
                     email: data.email,
-                });
-            })
+                    id: data._id,
+                    role: "user"
+                }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
+                    data.profile_picture = profile_picture;
+                    return res.status(200).json({
+                        _token: token,
+                        username: data.username,
+                        profile_picture: data.profile_picture,
+                        id: data._id,
+                        email: data.email,
+                    });
+                })
+            }
 
         } else {
             return res.status(404).json()
@@ -106,7 +127,8 @@ exports.register = (req, res) => {
                         jwt.sign({
                                 username: userData.username,
                                 email: userData.email,
-                                id: userDataDatabase._id
+                                id: userDataDatabase._id,
+                                role: "user"
                             }, process.env.JWTTOKEN, {}, (err, token) =>
                                 res.status(201).json({
                                     _token: token,
@@ -128,7 +150,8 @@ exports.register = (req, res) => {
                     jwt.sign({
                         username: userData.username,
                         email: userData.email,
-                        id: userDataDatabase._id
+                        id: userDataDatabase._id,
+                        role: "user"
                     }, process.env.JWTTOKEN, {}, (err, token) => {
                         return res.status(201).json({
                             _token: token,
@@ -152,7 +175,7 @@ exports.reSendEmail = (req, res) => {
     User.findOneAndUpdate({email: email}, {
         email_verification_token: token,
         email_expire_token: moment(Date.now()).add(3, "minutes").toISOString(),
-    }).then(() => {
+    }).then(_ => {
         const transpoter = nodeMailer.createTransport({
             host: "smtp.gmail.com",
             port: process.env.EMAILPORT,
@@ -192,7 +215,7 @@ exports.verifyEmail = (req, res) => {
         .then(doc => {
             if (doc) {
                 User.findOneAndUpdate({email: email}, {email_status: true, email_verification_token: null})
-                    .then(() => res.status(201).json())
+                    .then(_ => res.status(201).json())
                     .catch(err => res.status(500).json(err))
             } else {
                 return res.status(404).json({msg: "Token not found or has been expired"})
@@ -209,7 +232,7 @@ exports.loginVet = (req, res) => {
             {email: usernameOrEmail}
         ]
     }).select("username password ban email profile_picture email_status").then(data => {
-        if(data.ban){
+        if (data.ban) {
             return res.status(403).json()
         }
         if (data) {
@@ -218,7 +241,8 @@ exports.loginVet = (req, res) => {
                     jwt.sign({
                         username: data.username,
                         email: data.email,
-                        id: data._id
+                        id: data._id,
+                        role: "vet"
                     }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
                         return res.status(200).json({
                             _token: token,
@@ -257,7 +281,7 @@ exports.registerVet = (req, res) => {
             }
         };
         new Vet(vetData).save()
-            .then(() => res.status(201).json())
+            .then(_ => res.status(201).json())
             .catch(err => res.status(500).json(err))
 
     }).catch(err => res.status(500).json(err))
@@ -273,7 +297,7 @@ exports.loginClinic = (req, res) => {
             return res.status(404).json()
         }
 
-        if(data.ban){
+        if (data.ban) {
             return res.status(403).json()
         }
 
@@ -284,7 +308,8 @@ exports.loginClinic = (req, res) => {
 
             jwt.sign({
                 id: data.id,
-                username: data.username
+                username: data.username,
+                role: "clinic"
             }, process.env.JWTTOKEN, {expiresIn: 100000}, (err, token) => {
                 if (err) {
                     return res.status(500).json(err)
@@ -301,7 +326,7 @@ exports.loginClinic = (req, res) => {
 
 exports.loginAdmin = (req, res) => {
     const {username, password} = req.body
-    if(!username || !password){
+    if (!username || !password) {
         return res.status(400).json()
     }
     Admin.findOne({
@@ -318,12 +343,14 @@ exports.loginAdmin = (req, res) => {
 
             jwt.sign({
                 id: data.id,
-                username: data.username
+                username: data.username,
+                role: "admin"
             }, process.env.JWTTOKEN, {expiresIn: 100000}, (err, token) => {
                 if (err) {
                     return res.status(500).json(err)
                 }
-                return res.status(200).json({
+
+                res.status(200).json({
                     _token: token,
                     username: username,
                     id: data.id
@@ -338,7 +365,7 @@ exports.migrateAdmin = (req, res) => {
         username: "superadmin",
         password: bcrypt.hashSync("admin", parseInt(process.env.BcryptSalt))
     }).save()
-        .then(() => res.status(201).json())
+        .then(_ => res.status(201).json())
         .catch(err => res.status(500).json(err))
 
 }
@@ -353,7 +380,7 @@ exports.verifyEmailVet = (req, res) => {
         .then(doc => {
             if (doc) {
                 Vet.findOneAndUpdate({email: email}, {email_status: true, email_verification_token: null})
-                    .then(() => res.status(202).json())
+                    .then(_ => res.status(202).json())
                     .catch(err => res.status(500).json(err));
             } else {
                 return res.status(404).json({msg: "Token not found or has been expired"})
@@ -364,7 +391,7 @@ exports.verifyEmailVet = (req, res) => {
 exports.userFCMToken = (req, res) => {
     User.findByIdAndUpdate(res.userData.id, {
         fcmToken: req.body.fcmToken
-    }).then(() => res.status(200).json())
+    }).then(_ => res.status(200).json())
         .catch(err => res.status(500).json(err))
 }
 
@@ -372,6 +399,6 @@ exports.vetFCMToken = (req, res) => {
     Vet.findByIdAndUpdate(res.userData.id, {
         fcmToken: req.body.fcmToken
     })
-        .then(() => res.status(200).json())
+        .then(_ => res.status(200).json())
         .catch(err => res.status(500).json(err))
 }

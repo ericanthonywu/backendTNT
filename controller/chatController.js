@@ -23,7 +23,7 @@ exports.userSendChat = (req, res) => {
         setDefaultsOnInsert: true,
         upsert: true
     })
-        .then(async () => {
+        .then(async _ => {
             res.status(200).json()
             const {io} = req
             Vet.findById(vet).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
@@ -52,7 +52,7 @@ exports.vetSendChat = (req, res) => {
                 message: message
             }
         }
-    }).then(async () => {
+    }).then(async _ => {
         res.status(200).json()
         const {io} = req
 
@@ -63,7 +63,7 @@ exports.vetSendChat = (req, res) => {
                     from: res.userData.id
                 })
             }
-            await pushNotif(fcmToken, res.userData.username, message)
+            pushNotif(fcmToken, res.userData.username, message)
         })
     })
         .catch(err => res.status(500).json(err))
@@ -125,7 +125,7 @@ exports.userFileChat = (req, res) => {
         setDefaultsOnInsert: true,
         upsert: true
     })
-        .then(async () => {
+        .then(async _ => {
             res.status(200).json()
             const {io} = req
             Vet.findById(vet).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
@@ -158,7 +158,7 @@ exports.vetFileChat = (req, res) => {
         setDefaultsOnInsert: true,
         upsert: true
     })
-        .then(async () => {
+        .then(async _ => {
             res.status(200).json()
             const {io} = req
             User.findById(user).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
@@ -178,9 +178,9 @@ exports.endChat = (req, res) => {
     const {chatId} = req.body
     Chat.findByIdAndUpdate(chatId, {
         status: false
-    }).then(() => {
+    }).then(_ => {
         res.status(200).json()
-        scheduler.scheduleJob(moment().add({month: 1}).toISOString(), () => {
+        scheduler.scheduleJob(moment().add({month: 1}).toISOString(), _ => {
             Chat.findById(chatId)
                 .select("message.message message.time message.file message.user message.vet user vet")
                 .populate("user", "username")
@@ -188,12 +188,14 @@ exports.endChat = (req, res) => {
                 .populate("message.user", "username")
                 .populate("message.vet", "username")
                 .then(async ({message, user, vet}) => {
-                    Chat.findByIdAndDelete(chatId)
+                    // Chat.findByIdAndDelete(chatId) TODO: Jangan lupa delete stelah testing
+
                     // define file path
                     const filePath = path.join(__dirname, `../chatBackupTemp/${chatId + Date.now().toString() + user + vet}log.txt`);
 
-                    let chatMessage = ""
-                    const turnChatIntoFile = () => {
+
+                    const turnChatIntoFile = _ => {
+                        let chatMessage = ""
                         message.forEach(({message, time, file, user, vet}) => {
                             const spaceBar = " ";
                             let currentLineChat = moment(time).format("YYYY-MM-DD HH:mm:ss") + spaceBar; // add time it sent
@@ -202,15 +204,15 @@ exports.endChat = (req, res) => {
 
                             chatMessage += currentLineChat + "\n" //line break at end of message
                         })
+                        return chatMessage
                     }
-                    await turnChatIntoFile()
-                    fs.writeFile(filePath, chatMessage, err => {
+                    fs.writeFile(filePath, await turnChatIntoFile(), err => {
                         if (err) {
                             console.log(err)
                         }
                         const form_data = new FormData();
                         form_data.append("file", fs.createReadStream(filePath));
-                        const sendToDrive = () => {
+                        const sendToDrive = _ => {
                             Axios.post("bla bla", form_data, {
                                 headers: {
                                     'Content-Type': 'multipart/form-data',

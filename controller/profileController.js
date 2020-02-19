@@ -22,7 +22,7 @@ exports.add_pet = (req, res) => {
                 status: status
             }
         }
-    }).then(() => res.status(200).json())
+    }).then(_ => res.status(200).json())
         .catch(err => res.status(500).json(err))
 };
 
@@ -48,7 +48,7 @@ exports.update_pet = (req, res) => {
         {
             $set: updatedData
         })
-        .then(() => res.status(200).json())
+        .then(_ => res.status(200).json())
         .catch(err => res.status(500).json(err))
 };
 
@@ -58,7 +58,7 @@ exports.delete_pet = (req, res) => {
         $pull: {
             pet: {_id: petId}
         }
-    }).then(() => res.status(200).json())
+    }).then(_ => res.status(200).json())
         .catch(err => res.status(500).json(err))
 }
 
@@ -99,6 +99,6 @@ exports.update_profile = (req, res) => {
         });
     }
     User.findByIdAndUpdate(res.userData.id, updatedData)
-        .then(() => res.status(200).json())
+        .then(_ => res.status(200).json())
         .catch(err => res.status(500).json(err))
 };

@@ -64,7 +64,6 @@ function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
-  require("mongoose").connection.close()
 
   var bind = typeof port === 'string'
     ? 'Pipe ' + port

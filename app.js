@@ -1,11 +1,15 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyparser = require('body-parser');
+const jwt = require('jsonwebtoken');
 const io = require('socket.io')()
+
 require('dotenv').config({path: ".env"});
+
 const {user: User, vet: Vet, clinic: Clinic} = require('./model')
 
 const app = express();
@@ -44,6 +48,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+app.use(cors({
+    origin: 'http://localhost:3001',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(bodyparser.json());
@@ -57,6 +65,29 @@ const userRouter = require('./routes/user');
 const vetRouter = require('./routes/vet')
 const clinicRouter = require('./routes/clinic')
 const adminRouter = require('./routes/admin')
+
+//handle token route
+app.use('/checkValidToken',(req, res) => {
+    const {token} = req.body
+    if (!token) return res.status(400).json()
+    jwt.verify(token, process.env.JWTTOKEN, (err, data) => {
+        if (err) {
+            res.status(419).json(err)
+            if (req.files) {
+                for (let i = 0; i < req.files.length; i++) {
+                    fs.unlinkSync(path.join(__dirname, `uploads/${req.dest}/${req.files[i].filename}`))
+                }
+            } else if (req.file) {
+                fs.unlinkSync(path.join(__dirname, `uploads/${req.dest}/${req.file.filename}`))
+            }
+            return;
+        }
+
+        return res.status(200).json({
+            role: data.role
+        })
+    })
+});
 
 app.use('/user', userRouter);
 app.use('/vet', vetRouter);

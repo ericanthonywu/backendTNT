@@ -2,16 +2,16 @@ const express = require('express'),
     router = express.Router(),
 
 //controller
-    authController = require('../controller/authController')
-    crudController = require('../controller/crudController')
-const {authMiddleware} = require("../middleware/authMiddleware");
+    {loginAdmin, migrateAdmin} = require('../controller/authController'),
+    {addClinic,  banClinic, showClinic} = require('../controller/crudController'),
+    {authMiddleware} = require("../middleware/authMiddleware");
 
 //user auth router
-router.post('/login', authController.loginAdmin);
-router.get('/migrate', authController.migrateAdmin);
+router.post('/login', loginAdmin);
+router.get('/migrate', migrateAdmin);
 
-router.post('/addClinic', authMiddleware, crudController.addClinic)
-router.post('/banClinic', authMiddleware, crudController.banClinic)
-router.post('/showClinic', authMiddleware, crudController.showClinic)
+router.post('/addClinic', authMiddleware, addClinic)
+router.post('/banClinic', authMiddleware, banClinic)
+router.post('/showClinic', authMiddleware, showClinic)
 
 module.exports = router;
