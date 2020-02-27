@@ -6,7 +6,7 @@ const {userPushNotif, pushNotif, vetPushNotif} = require("../globalHelper");
 exports.addAppointment = (req, res) => {
     const {time, vet, clinic} = req.body
 
-    if (moment(time).isValid() && vet && clinic) {
+    if (moment(time).isValid() && vet) {
         Appointment.countDocuments({
             time: {
                 $gte: moment(time),
@@ -108,7 +108,7 @@ exports.showVetAppointment = (req, res) => {
 exports.showUserAppointment = (req, res) => {
     Appointment.find({
         user: res.userData.id,
-        status: 1,
+        // status: 1,
         // time: {$gte: moment(), $lte: moment().endOf("month")}
     }).populate("vet", "username profile_picture")
         .select("time vet")
@@ -119,7 +119,7 @@ exports.showUserAppointment = (req, res) => {
 exports.showUsersTodayAppointment = (req, res) => {
     Appointment.find({
         user: res.userData.id,
-        status: 1,
+        // status: 1,
         time: {
             $gte: moment(),
             $lte: moment().endOf("day")
@@ -191,11 +191,16 @@ exports.clinicShowQuickPendingAppointment = (req, res) => {
 
 exports.clinicShowAllBookingAppointment = (req, res) => {
     const {clinic, offset} = clinic
+    if (!clinic) {
+        return res.status(400).json()
+    }
+
     Appointment.find({clinic: clinic})
         .sort({time: -1})
         .select("user time vet")
         .populate("user", "username")
         .populate("vet", "username")
+
         .limit(10)
         .skip(offset || 0)
         .then(data => res.status(200).json(data))

@@ -9,16 +9,18 @@ exports.login = (req, res) => {
     if (!usernameOrEmail) {
         return res.status(400).json()
     }
+
     User.findOne({
         $or: [
             {username: usernameOrEmail},
             {email: usernameOrEmail}
         ]
     }).select("username password email ban profile_picture email_status loginWithFacebook loginWithGoogle").then(data => {
-        if (data.ban) {
-            return res.status(403).json({msg: "You have been banned by admin"})
-        }
         if (data) {
+
+            if (data.ban) {
+                return res.status(403).json({msg: "You have been banned by admin"})
+            }
             if (!data.email_status) {
                 return res.status(403).json({msg: "Your email has not verified"})
             }
@@ -36,7 +38,6 @@ exports.login = (req, res) => {
                         id: data._id,
                         role: "user"
                     }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
-                        data.profile_picture = profile_picture;
                         return res.status(200).json({
                             _token: token,
                             username: data.username,

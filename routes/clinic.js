@@ -2,11 +2,11 @@ const express = require('express'),
     router = express.Router();
 
 //controller
-const {loginClinic} = require('../controller/authController');
-const {authMiddleware} = require("../middleware/authMiddleware");
-const {clinicAcceptAppointment, clinicRejectAppointment} = require("../controller/appointmentController");
-const {showVetClinic, searchVetClinic, addVetClinic, getClinicNotification} = require("../controller/crudController");
-const {clinicShowAllBookingAppointment} = require("../controller/appointmentController");
+const {loginClinic} = require('../controller/authController'),
+    {authMiddleware} = require("../middleware/authMiddleware"),
+    {clinicAcceptAppointment, clinicRejectAppointment} = require("../controller/appointmentController"),
+    {showVetClinic, searchVetClinic, addVetClinic, getClinicNotification} = require("../controller/crudController"),
+    {clinicShowAllBookingAppointment} = require("../controller/appointmentController");
 
 //user auth router
 router.post('/login', loginClinic);
