@@ -1,25 +1,26 @@
-const {appointment: Appointment, vet: Vet} = require('../model')
+const {appointment: Appointment, vet: Vet, clinic: Clinic} = require('../model')
 const moment = require('moment')
 const scheduler = require('node-schedule')
 const {userPushNotif, pushNotif, vetPushNotif} = require("../globalHelper");
 
 exports.addAppointment = (req, res) => {
-    const {time, vet, clinic} = req.body
+    const {time, vet, clinic, petId} = req.body
 
-    if (moment(time).isValid() && vet) {
+    if (moment(time).isValid() && vet && clinic && petId) {
         Appointment.countDocuments({
             time: {
                 $gte: moment(time),
                 $lte: moment(time).add(1, "hour")
             },
-            vet: vet
+            vet: vet,
         }).then(c => {
             if (c < 4) {
                 new Appointment({
-                    vet: vet,
-                    clinic: clinic,
-                    time: time,
-                    user: res.userData.id
+                    vet,
+                    clinic,
+                    time,
+                    user: res.userData.id,
+                    pet: petId
                 }).save()
                     .then(async ({_id}) => {
                         res.status(200).json()
@@ -49,12 +50,65 @@ exports.addAppointment = (req, res) => {
 
 exports.reScheduleAppointment = (req, res) => {
     const {id, time} = req.body;
+
     Appointment.findByIdAndUpdate(id, {
-        time: time
-    }).then(_ => {
-        res.status(200).json();
-        scheduler.scheduledJobs[id].reschedule(moment(time).subtract(15, "minutes").toISOString())
-    }).catch(err => res.status(500).json(err))
+        timeRequested: time,
+        status: 1
+    }).then(() => {
+        res.status(200).json()
+        Appointment.findById(id)
+            .select("clinic vet")
+            .populate("clinic", "socketId")
+            .populate("vet", "username")
+            .then(({clinic,vet}) => {
+                const {io} = req
+                if (io.sockets.connected[clinic.socketId]) {
+                    io.sockets.connected[clinic.socketId].emit("requestEdit", {
+                        user: {
+                            username: res.userData.username,
+                            _id: res.userData.id
+                        },
+                        vet: {...vet},
+                        timeRequested: time,
+                        _id: res.userData.id,
+                    })
+                }
+            })
+    })
+}
+
+exports.reScheduleAppointmentAction = (req, res) => {
+    const {id, time, action, reason} = req.body;
+    if (!id || !time || typeof action !== "undefined" || (action === "reject" && typeof reason == "undefined")) {
+        return res.status(400).json()
+    }
+    Appointment.findById(id)
+        .select("user vet")
+        .populate("user", "username fcmToken")
+        .populate("vet", "username fcmToken")
+        .then(({user, vet}) => {
+            switch (action) {
+                case "accept":
+                    Appointment.findByIdAndUpdate(id, {
+                        time: time,
+                        status: 2
+                    }).then(_ => {
+                        res.status(200).json();
+                        scheduler.scheduledJobs[id].reschedule(moment(time).subtract(15, "minutes").toISOString())
+                        pushNotif(user.fcmToken, `Appointment dengan ${vet.username} sudah di reschedule menjadi ${moment(time).format("DD/MM/YYY HH:mm")}`)
+                        pushNotif(vet.fcmToken, `Appointment dengan ${user.username} sudah di reschedule menjadi ${moment(time).format("DD/MM/YYY HH:mm")}`)
+                    }).catch(err => res.status(500).json(err))
+                    break;
+                case "reject":
+                    Appointment.findByIdAndDelete(id).then(() => {
+                        res.status(202).json();
+                        scheduler.scheduledJobs[id].cancel()
+                        pushNotif(user.fcmToken, `Appointment dengan ${vet.username} di cancel dengan alasan ${reason}`)
+                        pushNotif(vet.fcmToken, `Appointment dengan ${user.username} di cancel oleh clinic ${res.userData.username}`)
+                    }).catch(err => res.status(500).json(err))
+                    break;
+            }
+        })
 }
 
 exports.cancelAppointment = (req, res) => {
@@ -108,10 +162,11 @@ exports.showVetAppointment = (req, res) => {
 exports.showUserAppointment = (req, res) => {
     Appointment.find({
         user: res.userData.id,
-        // status: 1,
-        // time: {$gte: moment(), $lte: moment().endOf("month")}
-    }).populate("vet", "username profile_picture")
-        .select("time vet")
+    })
+        .populate("vet", "username profile_picture")
+        .populate("clinic", "username")
+        .select("time status clinic vet")
+        .sort({time: -1})
         .then(appointment => res.status(200).json(appointment))
         .catch(err => res.status(500).json(err))
 }
@@ -126,46 +181,9 @@ exports.showUsersTodayAppointment = (req, res) => {
         }
     }).populate("vet", "username profile_picture")
         .select("time vet")
+        .sort({time: -1})
         .then(appointment => res.status(200).json(appointment))
         .catch(err => res.status(500).json(err))
-}
-
-exports.clinicAcceptAppointment = (req, res) => {
-    const {appointmentId} = req.body
-    Appointment.findByIdAndUpdate(appointmentId, {
-        status: 1
-    }).then(_ => {
-        res.status(200).json()
-        Appointment.findById(appointmentId)
-            .select("user vet")
-            .populate("user", "fcmToken username")
-            .populate("vet", "fcmToken username")
-            .then(data => {
-                pushNotif(data.user.fcmToken, `Hi ${data.user.username}`, `,Your appointment to ${data.vet.username} has been confirm, we will remind you 15 minutes before the booking :) `)
-                pushNotif(data.vet.fcmToken, "Appointment baru", `New appointment from ${res.userData.username} at ${moment(data.time).format("D MMMM HH:mm")}`)
-            })
-    })
-}
-
-exports.clinicRejectAppointment = (req, res) => {
-    const {appointmentId, reason} = req.body
-    Appointment.findByIdAndUpdate(appointmentId, {
-        status: 2,
-        reason: reason
-    }).then(_ => {
-        res.status(200).json()
-        Appointment.findById(appointmentId)
-            .select("user vet")
-            .populate("user", "fcmToken username")
-            .populate("vet", "username")
-            .then(data =>
-                pushNotif(
-                    data.user.fcmToken,
-                    `Sorry ${data.user.username}, your appointment has been rejected :( `,
-                    `Your appointment to ${data.vet.username} has been rejected, open notification to see why they rejected you! `
-                )
-            ).catch(err => res.status(500).json(err))
-    }).catch(err => res.status(500).json(err))
 }
 
 exports.clinicShowAllPendingAppointment = (req, res) => {
@@ -179,26 +197,22 @@ exports.clinicShowAllPendingAppointment = (req, res) => {
 }
 
 exports.clinicShowQuickPendingAppointment = (req, res) => {
-    Appointment.find({status: 0, clinic: res.userData.id})
+    Appointment.find({status: 1, clinic: res.userData.id})
         .sort({time: -1})
-        .select("user time vet")
+        .select("user timeRequested vet")
         .populate("user", "username")
         .populate("vet", "username")
-        .limit(5)
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
 
 exports.clinicShowAllBookingAppointment = (req, res) => {
-    const {clinic, offset} = clinic
-    if (!clinic) {
-        return res.status(400).json()
-    }
+    const {offset} = req.body
 
-    Appointment.find({clinic: clinic})
+    Appointment.find({clinic: res.userData.id})
         .sort({time: -1})
         .select("user time vet")
-        .populate("user", "username")
+        .populate("user", "username phoneNumber email")
         .populate("vet", "username")
 
         .limit(10)
@@ -207,3 +221,19 @@ exports.clinicShowAllBookingAppointment = (req, res) => {
         .catch(err => res.status(500).json(err))
 }
 
+exports.clinicShowOngoingAppointment = (req, res) => {
+    const {offset} = req.body
+    Appointment.find({
+        clinic: res.userData.id,
+        time: {$gte: moment()}
+    }).sort({time: -1})
+        .select("user pet time vet")
+        .populate("user", "username phoneNumber email")
+        .populate("vet", "username")
+        // .populate("pet", "username")
+        .limit(10)
+        .skip(offset || 0)
+        .then(data => res.status(200).json(data))
+        .catch(err => res.status(500).json(err))
+
+}

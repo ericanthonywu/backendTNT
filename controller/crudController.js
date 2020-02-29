@@ -67,7 +67,7 @@ exports.showVetClinic = (req, res) => {
         .select("vet")
         .limit(8)
         .skip(offset)
-        .populate("vet", "username createdAt id_cert")
+        .populate("vet", "username createdAt cert_id expYear KTP ")
         .then(({vet}) => res.status(200).json(({vet})))
         .catch(err => res.status(500).json(err))
 }
@@ -75,12 +75,17 @@ exports.showVetClinic = (req, res) => {
 exports.addVetClinic = (req, res) => {
     const {vetId} = req.body
 
-    Clinic.findByIdAndUpdate(res.userData.id, {
-        $push: {
-            vet: vetId
+    Clinic.countDocuments({_id:res.userData.id,vet: vetId}).then(count => {
+        if(count){
+            return res.status(409).json()
         }
-    }).then(_ => res.status(200).json())
-        .catch(err => res.status(500).json(err))
+        Clinic.findByIdAndUpdate(res.userData.id, {
+            $push: {
+                vet: vetId
+            }
+        }).then(_ => res.status(200).json())
+            .catch(err => res.status(500).json(err))
+    }).catch(err => res.status(500).json(err))
 }
 
 exports.banVetClinic = (req, res) => {
@@ -138,10 +143,6 @@ exports.searchVetClinic = (req, res) => {
         .select("username profile_picture id_cert")
         .then(data => res.status(200).json(data))
         .catch(err => res.status(200).json(err))
-}
-
-exports.getClinicNotification = (req, res) => {
-
 }
 
 exports.editClinic = (req, res) => {

@@ -16,10 +16,13 @@ const express = require('express'),
 router.post('/login', authController.login);
 router.post('/register', authController.register);
 router.post('/verify', authController.verifyEmail);
+router.post('/resendEmail', authController.reSendEmail);
 router.post('/setFCMToken', authMiddleware.authMiddleware, authController.userFCMToken);
 
-//dashboard router
+//care router
 router.post('/searchVet', authMiddleware.authMiddleware, dashboardController.searchVet);
+router.post('/searchClinic', authMiddleware.authMiddleware, dashboardController.searchClinic);
+router.post('/getClinicByVet', authMiddleware.authMiddleware, dashboardController.getClinicByVet);
 
 //profile router
 router.post('/user_profile', authMiddleware.authMiddleware, profileController.user_profile);

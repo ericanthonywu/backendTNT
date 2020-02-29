@@ -3,6 +3,7 @@ const moment = require('moment')
 const fs = require('fs')
 const path = require('path')
 const nodeMailer = require("nodemailer");
+const mongoose = require("mongoose");
 
 exports.user_profile = (req, res) => {
     User.findById(res.userData.id)
@@ -13,16 +14,18 @@ exports.user_profile = (req, res) => {
 
 exports.add_pet = (req, res) => {
     const {name, birthdate, status} = req.body;
+    const id = mongoose.Types.ObjectId()
     User.findByIdAndUpdate(res.userData.id, {
         $push: {
             pet: {
+                _id: id,
                 name: name,
                 photo: req.file.filename,
                 birthDate: birthdate,
                 status: status
             }
         }
-    }).then(_ => res.status(200).json())
+    }).then(() => res.status(200).json({id}))
         .catch(err => res.status(500).json(err))
 };
 

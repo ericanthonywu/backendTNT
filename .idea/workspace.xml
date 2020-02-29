@@ -2,28 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-02-25T13-35-42.490Z6a7ede99-284a-46a2-985f-e0b8ced09b28.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-02-25T13-36-06.268Zd396c044-5dbd-47e5-8d49-abf63f7b2f98.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-02-25T13-36-19.273Z41159d23-a14a-47ed-bb9d-398ff111915a.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-02-25T13-36-29.598Zce70c4b9-51e2-4721-8235-804964ba6972.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-02-25T13-36-43.149Z5a1bdc80-e187-4099-8ba8-bf167914c8f5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-02-25T13-39-01.882Z79ed024a-47da-4ead-9422-dc0f492d37f4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-02-26T11-46-45.166Z7d175ce5-4360-402c-8e4f-9214bbf610c9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-02-26T13-33-38.636Z1e0c814f-b00f-414f-bd3f-e24c5b553256.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/pet/2020-02-25T13-42-52.396Zb8b73520-9a0a-4038-9f0b-20680fba297e.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/pet/2020-02-26T13-34-33.402Z27890da4-77f4-44bd-ac3b-837dd7db34b4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/pet/2020-02-27T13-27-34.737Ze48e210f-e03d-4862-82f2-ba1ab5e3a2c9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/pet/2020-02-27T13-27-56.139Z3ac32fcf-5c01-4595-99dd-d632a7869081.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-02-28T10-59-00.642Zb6696d9d-9aaf-47f7-9579-cccf958b1e78.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pet/2020-02-28T11-15-04.820Zd894f3c3-220d-46f0-8c0c-d22b36916b50.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/appointmentController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/crudController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/crudController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/dashboardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/dashboardController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/clinic.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/pet/2020-01-19T06-56-31.152Zc2846871-01e5-4273-8aea-4c905f17442a.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/error.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/error.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +56,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/routes/admin.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/types/subdocument.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/model.js" root0="SKIP_INSPECTION" />
   </component>
@@ -240,7 +233,9 @@
       <workItem from="1582692940473" duration="6138000" />
       <workItem from="1582718093471" duration="10890000" />
       <workItem from="1582800860381" duration="21000" />
-      <workItem from="1582800900898" duration="6411000" />
+      <workItem from="1582800900898" duration="26733000" />
+      <workItem from="1582968343838" duration="638000" />
+      <workItem from="1582970438875" duration="3907000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -361,7 +356,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582122071385</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="admin backend done">
+      <created>1582812222132</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1582812222132</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,7 +404,8 @@
     <MESSAGE value="end chat with api drive &amp;&amp; add ban" />
     <MESSAGE value="update beberapa buat admin endpoint" />
     <MESSAGE value="update model and env for prod" />
-    <option name="LAST_COMMIT_MESSAGE" value="update model and env for prod" />
+    <MESSAGE value="admin backend done" />
+    <option name="LAST_COMMIT_MESSAGE" value="admin backend done" />
   </component>
   <component name="WindowStateProjectService">
     <state x="254" y="250" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577909878927">
@@ -413,39 +416,43 @@
       <screen x="0" y="23" width="1440" height="816" />
     </state>
     <state x="408" y="166" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959763410" />
-    <state x="0" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1582122071206">
+    <state x="0" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1582812221664">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1582122071206" />
+    <state x="0" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1582812221664" />
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1581915160419">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1579425186429" />
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.23.1440.877@0.23.1440.877" timestamp="1581915160419" />
-    <state width="1398" height="242" key="GridCell.Tab.0.bottom" timestamp="1582811415442">
+    <state width="1398" height="193" key="GridCell.Tab.0.bottom" timestamp="1582979154867">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="242" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1582811415441" />
-    <state width="1398" height="225" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1582290629800" />
-    <state width="1398" height="242" key="GridCell.Tab.0.center" timestamp="1582811415440">
+    <state width="1398" height="193" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1582979154867" />
+    <state width="1398" height="194" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1582968223015" />
+    <state width="1398" height="193" key="GridCell.Tab.0.center" timestamp="1582979154866">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="242" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1582811415440" />
-    <state width="1398" height="225" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1582290629799" />
-    <state width="1398" height="242" key="GridCell.Tab.0.left" timestamp="1582811415439">
+    <state width="1398" height="193" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1582979154866" />
+    <state width="1398" height="194" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1582968223013" />
+    <state width="1398" height="193" key="GridCell.Tab.0.left" timestamp="1582979154866">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="242" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1582811415439" />
-    <state width="1398" height="225" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1582290629799" />
-    <state width="1398" height="242" key="GridCell.Tab.0.right" timestamp="1582811415441">
+    <state width="1398" height="193" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1582979154866" />
+    <state width="1398" height="194" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1582968223011" />
+    <state width="1398" height="193" key="GridCell.Tab.0.right" timestamp="1582979154867">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="242" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1582811415441" />
-    <state width="1398" height="225" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1582290629800" />
+    <state width="1398" height="193" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1582979154867" />
+    <state width="1398" height="194" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1582968223014" />
     <state x="308" y="192" key="IDE.errors.dialog" timestamp="1577443767350">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="308" y="192" key="IDE.errors.dialog/0.0.1440.900@0.0.1440.900" timestamp="1577443767350" />
+    <state x="332" y="70" width="777" height="759" key="NewModule_or_Project.wizard" timestamp="1582814020391">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="332" y="70" width="777" height="759" key="NewModule_or_Project.wizard/0.0.1440.900@0.0.1440.900" timestamp="1582814020391" />
     <state x="535" y="83" key="RollbackChangesDialog" timestamp="1579945218170">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -458,15 +465,16 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="ShowDiffWithBranchDialog/0.23.1440.877@0.23.1440.877" timestamp="1581915160420" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1582122073194">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1582876171449">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1582122073194" />
-    <state x="397" y="312" key="com.intellij.ide.util.TipDialog" timestamp="1582800901348">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1582876171449" />
+    <state x="397" y="327" key="com.intellij.ide.util.TipDialog" timestamp="1582970492717">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="397" y="312" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1582800901348" />
     <state x="397" y="263" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959795813" />
+    <state x="397" y="327" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1582970492717" />
     <state x="502" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1575902586685">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -483,16 +491,5 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1582802709929" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/controller/appointmentController.js</url>
-          <line>60</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -178,14 +178,14 @@ exports.reSendEmail = (req, res) => {
         email_expire_token: moment(Date.now()).add(3, "minutes").toISOString(),
     }).then(_ => {
         const transpoter = nodeMailer.createTransport({
-            host: "smtp.gmail.com",
+            host: process.env.EMAILHOST,
             port: process.env.EMAILPORT,
-            secure: true,
+            secure: false,
             service: "Gmail",
-            requireTLS: true,
+            requireTLS: false,
             auth: {
                 user: process.env.EMAIL,
-                pass: process.env.EMAILPASSWORD
+                // pass: process.env.EMAILPASSWORD
             }
         });
         const mailOption = {
@@ -199,7 +199,9 @@ exports.reSendEmail = (req, res) => {
         };
         transpoter.sendMail(mailOption, err => {
             if (err) {
-                return res.status(500).json(err)
+                res.status(500).json(err)
+            }else{
+                res.status(200).json()
             }
         });
     })

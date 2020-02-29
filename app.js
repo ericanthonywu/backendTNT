@@ -60,14 +60,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-
 const userRouter = require('./routes/user');
 const vetRouter = require('./routes/vet')
 const clinicRouter = require('./routes/clinic')
 const adminRouter = require('./routes/admin')
 
 //handle token route
-app.use('/checkValidToken',(req, res) => {
+app.use('/checkValidToken', (req, res) => {
     const {token} = req.body
     if (!token) return res.status(400).json()
     jwt.verify(token, process.env.JWTTOKEN, (err, data) => {

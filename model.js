@@ -140,9 +140,11 @@ exports.user = mongoose.model("user", userSchema);
 const appointmentSchema = new mongoose.Schema({
     vet: {type: mongoose.Schema.Types.ObjectID, ref: 'vet'},
     clinic: {type: mongoose.Schema.Types.ObjectID, ref: 'clinic'},
-    time: {type: Date, unique: true},
+    time: {type: Date},
+    timeRequested: {type: Date},
     user: {type: mongoose.Schema.Types.ObjectID, ref: 'user'},
-    status: {type: Number, default: 0},
+    pet: {type: mongoose.Schema.Types.ObjectID, ref: 'user.pet'},
+    status: {type: Number, default: 0}, //1 = edit requested, 2 = edit accepted
     reason: {type: String}
 }, {
     timestamps: true
@@ -164,7 +166,7 @@ const clinicSchema = new mongoose.Schema({
         device_name: {type: String},
         device_token: {type: String},
         type: {type: String, default: 'Point'},
-        coordinates: {type: [Number], index: '2dsphere'},
+        coordinates: [{type: Number, index: '2dsphere'}],
         last_login: {type: Date},
         last_logout: {type: Date},
         status: {type: Boolean}
