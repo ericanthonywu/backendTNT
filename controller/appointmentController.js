@@ -107,6 +107,8 @@ exports.reScheduleAppointmentAction = (req, res) => {
                         pushNotif(vet.fcmToken, `Appointment dengan ${user.username} di cancel oleh clinic ${res.userData.username}`)
                     }).catch(err => res.status(500).json(err))
                     break;
+                default:
+                    res.status(400).json({message: "action unknown"})
             }
         })
 }
@@ -117,18 +119,18 @@ exports.cancelAppointment = (req, res) => {
         .then(_ => {
             res.status(200).json()
             scheduler.scheduledJobs[id].cancel()
+            Appointment.findById(id)
+                .select("vet time")
+                .populate("vet", "fcmToken")
+                .then(({vet, time}) =>
+                    vetPushNotif(
+                        vet.fcmToken,
+                        "Appointment canceled",
+                        `Oops.. your appointment at ${moment(time).format("D MMMM HH:mm")} with ${res.userData.username} has been canceled`
+                    )
+                )
+                .catch(console.log)
         }).catch(err => res.status(500).json(err))
-    Appointment.findById(id)
-        .select("vet time")
-        .populate("vet", "fcmToken")
-        .then(({vet, time}) =>
-            vetPushNotif(
-                vet.fcmToken,
-                "Appointment canceled",
-                `Oops.. your appointment at ${moment(time).format("D MMMM HH:mm")} with ${res.userData.username} has been canceled`
-            )
-        )
-        .catch(console.log)
 }
 
 exports.showVetAvailable = (req, res) => {
