@@ -37,7 +37,7 @@ exports.login = (req, res) => {
                         email: data.email,
                         id: data._id,
                         role: "user"
-                    }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
+                    }, process.env.JWTTOKEN, {}, (err, token) => {
                         return res.status(200).json({
                             _token: token,
                             username: data.username,
@@ -57,7 +57,7 @@ exports.login = (req, res) => {
                     email: data.email,
                     id: data._id,
                     role: "user"
-                }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
+                }, process.env.JWTTOKEN, {}, (err, token) => {
                     data.profile_picture = profile_picture;
                     return res.status(200).json({
                         _token: token,
@@ -172,12 +172,20 @@ exports.register = (req, res) => {
 
 exports.reSendEmail = (req, res) => {
     const {email, username} = req.body
-    const token = Math.floor((Math.random() * 1000000) + 1); //generate 6 number token
+    const generateToken = () => {
+        const token  = Math.floor((Math.random() * 1000000) + 1)
+        if(token.toString().length !== 6){
+            generateToken()
+        }else{
+            return token
+        }
+    }
+    const token = generateToken();
     User.findOneAndUpdate({email: email}, {
         email_verification_token: token,
         email_expire_token: moment(Date.now()).add(3, "minutes").toISOString(),
     }).then(_ => {
-        const transpoter = nodeMailer.createTransport({
+        nodeMailer.createTransport({
             host: process.env.EMAILHOST,
             port: process.env.EMAILPORT,
             secure: false,
@@ -187,8 +195,7 @@ exports.reSendEmail = (req, res) => {
                 user: process.env.EMAIL,
                 // pass: process.env.EMAILPASSWORD
             }
-        });
-        const mailOption = {
+        }).sendMail({
             from: "Tail 'n Tales Token Verification",
             to: email,
             subject: "Token Verification",
@@ -196,8 +203,7 @@ exports.reSendEmail = (req, res) => {
                         IMPORTANT! NEVER TELL YOUR TOKEN TO ANYONE!
                         <img alt="TNT Logo" src="http://tailandtale.com/wp-content/uploads/2019/08/tnt_logo_jul19-1.png"/>
 `
-        };
-        transpoter.sendMail(mailOption, err => {
+        }, err => {
             if (err) {
                 res.status(500).json(err)
             }else{
@@ -246,7 +252,7 @@ exports.loginVet = (req, res) => {
                         email: data.email,
                         id: data._id,
                         role: "vet"
-                    }, process.env.JWTTOKEN, {expiresIn: "100000h"}, (err, token) => {
+                    }, process.env.JWTTOKEN, {}, (err, token) => {
                         return res.status(200).json({
                             _token: token,
                             username: data.username,
@@ -313,7 +319,7 @@ exports.loginClinic = (req, res) => {
                 id: data.id,
                 username: data.username,
                 role: "clinic"
-            }, process.env.JWTTOKEN, {expiresIn: 100000}, (err, token) => {
+            }, process.env.JWTTOKEN, {}, (err, token) => {
                 if (err) {
                     return res.status(500).json(err)
                 }
@@ -348,7 +354,7 @@ exports.loginAdmin = (req, res) => {
                 id: data.id,
                 username: data.username,
                 role: "admin"
-            }, process.env.JWTTOKEN, {expiresIn: 100000}, (err, token) => {
+            }, process.env.JWTTOKEN, {}, (err, token) => {
                 if (err) {
                     return res.status(500).json(err)
                 }
