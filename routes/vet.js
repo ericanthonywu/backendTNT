@@ -2,27 +2,32 @@ const express = require('express');
 const router = express.Router();
 
 //controller
-const authController = require('../controller/authController');
-const appointmentController = require('../controller/appointmentController')
-const chatController = require('../controller/chatController')
+const {loginVet, registerVet, verifyEmailVet, vetFCMToken} = require('../controller/authController');
+const {vetFileChat, getUser, vetShowChat, vetSendChat} = require("../controller/chatController");
+const {showVetAppointment} = require("../controller/appointmentController");
+const {updateProfileVet, updateLocation} = require("../controller/profileController");
 
 //middleware
-const authMiddleware = require('../middleware/authMiddleware');
-const fileMiddleware = require("../middleware/uploadFileMiddleware");
+const {authMiddleware} = require('../middleware/authMiddleware');
+const {uploadChat, uploadVet} = require("../middleware/uploadFileMiddleware");
 
 //vet auth router
-router.post('/login', authController.loginVet);
-router.post('/register', authController.registerVet);
-router.post('/verify', authController.verifyEmailVet);
-router.post('/setFCMToken', authMiddleware.authMiddleware, authController.vetFCMToken);
+router.post('/login', loginVet);
+router.post('/register', registerVet);
+router.post('/verify', verifyEmailVet);
+router.post('/setFCMToken', authMiddleware, vetFCMToken);
+
+//profile
+router.post('/updateProfile', uploadVet.single("image"), authMiddleware, updateProfileVet)
+router.post('/updateLocation', authMiddleware, updateLocation)
 
 //appointment router
-router.post('/showAppointment', authMiddleware.authMiddleware, appointmentController.showVetAppointment)
+router.post('/showAppointment', authMiddleware, showVetAppointment)
 
 //chat router
-router.post('/fileChat', fileMiddleware.uploadChat.single("image"), authMiddleware.authMiddleware, chatController.vetFileChat)
-router.post('/showChatList', authMiddleware.authMiddleware, chatController.getUser)
-router.post('/showChat', authMiddleware.authMiddleware, chatController.vetShowChat)
-router.post('/sendChat', authMiddleware.authMiddleware, chatController.vetSendChat)
+router.post('/fileChat', uploadChat.single("image"), authMiddleware, vetFileChat)
+router.post('/showChatList', authMiddleware, getUser)
+router.post('/showChat', authMiddleware, vetShowChat)
+router.post('/sendChat', authMiddleware, vetSendChat)
 
 module.exports = router;

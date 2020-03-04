@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://10.148.0.12:27017/tnt', {
-    auth: {authSource: "admin"},
-    user: "mongodadmin",
-    pass: "password123",
-// mongoose.connect('mongodb://localhost/tnt3', {
+// mongoose.connect('mongodb://10.148.0.12:27017/tnt', {
+//     auth: {authSource: "admin"},
+//     user: "mongodadmin",
+//     pass: "password123",
+mongoose.connect('mongodb://localhost/tnt3', {
     useNewUrlParser: true,
     keepAlive: true,
     keepAliveInitialDelay: 300000,

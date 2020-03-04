@@ -1,4 +1,4 @@
-const {user: User} = require('../model')
+const {user: User, vet: Vet} = require('../model')
 const moment = require('moment')
 const fs = require('fs')
 const path = require('path')
@@ -66,8 +66,8 @@ exports.delete_pet = (req, res) => {
 }
 
 exports.update_profile = (req, res) => {
-    const {avatar, name: username, email, phoneNumber: phone, address} = req.body
-    const updatedData = {username: username, phoneNumber: phone, address: address}
+    const {avatar, name: username, email, phoneNumber, address} = req.body
+    const updatedData = {username, phoneNumber, address}
 
 
     if (avatar) {
@@ -105,3 +105,25 @@ exports.update_profile = (req, res) => {
         .then(_ => res.status(200).json())
         .catch(err => res.status(500).json(err))
 };
+
+exports.updateProfileVet = (req, res) => {
+    Vet.findById(res.userData.id).select("profile_picture").then(({profile_picture}) => {
+        if (profile_picture !== "default.png"){
+            fs.unlinkSync(path.join(__dirname, `../uploads/vet/${profile_picture}`))
+        }
+    })
+    Vet.findByIdAndUpdate(res.userData.id, {
+        profile_picture: req.file.filename
+    }).then(_ => res.status(200).json())
+        .catch(err => res.status(500).json(err))
+}
+
+exports.updateLocation = (req,res) => {
+    const {latitude,longitude} = req.body
+    Vet.findByIdAndUpdate(res.userData.id,{
+        session: {
+            coordinates: [longitude,latitude]
+        }
+    }).then(_ => res.status(200).json())
+        .catch(err => res.status(500).json(err))
+}

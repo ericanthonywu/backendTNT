@@ -2,48 +2,48 @@ const express = require('express'),
     router = express.Router(),
 
 //controller
-    authController = require('../controller/authController'),
-    dashboardController = require('../controller/dashboardController'),
-    profileController = require('../controller/profileController'),
-    chatController = require('../controller/chatController'),
-    appointmentController = require('../controller/appointmentController'),
+    {login, register, verifyEmail, reSendEmail, userFCMToken} = require('../controller/authController'),
+    {showUserAppointment, addAppointment, showUsersTodayAppointment, showVetAvailable, cancelAppointment, reScheduleAppointment} = require("../controller/appointmentController"),
+    {userShowChat, userFileChat, userSendChat, endChat, getVet} = require("../controller/chatController"),
+    {update_pet, add_pet, delete_pet, update_profile, user_profile} = require("../controller/profileController"),
+    {getClinicByVet, searchVet, searchClinic} = require("../controller/dashboardController"),
 
 //middleware
-    authMiddleware = require('../middleware/authMiddleware'),
-    fileMiddleware = require('../middleware/uploadFileMiddleware');
+    {authMiddleware} = require('../middleware/authMiddleware'),
+    {uploadPet, uploadChat} = require('../middleware/uploadFileMiddleware');
 
 //user auth router
-router.post('/login', authController.login);
-router.post('/register', authController.register);
-router.post('/verify', authController.verifyEmail);
-router.post('/resendEmail', authController.reSendEmail);
-router.post('/setFCMToken', authMiddleware.authMiddleware, authController.userFCMToken);
+router.post('/login', login);
+router.post('/register', register);
+router.post('/verify', verifyEmail);
+router.post('/resendEmail', reSendEmail);
+router.post('/setFCMToken', authMiddleware, userFCMToken);
 
 //care router
-router.post('/searchVet', authMiddleware.authMiddleware, dashboardController.searchVet);
-router.post('/searchClinic', authMiddleware.authMiddleware, dashboardController.searchClinic);
-router.post('/getClinicByVet', authMiddleware.authMiddleware, dashboardController.getClinicByVet);
+router.post('/searchVet', authMiddleware, searchVet);
+router.post('/searchClinic', authMiddleware, searchClinic);
+router.post('/getClinicByVet', authMiddleware, getClinicByVet);
 
 //profile router
-router.post('/user_profile', authMiddleware.authMiddleware, profileController.user_profile);
-router.post('/update_profile', authMiddleware.authMiddleware, profileController.update_profile);
-router.post('/delete_pet', authMiddleware.authMiddleware, profileController.delete_pet);
-router.post('/add_pet', fileMiddleware.uploadPet.single('image'), authMiddleware.authMiddleware, profileController.add_pet);
-router.post('/update_pet', fileMiddleware.uploadPet.single('image'), authMiddleware.authMiddleware, profileController.update_pet);
+router.post('/user_profile', authMiddleware, user_profile);
+router.post('/update_profile', authMiddleware, update_profile);
+router.post('/delete_pet', authMiddleware, delete_pet);
+router.post('/add_pet', uploadPet.single('image'), authMiddleware, add_pet);
+router.post('/update_pet', uploadPet.single('image'), authMiddleware, update_pet);
 
 //chat router
-router.post('/fileChat', fileMiddleware.uploadChat.single("image"), authMiddleware.authMiddleware, chatController.userFileChat)
-router.post('/sendChat', authMiddleware.authMiddleware, chatController.userSendChat)
-router.post('/showChat', authMiddleware.authMiddleware, chatController.userShowChat)
-router.post('/getVet', authMiddleware.authMiddleware, chatController.getVet)
-router.post('/endChat', authMiddleware.authMiddleware, chatController.endChat)
+router.post('/fileChat', uploadChat.single("image"), authMiddleware, userFileChat)
+router.post('/sendChat', authMiddleware, userSendChat)
+router.post('/showChat', authMiddleware, userShowChat)
+router.post('/getVet', authMiddleware, getVet)
+router.post('/endChat', authMiddleware, endChat)
 
 //appointment router
-router.post('/addAppointment', authMiddleware.authMiddleware, appointmentController.addAppointment)
-router.post('/reScheduleAppointment', authMiddleware.authMiddleware, appointmentController.reScheduleAppointment)
-router.post('/cancelAppointment', authMiddleware.authMiddleware, appointmentController.cancelAppointment)
-router.post('/showVetAvailable', authMiddleware.authMiddleware, appointmentController.showVetAvailable)
-router.post('/showUsersTodayAppointment', authMiddleware.authMiddleware, appointmentController.showUsersTodayAppointment)
-router.post('/showUserAppointment', authMiddleware.authMiddleware, appointmentController.showUserAppointment)
+router.post('/addAppointment', authMiddleware, addAppointment)
+router.post('/reScheduleAppointment', authMiddleware, reScheduleAppointment)
+router.post('/cancelAppointment', authMiddleware, cancelAppointment)
+router.post('/showVetAvailable', authMiddleware, showVetAvailable)
+router.post('/showUsersTodayAppointment', authMiddleware, showUsersTodayAppointment)
+router.post('/showUserAppointment', authMiddleware, showUserAppointment)
 
 module.exports = router;

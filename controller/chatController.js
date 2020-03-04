@@ -112,7 +112,7 @@ exports.userFileChat = (req, res) => {
     const {vet} = req.body;
     Chat.findOneAndUpdate({
         user: res.userData.id,
-        vet: vet,
+        vet,
         status: true
     }, {
         $push: {

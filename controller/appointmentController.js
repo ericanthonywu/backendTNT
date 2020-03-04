@@ -30,6 +30,7 @@ exports.addAppointment = (req, res) => {
                                 pushNotif(fcmToken, "Appointment Reminder", `sebentar lagi ada appoinment dengan user ${res.userData.username} jangan sampai telat ya!`)
                                 userPushNotif(res.userData.id, "Appointment Reminder", `sebentar lagi ada appoinment dengan Dr. ${username} jangan sampai telat ya!`)
                             })
+                            pushNotif(fcmToken, "New Appointment", `Ada appointment baru dengan ${res.userData.username} pada ${moment(time).format("D MMMM HH:mm")}`)
                             if (io.sockets.connected[socketId]) {
                                 io.sockets.connected[socketId].emit('newAppointment', {
                                     user: res.userData.username,
@@ -150,7 +151,6 @@ exports.showVetAvailable = (req, res) => {
 exports.showVetAppointment = (req, res) => {
     Appointment.find({
         vet: res.userData.id,
-        status: 1,
         time: {
             $gte: moment(),
             $lte: moment().endOf("day")

@@ -244,6 +244,7 @@ exports.loginVet = (req, res) => {
         if (data.ban) {
             return res.status(403).json()
         }
+
         if (data) {
             bcrypt.compare(password, data.password).then(check => {
                 if (check) {
