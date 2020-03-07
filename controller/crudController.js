@@ -1,5 +1,6 @@
 const {clinic: Clinic, vet: Vet, user: User, appointment: Appointment} = require('../model')
 const bcrypt = require('bcryptjs')
+const {pushNotif} = require("../globalHelper");
 
 exports.addClinic = (req, res) => {
     const {username, password, email, address, lat, long} = req.body
@@ -29,7 +30,13 @@ exports.banClinic = (req, res) => {
     }
     Clinic.findByIdAndUpdate(clinicId, {
         ban: true
-    }).then(() => res.status(200).json())
+    }).then(() => {
+        res.status(200).json()
+        const {io} = req
+        Clinic.findById(clinicId).select("socketId").then(({socketId}) => {
+            io.sockets.connected[socketId].emit("ban")
+        })
+    })
         .catch(err => res.status(500).json(err))
 }
 
@@ -75,8 +82,8 @@ exports.showVetClinic = (req, res) => {
 exports.addVetClinic = (req, res) => {
     const {vetId} = req.body
 
-    Clinic.countDocuments({_id:res.userData.id,vet: vetId}).then(count => {
-        if(count){
+    Clinic.countDocuments({_id: res.userData.id, vet: vetId}).then(count => {
+        if (count) {
             return res.status(409).json()
         }
         Clinic.findByIdAndUpdate(res.userData.id, {
@@ -92,7 +99,14 @@ exports.banVetClinic = (req, res) => {
     const {vetId, ban} = req.body
     Vet.findByIdAndUpdate(vetId, {
         ban: ban
-    }).then(_ => res.status(200).json())
+    }).then(_ => {
+        res.status(200).json()
+        const {io} = req
+        Vet.findById(vetId).select("fcmToken socketId").then(({fcmToken, socketId}) => {
+            pushNotif(fcmToken, "Oh no! You has been banned from admin")
+            io.sockets.connected[socketId].emit("ban")
+        })
+    })
         .catch(err => res.status(500).json(err))
 }
 
@@ -154,7 +168,7 @@ exports.editClinic = (req, res) => {
         session
     }
 
-    if (password){
+    if (password) {
         query.password = bcrypt.hashSync(password, 10)
     }
 
@@ -230,7 +244,7 @@ exports.editVet = (req, res) => {
     }
 
     if (password) {
-        updatedData.password = bcrypt.hashSync(password,10)
+        updatedData.password = bcrypt.hashSync(password, 10)
     }
     if (file) {
         updatedData.profile_picture = file.filename

@@ -32,14 +32,14 @@ router.post('/add_pet', uploadPet.single('image'), authMiddleware, add_pet);
 router.post('/update_pet', uploadPet.single('image'), authMiddleware, update_pet);
 
 //chat router
-router.post('/fileChat', uploadChat.single("image"), authMiddleware, userFileChat)
-router.post('/sendChat', authMiddleware, userSendChat)
-router.post('/showChat', authMiddleware, userShowChat)
-router.post('/getVet', authMiddleware, getVet)
-router.post('/endChat', authMiddleware, endChat)
+router.post('/fileChat', uploadChat.single("image"), authMiddleware, userFileChat);
+router.post('/sendChat', authMiddleware, userSendChat);
+router.post('/showChat', authMiddleware, userShowChat);
+router.post('/getVet', authMiddleware, getVet);
+router.post('/endChat', authMiddleware, endChat);
 
 //appointment router
-router.post('/addAppointment', authMiddleware, addAppointment)
+router.post('/addAppointment', authMiddleware, addAppointment);
 router.post('/reScheduleAppointment', authMiddleware, reScheduleAppointment)
 router.post('/cancelAppointment', authMiddleware, cancelAppointment)
 router.post('/showVetAvailable', authMiddleware, showVetAvailable)

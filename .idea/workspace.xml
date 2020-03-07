@@ -2,21 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-03-04T09-58-49.690Z605e7185-8488-49c2-8191-db86220bfd33.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-03-04T09-59-15.842Z2ec1740a-92b1-42d2-95ec-f9dea9a657eb.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/chat/2020-03-04T11-48-14.182Z7dfb8568-4f04-4b72-bf47-04fa9d75d484.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/vet/2020-03-04T14-16-49.389Zd850b546-6e5b-4713-9f4d-3939c632f7ac.jpg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/pet/2020-03-07T10-23-12.740Z9a00089a-002d-4a38-ab20-5cbac63151a3.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/appointmentController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/crudController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/crudController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/vet.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/vet.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +99,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
@@ -242,7 +232,10 @@
       <workItem from="1582970438875" duration="5940000" />
       <workItem from="1582990388049" duration="7042000" />
       <workItem from="1583251411255" duration="683000" />
-      <workItem from="1583257800261" duration="10237000" />
+      <workItem from="1583257800261" duration="16155000" />
+      <workItem from="1583500040847" duration="2219000" />
+      <workItem from="1583575266448" duration="1377000" />
+      <workItem from="1583583576069" duration="1046000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -398,7 +391,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583248383367</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="backend upload vet and appointmentController.js">
+      <created>1583332903007</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1583332903007</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -444,7 +444,8 @@
     <MESSAGE value="add default appointmentController.js and default helper for send data in FCM" />
     <MESSAGE value="production upload" />
     <MESSAGE value="edit .env" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit .env" />
+    <MESSAGE value="backend upload vet and appointmentController.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="backend upload vet and appointmentController.js" />
   </component>
   <component name="WindowStateProjectService">
     <state x="254" y="250" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577909878927">
@@ -456,35 +457,35 @@
     </state>
     <state x="408" y="158" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1440.900@0.0.1440.900" timestamp="1583251609173" />
     <state x="408" y="166" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959763410" />
-    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1583248383205">
+    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1583332902566">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1583248383205" />
+    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1583332902566" />
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1583248303778">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1583248303778" />
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.23.1440.877@0.23.1440.877" timestamp="1581915160419" />
-    <state width="1398" height="231" key="GridCell.Tab.0.bottom" timestamp="1583332847523">
+    <state width="1398" height="231" key="GridCell.Tab.0.bottom" timestamp="1583582142524">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="231" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1583332847523" />
-    <state width="1398" height="193" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1582990229565" />
-    <state width="1398" height="231" key="GridCell.Tab.0.center" timestamp="1583332847522">
+    <state width="1398" height="231" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1583582142524" />
+    <state width="1398" height="231" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1583575138148" />
+    <state width="1398" height="231" key="GridCell.Tab.0.center" timestamp="1583582142521">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="231" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1583332847522" />
-    <state width="1398" height="193" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1582990229563" />
-    <state width="1398" height="231" key="GridCell.Tab.0.left" timestamp="1583332847521">
+    <state width="1398" height="231" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1583582142521" />
+    <state width="1398" height="231" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1583575138147" />
+    <state width="1398" height="231" key="GridCell.Tab.0.left" timestamp="1583582142520">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="231" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1583332847521" />
-    <state width="1398" height="193" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1582990229562" />
-    <state width="1398" height="231" key="GridCell.Tab.0.right" timestamp="1583332847523">
+    <state width="1398" height="231" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1583582142520" />
+    <state width="1398" height="231" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1583575138146" />
+    <state width="1398" height="231" key="GridCell.Tab.0.right" timestamp="1583582142522">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="231" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1583332847523" />
-    <state width="1398" height="193" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1582990229564" />
+    <state width="1398" height="231" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1583582142522" />
+    <state width="1398" height="231" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1583575138147" />
     <state x="308" y="192" key="IDE.errors.dialog" timestamp="1577443767350">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -497,18 +498,18 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="535" y="83" key="RollbackChangesDialog/0.0.1440.900@0.0.1440.900" timestamp="1579945218170" />
-    <state x="221" y="63" key="SettingsEditor" timestamp="1583323904595">
+    <state x="221" y="63" key="SettingsEditor" timestamp="1583499998037">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1583323904595" />
+    <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1583499998037" />
     <state x="100" y="100" width="1240" height="700" key="ShowDiffWithBranchDialog" timestamp="1581915160420">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="ShowDiffWithBranchDialog/0.23.1440.877@0.23.1440.877" timestamp="1581915160420" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1583248385667">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1583332904220">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1583248385667" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1583332904220" />
     <state x="397" y="312" key="com.intellij.ide.util.TipDialog" timestamp="1583251411387">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -523,10 +524,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="291" y="159" width="858" height="582" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1582803846810" />
-    <state x="97" y="27" key="new project wizard" timestamp="1582687126524">
+    <state x="97" y="27" key="new project wizard" timestamp="1583337642281">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="97" y="27" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1582687126524" />
+    <state x="97" y="27" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1583337642281" />
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1582802709929">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
