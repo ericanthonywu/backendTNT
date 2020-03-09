@@ -88,7 +88,8 @@ exports.searchClinic = async (req, res) => {
 
 exports.getClinicByVet = (req,res) => {
     const {vetId} = req.body
-    Clinic.find({vet: vetId}).select("username")
+    Clinic.find({vet: vetId})
+        .select("username")
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }

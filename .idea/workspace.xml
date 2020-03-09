@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/uploads/pet/2020-03-07T10-23-12.740Z9a00089a-002d-4a38-ab20-5cbac63151a3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/eslintPlugin.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/crudController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/crudController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/dashboardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/dashboardController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +100,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
@@ -235,7 +236,8 @@
       <workItem from="1583257800261" duration="16155000" />
       <workItem from="1583500040847" duration="2219000" />
       <workItem from="1583575266448" duration="1377000" />
-      <workItem from="1583583576069" duration="1046000" />
+      <workItem from="1583583576069" duration="3402000" />
+      <workItem from="1583761943892" duration="732000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -398,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583332903007</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="beautify">
+      <created>1583608789133</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1583608789133</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,7 +454,8 @@
     <MESSAGE value="production upload" />
     <MESSAGE value="edit .env" />
     <MESSAGE value="backend upload vet and appointmentController.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="backend upload vet and appointmentController.js" />
+    <MESSAGE value="beautify" />
+    <option name="LAST_COMMIT_MESSAGE" value="beautify" />
   </component>
   <component name="WindowStateProjectService">
     <state x="254" y="250" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577909878927">
@@ -456,15 +466,14 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="408" y="158" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1440.900@0.0.1440.900" timestamp="1583251609173" />
-    <state x="408" y="166" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959763410" />
-    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1583332902566">
+    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1583608788405">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1583332902566" />
-    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1583248303778">
+    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1583608788405" />
+    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1583608784382">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1583248303778" />
+    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1583608784382" />
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.23.1440.877@0.23.1440.877" timestamp="1581915160419" />
     <state width="1398" height="231" key="GridCell.Tab.0.bottom" timestamp="1583582142524">
       <screen x="0" y="0" width="1440" height="900" />
@@ -498,23 +507,22 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="535" y="83" key="RollbackChangesDialog/0.0.1440.900@0.0.1440.900" timestamp="1579945218170" />
-    <state x="221" y="63" key="SettingsEditor" timestamp="1583499998037">
+    <state x="221" y="63" key="SettingsEditor" timestamp="1583762151077">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1583499998037" />
+    <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1583762151077" />
     <state x="100" y="100" width="1240" height="700" key="ShowDiffWithBranchDialog" timestamp="1581915160420">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="ShowDiffWithBranchDialog/0.23.1440.877@0.23.1440.877" timestamp="1581915160420" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1583332904220">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1583608790556">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1583332904220" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1583608790556" />
     <state x="397" y="312" key="com.intellij.ide.util.TipDialog" timestamp="1583251411387">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="397" y="312" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1583251411387" />
-    <state x="397" y="263" key="com.intellij.ide.util.TipDialog/0.23.1440.816@0.23.1440.816" timestamp="1574959795813" />
     <state x="397" y="327" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1582970492717" />
     <state x="502" y="368" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1575902586685">
       <screen x="0" y="0" width="1440" height="900" />

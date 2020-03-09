@@ -65,8 +65,7 @@ exports.vetSendChat = (req, res) => {
             }
             pushNotif(fcmToken, res.userData.username, message)
         })
-    })
-        .catch(err => res.status(500).json(err))
+    }).catch(err => res.status(500).json(err))
 }
 
 exports.userShowChat = (req, res) => {
