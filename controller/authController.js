@@ -173,10 +173,10 @@ exports.register = (req, res) => {
 exports.reSendEmail = (req, res) => {
     const {email, username} = req.body
     const generateToken = () => {
-        const token  = Math.floor((Math.random() * 1000000) + 1)
-        if(token.toString().length !== 6){
+        const token = Math.floor((Math.random() * 1000000) + 1)
+        if (token.toString().length !== 6) {
             generateToken()
-        }else{
+        } else {
             return token
         }
     }
@@ -206,7 +206,7 @@ exports.reSendEmail = (req, res) => {
         }, err => {
             if (err) {
                 res.status(500).json(err)
-            }else{
+            } else {
                 res.status(200).json()
             }
         });
@@ -335,25 +335,25 @@ exports.loginClinic = (req, res) => {
 }
 
 exports.loginAdmin = (req, res) => {
-    const {username, password} = req.body
-    if (!username || !password) {
+    const {username, password: inputPassword} = req.body
+    if (!username || !inputPassword) {
         return res.status(400).json()
     }
     Admin.findOne({
         username: username
-    }).select("password").then(data => {
-        if (!data) {
+    }).select("password username").then(({password, _id: id, username}) => {
+        if (!password) {
             return res.status(404).json()
         }
 
-        bcrypt.compare(password, data.password).then(check => {
+        bcrypt.compare(inputPassword, password).then(check => {
             if (!check) {
                 return res.status(401).json()
             }
 
             jwt.sign({
-                id: data.id,
-                username: data.username,
+                id: id,
+                username: username,
                 role: "admin"
             }, process.env.JWTTOKEN, {}, (err, token) => {
                 if (err) {
@@ -363,7 +363,7 @@ exports.loginAdmin = (req, res) => {
                 res.status(200).json({
                     _token: token,
                     username: username,
-                    id: data.id
+                    id: id
                 })
             })
         }).catch(err => res.status(500).json(err))

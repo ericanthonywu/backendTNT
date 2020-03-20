@@ -35,7 +35,7 @@ exports.update_pet = (req, res) => {
         "pet.$.name": name,
         "pet.$.birthDate": birthdate,
         "pet.$.status": status,
-    }
+    };
     if (req.file) {
         updatedData["pet.$.photo"] = req.file.filename
         User.findOne({
@@ -57,12 +57,23 @@ exports.update_pet = (req, res) => {
 
 exports.delete_pet = (req, res) => {
     const {petId} = req.body
-    User.findByIdAndUpdate(res.userData.id, {
-        $pull: {
-            pet: {_id: petId}
-        }
-    }).then(_ => res.status(200).json())
+    User.findOne({
+        _id: res.userData.id,
+        'pet._id': petId
+    }).select("pet.$.photo")
+        .then(data => {
+            console.log(data);
+            fs.unlink(path.join(__dirname, "../uploads/pet/" + data.pet[0].photo), () => {
+                User.findByIdAndUpdate(res.userData.id, {
+                    $pull: {
+                        pet: {_id: petId}
+                    }
+                }).then(_ => res.status(200).json())
+                    .catch(err => res.status(500).json(err))
+            })
+        })
         .catch(err => res.status(500).json(err))
+
 }
 
 exports.update_profile = (req, res) => {
@@ -108,7 +119,7 @@ exports.update_profile = (req, res) => {
 
 exports.updateProfileVet = (req, res) => {
     Vet.findById(res.userData.id).select("profile_picture").then(({profile_picture}) => {
-        if (profile_picture !== "default.png"){
+        if (profile_picture !== "default.png") {
             fs.unlinkSync(path.join(__dirname, `../uploads/vet/${profile_picture}`))
         }
     })
@@ -118,11 +129,11 @@ exports.updateProfileVet = (req, res) => {
         .catch(err => res.status(500).json(err))
 }
 
-exports.updateLocation = (req,res) => {
-    const {latitude,longitude} = req.body
-    Vet.findByIdAndUpdate(res.userData.id,{
+exports.updateLocation = (req, res) => {
+    const {latitude, longitude} = req.body
+    Vet.findByIdAndUpdate(res.userData.id, {
         session: {
-            coordinates: [longitude,latitude]
+            coordinates: [longitude, latitude]
         }
     }).then(_ => res.status(200).json())
         .catch(err => res.status(500).json(err))

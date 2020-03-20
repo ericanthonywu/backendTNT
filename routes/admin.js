@@ -16,14 +16,15 @@ const express = require('express'),
         deleteClinic,
         editClinic
     } = require('../controller/crudController'),
-    {authMiddleware} = require("../middleware/authMiddleware");
+    {authMiddleware} = require("../middleware/authMiddleware"),
+    {uploadClinic} = require("../middleware/uploadFileMiddleware");
 
 //user auth router
 router.post('/login', loginAdmin);
 router.get('/migrate', migrateAdmin);
 
 //crud clinic route
-router.post('/addClinic', authMiddleware, addClinic);
+router.post('/addClinic', uploadClinic.array("image"), authMiddleware, addClinic);
 router.post('/banClinic', authMiddleware, banClinic);
 router.post('/showClinic', authMiddleware, showClinic);
 router.post('/detailClinic', authMiddleware, detailClinic);

@@ -32,12 +32,6 @@ const vetSchema = new mongoose.Schema({
         last_logout: {type: Date},
         status: {type: Boolean}
     },
-    notification: [{
-        name: {type: String},
-        postId: {type: mongoose.Schema.Types.ObjectID, ref: 'vet.post'},
-        petShopId: {type: mongoose.Schema.Types.ObjectID, ref: 'vet'},
-        createdAt: {type: Date, default: Date.now()}
-    }],
     dayOfDuty: [{type: Number}],
     forgot_password_token: {type: String},
     forgot_password_expire_token: {type: Date},
@@ -98,9 +92,8 @@ const userSchema = new mongoose.Schema({
     }],
     notification: [{
         name: {type: String},
-        postId: {type: mongoose.Schema.Types.ObjectID, ref: 'post'},
-        petShopId: {type: mongoose.Schema.Types.ObjectID, ref: 'vet'},
-        userId: {type: mongoose.Schema.Types.ObjectID, ref: 'user'},
+        vet: {type: mongoose.Schema.Types.ObjectID, ref: 'vet'},
+        type: {type: String},
         createdAt: {type: Date, default: Date.now()}
     }],
     pet: [{
@@ -162,13 +155,10 @@ const clinicSchema = new mongoose.Schema({
     email_token: {type: Number},
     email_expire_token: {type: Date},
     socketId: {type: String},
+    photo: [{type: String, unique: true}],
     session: {
-        device_name: {type: String},
-        device_token: {type: String},
         type: {type: String, default: 'Point'},
         coordinates: [{type: Number, index: '2dsphere'}],
-        last_login: {type: Date},
-        last_logout: {type: Date},
         status: {type: Boolean}
     },
 }, {

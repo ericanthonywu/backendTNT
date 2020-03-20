@@ -17,21 +17,27 @@ const app = express();
 app.io = io
 
 io.on('connection', connection => {
-    const {id, client} = connection.handshake.query
+    // const {id, client} = connection.handshake.query
+    const {
+        id: conId,
+        handshake: {
+            query: {id, client}
+        }
+    } = connection
     if (id && client) {
         switch (client) {
             case "user":
-                User.findByIdAndUpdate(id, {
+                User.findByIdAndUpdate(conId, {
                     socketId: connection.id
                 }).catch(console.log)
                 break;
             case "vet":
-                Vet.findByIdAndUpdate(id, {
+                Vet.findByIdAndUpdate(conId, {
                     socketId: connection.id
                 }).catch(console.log)
                 break;
             case "clinic":
-                Clinic.findByIdAndUpdate(id, {
+                Clinic.findByIdAndUpdate(conId, {
                     socketId: connection.id
                 }).catch(console.log)
         }
@@ -63,7 +69,7 @@ const clinicRouter = require('./routes/clinic')
 const adminRouter = require('./routes/admin')
 
 //handle token route
-app.use('/checkValidToken', (req, res) => {
+app.post('/checkValidToken', (req, res) => {
     const {token} = req.body
     if (!token) return res.status(400).json()
     jwt.verify(token, process.env.JWTTOKEN, (err, data) => {

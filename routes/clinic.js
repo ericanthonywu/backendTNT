@@ -5,7 +5,7 @@ const express = require('express'),
 const {loginClinic} = require('../controller/authController'),
     {authMiddleware} = require("../middleware/authMiddleware"),
     {reScheduleAppointmentAction} = require("../controller/appointmentController"),
-    {showVetClinic, searchVetClinic, addVetClinic} = require("../controller/crudController"),
+    {showVetClinic, searchVetClinic, addVetClinic, banVetClinic} = require("../controller/crudController"),
     {clinicShowAllBookingAppointment, clinicShowOngoingAppointment, clinicShowQuickPendingAppointment} = require("../controller/appointmentController");
 
 //user auth router
@@ -21,5 +21,6 @@ router.post('/clinicShowOngoingAppointment', authMiddleware, clinicShowOngoingAp
 router.post('/showVetClinic', authMiddleware, showVetClinic);
 router.post('/searchVetClinic', authMiddleware, searchVetClinic);
 router.post('/addVetClinic', authMiddleware, addVetClinic);
+router.post('/banVetClinic', authMiddleware, banVetClinic);
 
 module.exports = router;

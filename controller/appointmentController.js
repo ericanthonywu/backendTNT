@@ -30,6 +30,9 @@ exports.addAppointment = (req, res) => {
                                 pushNotif(fcmToken, "Appointment Reminder", `sebentar lagi ada appoinment dengan user ${res.userData.username} jangan sampai telat ya!`)
                                 userPushNotif(res.userData.id, "Appointment Reminder", `sebentar lagi ada appoinment dengan Dr. ${username} jangan sampai telat ya!`)
                             })
+                            scheduler.scheduleJob(_id.toString(), moment(time).add(15, "minutes").toISOString(), _ =>
+                                userPushNotif(fcmToken, "Thank you for use our booking system", `You are free to book again anytime with any doctor :)`)
+                            )
                             pushNotif(fcmToken, "New Appointment", `Ada appointment baru dengan ${res.userData.username} pada ${moment(time).format("D MMMM HH:mm")}`)
                             if (io.sockets.connected[socketId]) {
                                 io.sockets.connected[socketId].emit('newAppointment', {
@@ -209,7 +212,7 @@ exports.clinicShowQuickPendingAppointment = (req, res) => {
 }
 
 exports.clinicShowAllBookingAppointment = (req, res) => {
-    const {offset} = req.body
+    const {offset = 0} = req.body
 
     Appointment.find({clinic: res.userData.id})
         .sort({time: -1})
@@ -218,13 +221,13 @@ exports.clinicShowAllBookingAppointment = (req, res) => {
         .populate("vet", "username")
 
         .limit(10)
-        .skip(offset || 0)
+        .skip(offset)
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
 
 exports.clinicShowOngoingAppointment = (req, res) => {
-    const {offset} = req.body
+    const {offset = 0} = req.body
     Appointment.find({
         clinic: res.userData.id,
         time: {$gte: moment()}
@@ -234,7 +237,7 @@ exports.clinicShowOngoingAppointment = (req, res) => {
         .populate("vet", "username")
         // .populate("pet", "username")
         .limit(10)
-        .skip(offset || 0)
+        .skip(offset)
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 

@@ -29,3 +29,11 @@ exports.pushNotif = (fcmToken, title, body, data = {}) => {
         }).catch(console.log)
     }
 }
+
+exports.userAddNotification = (user, updatedData) => {
+    User.findByIdAndUpdate(user, {
+        $push: {
+            notification: updatedData
+        }
+    })
+}

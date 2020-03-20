@@ -2,9 +2,24 @@ const {clinic: Clinic, vet: Vet, user: User, appointment: Appointment} = require
 const bcrypt = require('bcryptjs')
 const {pushNotif} = require("../globalHelper");
 
-exports.addClinic = (req, res) => {
-    const {username, password, email, address, lat, long} = req.body
+exports.addClinic = async (req, res) => {
+    const {
+        body: {
+            username,
+            password,
+            email,
+            address,
+            lat,
+            long
+        },
+        files
+    } = req;
+
     if (username && password && email && address && lat && long) {
+        const filenameArr = []
+
+        await files.forEach(({filename}) => filenameArr.push(filename))
+
         bcrypt.hash(password, 10).then(hashedPassword => {
             new Clinic({
                 username,
@@ -13,9 +28,10 @@ exports.addClinic = (req, res) => {
                 address,
                 session: {
                     coordinates: [long, lat]
-                }
+                },
+                photo: filenameArr
             }).save()
-                .then(({_id}) => res.status(201).json({id: _id}))
+                .then(({_id: id}) => res.status(201).json({id}))
                 .catch(err => res.status(500).json(err))
         }).catch(err => res.status(500).json(err))
     } else {
@@ -25,19 +41,18 @@ exports.addClinic = (req, res) => {
 
 exports.banClinic = (req, res) => {
     const {clinicId} = req.body
+
     if (!clinicId) {
         return res.status(400).json()
     }
+
     Clinic.findByIdAndUpdate(clinicId, {
         ban: true
     }).then(() => {
         res.status(200).json()
         const {io} = req
-        Clinic.findById(clinicId).select("socketId").then(({socketId}) => {
-            io.sockets.connected[socketId].emit("ban")
-        })
-    })
-        .catch(err => res.status(500).json(err))
+        Clinic.findById(clinicId).select("socketId").then(({socketId}) => io.sockets.connected[socketId].emit("ban"))
+    }).catch(err => res.status(500).json(err))
 }
 
 exports.deleteClinic = (req, res) => {
@@ -183,7 +198,7 @@ exports.detailClinic = (req, res) => {
     }
 
     Clinic.findById(clinicId)
-        .select("vet username email address location createdAt session.coordinates")
+        .select("vet username email address location createdAt photo session.coordinates")
         .populate("vet", "cert_id username createdAt expYear")
         .then(data => res.status(data ? 200 : 404).json(data))
         .catch(err => res.status(500).json(err))

@@ -33,7 +33,7 @@ exports.userSendChat = (req, res) => {
                         from: res.userData.id
                     })
                 }
-                await pushNotif(fcmToken, res.userData.username, message)
+                await pushNotif(fcmToken, res.userData.username, `${res.userData.username}: ${message}`)
             })
         })
         .catch(err => res.status(500).json(err))
@@ -63,7 +63,7 @@ exports.vetSendChat = (req, res) => {
                     from: res.userData.id
                 })
             }
-            pushNotif(fcmToken, res.userData.username, message)
+            pushNotif(fcmToken, res.userData.username, `${res.userData.username}: ${message}`)
         })
     }).catch(err => res.status(500).json(err))
 }
@@ -134,7 +134,7 @@ exports.userFileChat = (req, res) => {
                         from: res.userData.id
                     })
                 }
-                await pushNotif(fcmToken, res.userData.username, `${res.userData.username} sent you a photo`)
+                await pushNotif(fcmToken, res.userData.username, `${res.userData.username}: sent you a photo`)
             })
         })
         .catch(err => res.status(500).json(err))
