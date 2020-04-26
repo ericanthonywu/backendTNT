@@ -14,7 +14,11 @@ const express = require('express'),
         detailVet,
         editVet,
         deleteClinic,
-        editClinic
+        editClinic,
+        getBlog,
+        addBlog,
+        editBlog,
+        deleteBlog
     } = require('../controller/crudController'),
     {authMiddleware} = require("../middleware/authMiddleware"),
     {uploadClinic} = require("../middleware/uploadFileMiddleware");
@@ -38,5 +42,11 @@ router.post('/banVetClinic', authMiddleware, banVetClinic);
 router.post('/editVet', authMiddleware, editVet);
 router.post('/showAllVet', authMiddleware, showAllVet);
 router.post('/addVet', authMiddleware, addVet);
+
+//blog route
+router.post('/getBlog', authMiddleware, getBlog)
+router.post('/addBlog', authMiddleware, addBlog)
+router.post('/editBlog', authMiddleware, editBlog)
+router.post('/deleteBlog', authMiddleware, deleteBlog)
 
 module.exports = router;

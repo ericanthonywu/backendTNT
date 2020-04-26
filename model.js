@@ -180,3 +180,12 @@ const adminSchema = new mongoose.Schema({
 });
 
 exports.admin = mongoose.model('admin', adminSchema)
+
+const blogSchema = new mongoose.Schema({
+    html: {type: String},
+    title: {type: String, required: true},
+}, {
+    timestamps: true
+});
+
+exports.blog = mongoose.model('blog', blogSchema)

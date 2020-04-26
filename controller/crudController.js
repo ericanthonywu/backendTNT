@@ -1,4 +1,4 @@
-const {clinic: Clinic, vet: Vet, user: User, appointment: Appointment} = require('../model')
+const {clinic: Clinic, vet: Vet, user: User, appointment: Appointment, blog: Blog} = require('../model')
 const bcrypt = require('bcryptjs')
 const {pushNotif} = require("../globalHelper");
 
@@ -174,7 +174,7 @@ exports.searchVetClinic = (req, res) => {
         .catch(err => res.status(200).json(err))
 }
 
-exports.editClinic = (req, res) => {
+exports.editClinic = async (req, res) => {
     const {username, email, address, session, password, _id: id} = req.body
     const query = {
         username,
@@ -184,7 +184,7 @@ exports.editClinic = (req, res) => {
     }
 
     if (password) {
-        query.password = bcrypt.hashSync(password, 10)
+        query.password = await bcrypt.hash(password, 10)
     }
 
     Clinic.findByIdAndUpdate(id, query).then(data => res.status(200).json(data))
@@ -278,3 +278,43 @@ exports.deleteVet = (req, res) => {
         .catch(err => res.status(500).json(err))
 }
 
+exports.getBlog = (req, res) => {
+    const {offset, limit} = req.body
+    Blog.find()
+        .select('title')
+        .skip(offset).limit(limit)
+        .then(() => res.status(200).json())
+        .catch(err => res.status(500).json(err))
+}
+
+exports.addBlog = (req, res) => {
+    const {html, title} = req.body
+    if (!html || !title) {
+        return res.status(400).json()
+    }
+    Blog.create({html, title})
+        .then(() => res.status(201).json())
+        .catch(err => res.status(500).json(err))
+}
+
+exports.editBlog = (req, res) => {
+    const {id, html, title} = req.body
+    if (!id || !html || !title) {
+        return res.status(400).json()
+    }
+
+    Blog.findByIdAndUpdate(id, {html, title})
+        .then(() => res.status(200).json())
+        .catch(err => res.status(500).json(err))
+}
+
+exports.deleteBlog = (req, res) => {
+    const {id} = req.body
+    if (!id) {
+        return res.status(400).json()
+    }
+
+    Blog.findByIdAndDelete(id)
+        .then(() => res.status(202).json())
+        .catch(err => res.status(500).json(err))
+}

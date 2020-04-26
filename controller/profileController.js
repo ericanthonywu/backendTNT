@@ -57,29 +57,29 @@ exports.update_pet = (req, res) => {
 
 exports.delete_pet = (req, res) => {
     const {petId} = req.body
+    console.log(req.body)
     User.findOne({
         _id: res.userData.id,
-        'pet._id': petId
-    }).select("pet.$.photo")
+        'pet._id': mongoose.Types.ObjectId(petId)
+    })
         .then(data => {
-            console.log(data);
-            fs.unlink(path.join(__dirname, "../uploads/pet/" + data.pet[0].photo), () => {
-                User.findByIdAndUpdate(res.userData.id, {
-                    $pull: {
-                        pet: {_id: petId}
-                    }
-                }).then(_ => res.status(200).json())
-                    .catch(err => res.status(500).json(err))
+            console.log(data)
+            fs.unlinkSync(path.join(__dirname, "../uploads/pet/" + data.pet[0].photo))
+            User.findByIdAndUpdate(res.userData.id, {
+                $pull: {
+                    pet: {_id: petId}
+                }
             })
+                .then(_ => res.status(200).json())
+                .catch(err => res.status(500).json(err))
         })
-        .catch(err => res.status(500).json(err))
+        // .catch(err => res.status(500).json(err))
 
 }
 
 exports.update_profile = (req, res) => {
     const {avatar, name: username, email, phoneNumber, address} = req.body
     const updatedData = {username, phoneNumber, address}
-
 
     if (avatar) {
         updatedData.profile_picture = avatar
