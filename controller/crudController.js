@@ -279,7 +279,7 @@ exports.deleteVet = (req, res) => {
 }
 
 exports.getBlog = (req, res) => {
-    const {offset, limit} = req.body
+    const {offset = 0, limit = 100} = req.body
     Blog.find()
         .select('title')
         .skip(offset).limit(limit)
