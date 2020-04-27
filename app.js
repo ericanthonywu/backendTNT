@@ -7,10 +7,11 @@ const logger = require('morgan');
 const bodyparser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const io = require('socket.io')()
+const mongoose = require('mongoose')
 
 require('dotenv').config({path: ".env"});
 
-const {user: User, vet: Vet, clinic: Clinic} = require('./model')
+const {user: User, vet: Vet, clinic: Clinic, blog: Blog} = require('./model')
 
 const app = express();
 
@@ -89,6 +90,14 @@ app.post('/checkValidToken', (req, res) => {
             role: data.role
         })
     })
+});
+
+// blog route
+app.get('/blog/:id', (req, res) => {
+    const {id} = req.params
+    Blog.findById(mongoose.Types.ObjectId(id))
+        .then(data => res.render('blog',data))
+        .catch(err => res.status(500).json(err))
 });
 
 app.use('/user', userRouter);

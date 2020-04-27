@@ -283,7 +283,19 @@ exports.getBlog = (req, res) => {
     Blog.find()
         .select('title')
         .skip(offset).limit(limit)
-        .then(() => res.status(200).json())
+        .then(data => res.status(200).json(data))
+        .catch(err => res.status(500).json(err))
+}
+
+exports.getDetailBlog = (req,res) => {
+    const {id} = req.body
+    if (!id){
+        return res.status(400).json()
+    }
+
+    Blog.findById(id)
+        .select('html')
+        .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
 

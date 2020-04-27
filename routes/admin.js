@@ -16,6 +16,7 @@ const express = require('express'),
         deleteClinic,
         editClinic,
         getBlog,
+        getDetailBlog,
         addBlog,
         editBlog,
         deleteBlog
@@ -45,6 +46,7 @@ router.post('/addVet', authMiddleware, addVet);
 
 //blog route
 router.post('/getBlog', authMiddleware, getBlog)
+router.post('/getDetailBlog', authMiddleware, getDetailBlog)
 router.post('/addBlog', authMiddleware, addBlog)
 router.post('/editBlog', authMiddleware, editBlog)
 router.post('/deleteBlog', authMiddleware, deleteBlog)

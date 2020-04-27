@@ -7,6 +7,7 @@ const express = require('express'),
     {userShowChat, userFileChat, userSendChat, endChat, getVet} = require("../controller/chatController"),
     {update_pet, add_pet, delete_pet, update_profile, user_profile} = require("../controller/profileController"),
     {getClinicByVet, searchVet, searchClinic} = require("../controller/dashboardController"),
+    {getBlog} = require("../controller/crudController"),
 
 //middleware
     {authMiddleware} = require('../middleware/authMiddleware'),
@@ -45,5 +46,7 @@ router.post('/cancelAppointment', authMiddleware, cancelAppointment)
 router.post('/showVetAvailable', authMiddleware, showVetAvailable)
 router.post('/showUsersTodayAppointment', authMiddleware, showUsersTodayAppointment)
 router.post('/showUserAppointment', authMiddleware, showUserAppointment)
+
+router.post('/getBlog', authMiddleware, getBlog)
 
 module.exports = router;
