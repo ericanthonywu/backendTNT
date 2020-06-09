@@ -26,7 +26,7 @@ exports.userSendChat = (req, res) => {
         .then(async _ => {
             res.status(200).json()
             const {io} = req
-            Vet.findById(vet).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
+            Vet.findById(vet).select("socketId fcmToken").lean().then(async ({socketId, fcmToken}) => {
                 if (io.sockets.connected[socketId]) {
                     io.sockets.connected[socketId].emit('newChat', {
                         message: message,
@@ -56,7 +56,7 @@ exports.vetSendChat = (req, res) => {
         res.status(200).json()
         const {io} = req
 
-        User.findById(user).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
+        User.findById(user).select("socketId fcmToken").lean().then(async ({socketId, fcmToken}) => {
             if (io.sockets.connected[socketId]) {
                 io.sockets.connected[socketId].emit('newChat', {
                     message: message,
@@ -74,6 +74,7 @@ exports.userShowChat = (req, res) => {
         user: res.userData.id,
         vet: vet,
     }).select("message.message message.read message.time message.file status message.user message.vet")
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -84,7 +85,9 @@ exports.vetShowChat = (req, res) => {
     Chat.findOne({
         user: user,
         vet: res.userData.id
-    }).select("message.message message.read message.time message.file status message.vet")
+    })
+        .select("message.message message.read message.time message.file status message.vet")
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -94,6 +97,7 @@ exports.getVet = (req, res) => {
         user: res.userData.id
     }).populate("vet", "username profile_picture")
         .select({message: {$slice: -1}, vet: 1})
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -103,6 +107,7 @@ exports.getUser = (req, res) => {
         vet: res.userData.id
     }).populate("user", "username profile_picture")
         .select({message: {$slice: -1}, user: 1})
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -123,11 +128,11 @@ exports.userFileChat = (req, res) => {
     }).setOptions({
         setDefaultsOnInsert: true,
         upsert: true
-    })
+    }).lean()
         .then(async _ => {
             res.status(200).json()
             const {io} = req
-            Vet.findById(vet).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
+            Vet.findById(vet).select("socketId fcmToken").lean().then(async ({socketId, fcmToken}) => {
                 if (io.sockets.connected[socketId]) {
                     io.sockets.connected[socketId].emit('newChat', {
                         file: req.file.filename,
@@ -156,11 +161,14 @@ exports.vetFileChat = (req, res) => {
     }).setOptions({
         setDefaultsOnInsert: true,
         upsert: true
-    })
+    }).lean()
         .then(async _ => {
             res.status(200).json()
             const {io} = req
-            User.findById(user).select("socketId fcmToken").then(async ({socketId, fcmToken}) => {
+            User.findById(user)
+                .select("socketId fcmToken")
+                .lean()
+                .then(async ({socketId, fcmToken}) => {
                 if (io.sockets.connected[socketId]) {
                     io.sockets.connected[socketId].emit('newChat', {
                         file: req.file.filename,
@@ -186,16 +194,16 @@ exports.endChat = (req, res) => {
                 .populate("vet", "username")
                 .populate("message.user", "username")
                 .populate("message.vet", "username")
+                .lean()
                 .then(async ({message, user, vet}) => {
                     // Chat.findByIdAndDelete(chatId) TODO: Jangan lupa delete stelah testing
 
                     // define file path
                     const filePath = path.join(__dirname, `../chatBackupTemp/${chatId + Date.now().toString() + user + vet}log.txt`);
 
-
-                    const turnChatIntoFile = _ => {
+                    fs.writeFile(filePath, await async function(){
                         let chatMessage = ""
-                        message.forEach(({message, time, file, user, vet}) => {
+                        await message.forEach(({message, time, file, user, vet}) => {
                             const spaceBar = " ";
                             let currentLineChat = moment(time).format("YYYY-MM-DD HH:mm:ss") + spaceBar; // add time it sent
                             currentLineChat += (user ? user.username : vet.username) + ":" + spaceBar; //put sender identifier after time
@@ -204,8 +212,7 @@ exports.endChat = (req, res) => {
                             chatMessage += currentLineChat + "\n" //line break at end of message
                         })
                         return chatMessage
-                    }
-                    fs.writeFile(filePath, await turnChatIntoFile(), err => {
+                    }, err => {
                         if (err) {
                             console.log(err)
                         }
@@ -220,7 +227,7 @@ exports.endChat = (req, res) => {
                                 fs.unlinkSync(filePath)
                             ).catch(err => {
                                 console.log(err)
-                                sendToDrive()
+                                this()
                             })
                         }
                         sendToDrive()

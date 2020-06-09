@@ -32,6 +32,7 @@ exports.searchVet = (req, res) => {
             {$limit: 10},
             {$skip: parseInt(offset) || 0}
         ])
+            .lean()
             .then(data => res.status(200).json(data))
             .catch(err => res.status(500).json(err))
     } else {
@@ -79,6 +80,7 @@ exports.searchClinic = async (req, res) => {
                 profile_picture: 1
             }
         })
+            .lean()
             .then(data => res.status(200).json(data))
             .catch(err => res.status(500).json(err))
     } else {
@@ -90,6 +92,7 @@ exports.getClinicByVet = (req,res) => {
     const {vetId} = req.body
     Clinic.find({vet: vetId})
         .select("username")
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }

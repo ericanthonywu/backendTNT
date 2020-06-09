@@ -15,7 +15,9 @@ exports.login = (req, res) => {
             {username: usernameOrEmail},
             {email: usernameOrEmail}
         ]
-    }).select("username password email ban profile_picture email_status loginWithFacebook loginWithGoogle").then(data => {
+    }).select("username password email ban profile_picture email_status loginWithFacebook loginWithGoogle")
+        .lean()
+        .then(data => {
         if (data) {
 
             if (data.ban) {
@@ -170,17 +172,16 @@ exports.register = (req, res) => {
     }
 };
 
-exports.reSendEmail = (req, res) => {
+exports.reSendEmail = async (req, res) => {
     const {email, username} = req.body
-    const generateToken = () => {
+    const token = await function () {
         const token = Math.floor((Math.random() * 1000000) + 1)
         if (token.toString().length !== 6) {
-            generateToken()
+            return this()
         } else {
             return token
         }
-    }
-    const token = generateToken();
+    };
     User.findOneAndUpdate({email: email}, {
         email_verification_token: token,
         email_expire_token: moment(Date.now()).add(3, "minutes").toISOString(),
@@ -221,6 +222,7 @@ exports.verifyEmail = (req, res) => {
         email_verification_token: parseInt(token),
         email_expire_token: {$gte: moment(Date.now()).toISOString()}
     })
+        .lean()
         .then(doc => {
             if (doc) {
                 User.findOneAndUpdate({email: email}, {email_status: true, email_verification_token: null})
@@ -240,7 +242,9 @@ exports.loginVet = (req, res) => {
             {username: usernameOrEmail},
             {email: usernameOrEmail}
         ]
-    }).select("username password ban email profile_picture email_status").then(data => {
+    }).select("username password ban email profile_picture email_status")
+        .lean()
+        .then(data => {
         if (data.ban) {
             return res.status(403).json()
         }
@@ -302,7 +306,7 @@ exports.loginClinic = (req, res) => {
     const {username, password} = req.body
     Clinic.findOne({
         username: username
-    }).select("password").then(data => {
+    }).select("password").lean().then(data => {
         if (!data) {
             return res.status(404).json()
         }
@@ -341,7 +345,7 @@ exports.loginAdmin = (req, res) => {
     }
     Admin.findOne({
         username: username
-    }).select("password username").then(({password, _id: id, username}) => {
+    }).select("password username").lean().then(({password, _id: id, username}) => {
         if (!password) {
             return res.status(404).json()
         }
@@ -387,6 +391,7 @@ exports.verifyEmailVet = (req, res) => {
         email_verification_token: token,
         email_expire_token: {$gte: moment(Date.now()).toISOString()}
     })
+        .lean()
         .then(doc => {
             if (doc) {
                 Vet.findOneAndUpdate({email: email}, {email_status: true, email_verification_token: null})

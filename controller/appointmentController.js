@@ -13,7 +13,7 @@ exports.addAppointment = (req, res) => {
                 $lte: moment(time).add(1, "hour")
             },
             vet: vet,
-        }).then(c => {
+        }).lean().then(c => {
             if (c < 4) {
                 new Appointment({
                     vet,
@@ -25,7 +25,7 @@ exports.addAppointment = (req, res) => {
                     .then(async ({_id}) => {
                         res.status(200).json()
                         const {io} = req
-                        Vet.findById(vet).select("socketId username fcmToken").then(({socketId, username, fcmToken}) => {
+                        Vet.findById(vet).select("socketId username fcmToken").lean().then(({socketId, username, fcmToken}) => {
                             scheduler.scheduleJob(_id.toString(), moment(time).subtract(15, "minutes").toISOString(), _ => {
                                 pushNotif(fcmToken, "Appointment Reminder", `sebentar lagi ada appoinment dengan user ${res.userData.username} jangan sampai telat ya!`)
                                 userPushNotif(res.userData.id, "Appointment Reminder", `sebentar lagi ada appoinment dengan Dr. ${username} jangan sampai telat ya!`)
@@ -64,6 +64,7 @@ exports.reScheduleAppointment = (req, res) => {
             .select("clinic vet")
             .populate("clinic", "socketId")
             .populate("vet", "username")
+            .lean()
             .then(({clinic,vet}) => {
                 const {io} = req
                 if (io.sockets.connected[clinic.socketId]) {
@@ -90,6 +91,7 @@ exports.reScheduleAppointmentAction = (req, res) => {
         .select("user vet")
         .populate("user", "username fcmToken")
         .populate("vet", "username fcmToken")
+        .lean()
         .then(({user, vet}) => {
             switch (action) {
                 case "accept":
@@ -126,6 +128,7 @@ exports.cancelAppointment = (req, res) => {
             Appointment.findById(id)
                 .select("vet time")
                 .populate("vet", "fcmToken")
+                .lean()
                 .then(({vet, time}) =>
                     vetPushNotif(
                         vet.fcmToken,
@@ -147,6 +150,7 @@ exports.showVetAvailable = (req, res) => {
             $gte: moment()
         }
     }).select("time")
+        .lean()
         .then(time => res.status(200).json(time))
         .catch(err => res.status(500).json(err))
 }
@@ -160,6 +164,7 @@ exports.showVetAppointment = (req, res) => {
         }
     }).populate("user", "username")
         .select("user time")
+        .lean()
         .then(appointment => res.status(200).json(appointment))
         .catch(err => res.status(500).json(err))
 }
@@ -172,6 +177,7 @@ exports.showUserAppointment = (req, res) => {
         .populate("clinic", "username")
         .select("time status clinic vet")
         .sort({time: -1})
+        .lean()
         .then(appointment => res.status(200).json(appointment))
         .catch(err => res.status(500).json(err))
 }
@@ -187,6 +193,7 @@ exports.showUsersTodayAppointment = (req, res) => {
     }).populate("vet", "username profile_picture")
         .select("time vet")
         .sort({time: -1})
+        .lean()
         .then(appointment => res.status(200).json(appointment))
         .catch(err => res.status(500).json(err))
 }
@@ -197,6 +204,7 @@ exports.clinicShowAllPendingAppointment = (req, res) => {
         .select("user time vet")
         .populate("user", "username")
         .populate("vet", "username")
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -207,6 +215,7 @@ exports.clinicShowQuickPendingAppointment = (req, res) => {
         .select("user timeRequested vet")
         .populate("user", "username")
         .populate("vet", "username")
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -219,9 +228,9 @@ exports.clinicShowAllBookingAppointment = (req, res) => {
         .select("user time vet")
         .populate("user", "username phoneNumber email")
         .populate("vet", "username")
-
         .limit(10)
         .skip(offset)
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -238,6 +247,7 @@ exports.clinicShowOngoingAppointment = (req, res) => {
         // .populate("pet", "username")
         .limit(10)
         .skip(offset)
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 

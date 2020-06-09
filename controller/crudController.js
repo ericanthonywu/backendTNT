@@ -75,7 +75,8 @@ exports.showClinic = (req, res) => {
         },
         {$limit: 8},
         {$skip: offset || 0}
-    ]).then(data => res.status(200).json(data))
+    ]).lean()
+        .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
 
@@ -89,7 +90,8 @@ exports.showVetClinic = (req, res) => {
         .select("vet")
         .limit(8)
         .skip(offset)
-        .populate("vet", "username createdAt cert_id expYear KTP ")
+        .populate("vet", "username createdAt cert_id expYear KTP")
+        .lean()
         .then(({vet}) => res.status(200).json(({vet})))
         .catch(err => res.status(500).json(err))
 }
@@ -170,6 +172,7 @@ exports.searchVetClinic = (req, res) => {
 
     Vet.find({username: {$regex: `(?i)${keyword}.*`}})
         .select("username profile_picture id_cert")
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(200).json(err))
 }
@@ -187,7 +190,8 @@ exports.editClinic = async (req, res) => {
         query.password = await bcrypt.hash(password, 10)
     }
 
-    Clinic.findByIdAndUpdate(id, query).then(data => res.status(200).json(data))
+    Clinic.findByIdAndUpdate(id, query)
+        .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
 
@@ -200,6 +204,7 @@ exports.detailClinic = (req, res) => {
     Clinic.findById(clinicId)
         .select("vet username email address location createdAt photo session.coordinates")
         .populate("vet", "cert_id username createdAt expYear")
+        .lean()
         .then(data => res.status(data ? 200 : 404).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -210,7 +215,7 @@ exports.showAllVet = (req, res) => {
         .select("username profile_picture email expYear KTP ban cert_id promoted createdAt session.coordinates")
         .skip(offset || 0)
         .limit(8)
-
+        .lean()
         .then(data => res.status(data ? 200 : 404).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -241,6 +246,7 @@ exports.detailVet = (req, res) => {
     const {vetId} = req.body
     Vet.findById(vetId)
         .select("username profile_picture email expYear KTP cert_id createdAt session.coordinates")
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -282,7 +288,9 @@ exports.getBlog = (req, res) => {
     const {offset = 0, limit = 100} = req.body
     Blog.find()
         .select('title')
-        .skip(offset).limit(limit)
+        .skip(offset)
+        .limit(limit)
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
@@ -295,6 +303,7 @@ exports.getDetailBlog = (req,res) => {
 
     Blog.findById(id)
         .select('html')
+        .lean()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }

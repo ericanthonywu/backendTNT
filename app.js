@@ -6,12 +6,12 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyparser = require('body-parser');
 const jwt = require('jsonwebtoken');
-const io = require('socket.io')()
-const mongoose = require('mongoose')
+const io = require('socket.io')();
+const mongoose = require('mongoose');
 
 require('dotenv').config({path: ".env"});
 
-const {user: User, vet: Vet, clinic: Clinic, blog: Blog} = require('./model')
+const {user: User, vet: Vet, clinic: Clinic, blog: Blog} = require('./model');
 
 const app = express();
 
@@ -45,7 +45,7 @@ io.on('connection', connection => {
     }
 })
 
-app.use((req, res, next) => { //global socket
+app.use((req, res, next) => { // global socket
     req.io = io
     next()
 })
@@ -65,9 +65,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 const userRouter = require('./routes/user');
-const vetRouter = require('./routes/vet')
-const clinicRouter = require('./routes/clinic')
-const adminRouter = require('./routes/admin')
+const vetRouter = require('./routes/vet');
+const clinicRouter = require('./routes/clinic');
+const adminRouter = require('./routes/admin');
 
 //handle token route
 app.post('/checkValidToken', (req, res) => {
@@ -95,8 +95,11 @@ app.post('/checkValidToken', (req, res) => {
 // blog route
 app.get('/blog/:id', (req, res) => {
     const {id} = req.params
+    if (!id) {
+        return res.status(400).json({message: "Id is required"})
+    }
     Blog.findById(mongoose.Types.ObjectId(id))
-        .then(data => res.render('blog',data))
+        .then(data => res.render('blog', data))
         .catch(err => res.status(500).json(err))
 });
 

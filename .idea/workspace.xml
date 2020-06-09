@@ -3,7 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/appointmentController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/crudController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/crudController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/dashboardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/dashboardController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,9 +51,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/types/subdocument.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/routes/admin.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/model.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/query.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/types/subdocument.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
@@ -68,7 +78,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="12.13.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/uploads/vet" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -90,6 +100,12 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/uploads/vet" />
+      <recent name="$PROJECT_DIR$/uploads/pet" />
+      <recent name="$PROJECT_DIR$/uploads/images" />
+      <recent name="$PROJECT_DIR$/uploads/clinic" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/uploads" />
       <recent name="$PROJECT_DIR$/images" />
@@ -233,7 +249,22 @@
       <workItem from="1585749283584" duration="598000" />
       <workItem from="1586090071627" duration="3735000" />
       <workItem from="1586242743859" duration="323000" />
-      <workItem from="1587908813934" duration="5173000" />
+      <workItem from="1587908813934" duration="9613000" />
+      <workItem from="1588614583034" duration="84000" />
+      <workItem from="1588649331630" duration="1202000" />
+      <workItem from="1588675306535" duration="455000" />
+      <workItem from="1588736336561" duration="2680000" />
+      <workItem from="1588953298867" duration="1107000" />
+      <workItem from="1589639790891" duration="480000" />
+      <workItem from="1589811193913" duration="547000" />
+      <workItem from="1589820415678" duration="8000" />
+      <workItem from="1589863471262" duration="15000" />
+      <workItem from="1590531264507" duration="1312000" />
+      <workItem from="1590874917090" duration="430000" />
+      <workItem from="1591450198184" duration="1784000" />
+      <workItem from="1591471736096" duration="582000" />
+      <workItem from="1591525163121" duration="597000" />
+      <workItem from="1591624839905" duration="2235000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -431,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587980504230</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="add default offset and limit when getting blog">
+      <created>1587981811130</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1587981811131</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -456,7 +494,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="backend login and register" />
     <MESSAGE value="backend search by distance &amp;&amp; profiling" />
     <MESSAGE value="update profile, add pet &amp;&amp; update pet" />
     <MESSAGE value="update profile not tested" />
@@ -481,75 +518,58 @@
     <MESSAGE value="add clinic photo" />
     <MESSAGE value="blog crud" />
     <MESSAGE value="blog crud and show blog done" />
-    <option name="LAST_COMMIT_MESSAGE" value="blog crud and show blog done" />
+    <MESSAGE value="add default offset and limit when getting blog" />
+    <option name="LAST_COMMIT_MESSAGE" value="add default offset and limit when getting blog" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="320" y="115" key="#Go_Linter" timestamp="1584444497674">
+    <state x="320" y="115" key="#Go_Linter" timestamp="1588953320111">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="115" key="#Go_Linter/0.0.1440.900@0.0.1440.900" timestamp="1584444497674" />
+    <state x="320" y="115" key="#Go_Linter/0.0.1440.900@0.0.1440.900" timestamp="1588953320111" />
     <state x="408" y="158" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1585041213546">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="408" y="158" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1440.900@0.0.1440.900" timestamp="1585041213546" />
-    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1587980503953">
+    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1587981810918">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587980503953" />
-    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1583608784382">
+    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587981810918" />
+    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1587981797980">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1583608784382" />
-    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.23.1440.877@0.23.1440.877" timestamp="1581915160419" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587980603565">
+    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1587981797980" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1591682743687">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587980603565" />
-    <state width="1398" height="231" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1584788135700" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587980603563">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1591682743687" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1588614519873" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1591682743684">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587980603563" />
-    <state width="1398" height="231" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1585039987410" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587980603562">
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1591682743684" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1588614519871" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1591682743680">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587980603562" />
-    <state width="1398" height="231" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1585039987407" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587980603564">
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1591682743680" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1588614519870" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1591682743685">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587980603564" />
-    <state width="1398" height="231" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1585039987411" />
-    <state x="332" y="70" width="777" height="759" key="NewModule_or_Project.wizard" timestamp="1582814020391">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="332" y="70" width="777" height="759" key="NewModule_or_Project.wizard/0.0.1440.900@0.0.1440.900" timestamp="1582814020391" />
-    <state x="535" y="83" key="RollbackChangesDialog" timestamp="1579945218170">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="535" y="83" key="RollbackChangesDialog/0.0.1440.900@0.0.1440.900" timestamp="1579945218170" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1591682743685" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1588614519872" />
     <state x="221" y="63" key="SettingsEditor" timestamp="1583762151077">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1583762151077" />
-    <state x="100" y="100" width="1240" height="700" key="ShowDiffWithBranchDialog" timestamp="1581915160420">
-      <screen x="0" y="23" width="1440" height="877" />
-    </state>
-    <state x="100" y="100" width="1240" height="700" key="ShowDiffWithBranchDialog/0.23.1440.877@0.23.1440.877" timestamp="1581915160420" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1587980506034">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1591624907062">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1587980506034" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1591624907062" />
     <state x="397" y="312" key="com.intellij.ide.util.TipDialog" timestamp="1584954469555">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="397" y="312" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1584954469555" />
-    <state x="397" y="327" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1582970492717" />
-    <state x="291" y="159" width="858" height="582" key="find.popup" timestamp="1582803846810">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="291" y="159" width="858" height="582" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1582803846810" />
     <state x="97" y="27" key="new project wizard" timestamp="1585045222943">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

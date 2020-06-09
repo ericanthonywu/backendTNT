@@ -1,7 +1,7 @@
 const express = require('express'),
     router = express.Router(),
 
-//controller
+// controller
     {loginAdmin, migrateAdmin} = require('../controller/authController'),
     {
         addClinic,

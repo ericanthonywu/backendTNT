@@ -2,11 +2,11 @@ const Axios = require('axios')
 const {user: User, vet: Vet} = require('./model')
 
 exports.userPushNotif = (user, title, body, data = {}) => {
-    User.findById(user).select("fcmToken").then(({fcmToken}) => pushNotif(fcmToken, title, body, data))
+    User.findById(user).select("fcmToken").lean().then(({fcmToken}) => pushNotif(fcmToken, title, body, data))
 }
 
 exports.vetPushNotif = (vet, title, body, data = {}) => {
-    Vet.findById(vet).select("fcmToken").then(({fcmToken}) => pushNotif(fcmToken, title, body, data))
+    Vet.findById(vet).select("fcmToken").lean().then(({fcmToken}) => pushNotif(fcmToken, title, body, data))
 }
 
 exports.pushNotif = (fcmToken, title, body, data = {}) => {
