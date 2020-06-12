@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 //     auth: {authSource: "admin"},
 //     user: "mongodadmin",
 //     pass: "password123",
-mongoose.connect('mongodb://localhost/tnt3', {
+mongoose.connect(process.env.MONGOURL, {
     useNewUrlParser: true,
     keepAlive: true,
     keepAliveInitialDelay: 300000,
