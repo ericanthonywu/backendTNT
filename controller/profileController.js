@@ -76,7 +76,7 @@ exports.delete_pet = (req, res) => {
 
             User.findByIdAndUpdate(res.userData.id, {
                 $pull: {
-                    // pet: {_id: petId}
+                    pet: {_id: petId}
                 }
             })
                 .then(() => res.status(200).json())

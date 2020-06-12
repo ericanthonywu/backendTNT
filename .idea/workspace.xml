@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update .env">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update gitignore" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -274,7 +272,7 @@
       <workItem from="1591525163121" duration="597000" />
       <workItem from="1591624839905" duration="4184000" />
       <workItem from="1591718361595" duration="8503000" />
-      <workItem from="1591900886726" duration="925000" />
+      <workItem from="1591900886726" duration="1836000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -500,7 +498,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591934131614</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="update gitignore">
+      <created>1591934277273</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1591934277273</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -525,7 +530,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="fix profiling, intergrate with mobile" />
     <MESSAGE value="optimize live chat w/ push notif" />
     <MESSAGE value="appointment reschedule, cancel and make scheduler push notif reminder" />
     <MESSAGE value="optimize push notif" />
@@ -550,7 +554,8 @@
     <MESSAGE value="add lean query" />
     <MESSAGE value="update backend" />
     <MESSAGE value="update .env" />
-    <option name="LAST_COMMIT_MESSAGE" value="update .env" />
+    <MESSAGE value="update gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="update gitignore" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="115" key="#Go_Linter" timestamp="1588953320111">
@@ -593,10 +598,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1591771295794" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1591934133606">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1591934278276">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1591934133606" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1591934278276" />
     <state x="397" y="312" key="com.intellij.ide.util.TipDialog" timestamp="1584954469555">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
