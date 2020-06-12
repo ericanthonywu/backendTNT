@@ -192,7 +192,7 @@ exports.showUsersTodayAppointment = (req, res) => {
         }
     }).populate("vet", "username profile_picture")
         .select("time vet")
-        .sort({time: -1})
+        .sort({time: 1})
         .lean()
         .then(appointment => res.status(200).json(appointment))
         .catch(err => res.status(500).json(err))

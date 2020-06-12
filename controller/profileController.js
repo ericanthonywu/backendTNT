@@ -58,24 +58,31 @@ exports.update_pet = (req, res) => {
 };
 
 exports.delete_pet = (req, res) => {
-    const {petId} = req.body
-    console.log(req.body)
+    const {id: petId} = req.body
+    console.log(petId)
+    User.aggregate([
+        {$match: {_id: res.userData.id}},
+        {$unwind: '$pet'},
+        {$match: {"pet._id": petId}},
+        {$group: {_id: '$_id', list: {$push: 'pet.photo'}}}
+    ]).then(data => console.log(data))
     User.findOne({
         _id: res.userData.id,
-        'pet._id': mongoose.Types.ObjectId(petId)
-    }).lean()
-        .then(data => {
-            console.log(data)
-            fs.unlinkSync(path.join(__dirname, "../uploads/pet/" + data.pet[0].photo))
+        pet: {$elemMatch: {_id: petId}},
+    }).select("pet.photo pet._id").lean()
+        .then(async ({pet}) => {
+            console.log(pet)
+            // fs.unlinkSync(path.join(__dirname, "../uploads/pet/" + realPhoto))
+
             User.findByIdAndUpdate(res.userData.id, {
                 $pull: {
-                    pet: {_id: petId}
+                    // pet: {_id: petId}
                 }
             })
-                .then(_ => res.status(200).json())
+                .then(() => res.status(200).json())
                 .catch(err => res.status(500).json(err))
         })
-        // .catch(err => res.status(500).json(err))
+    // .catch(err => res.status(500).json(err))
 
 }
 

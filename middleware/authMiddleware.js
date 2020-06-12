@@ -20,7 +20,7 @@ exports.authMiddleware = (req, res, next) => {
         //     return res.status(403).json()
         // }
 
-        //TODO: ADD SECURITY ROLE IN JWT
+        // TODO: ADD SECURITY ROLE IN JWT
 
         res.userData = data;
         next()

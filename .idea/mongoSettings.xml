@@ -17,6 +17,6 @@
         </ServerConfiguration>
       </list>
     </option>
-    <option name="shellPath" value="/Applications/mongodb-macos-x86_64-4.2.1/bin/mongo" />
+    <option name="shellPath" value="/Applications/mongodb-macos-x86_64-4.3.4/bin/mongo" />
   </component>
 </project>

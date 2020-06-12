@@ -387,14 +387,14 @@ exports.migrateAdmin = (req, res) => {
 exports.verifyEmailVet = (req, res) => {
     const {token, email} = req.body;
     Vet.countDocuments({
-        email: email,
+        email,
         email_verification_token: token,
         email_expire_token: {$gte: moment(Date.now()).toISOString()}
     })
         .lean()
         .then(doc => {
             if (doc) {
-                Vet.findOneAndUpdate({email: email}, {email_status: true, email_verification_token: null})
+                Vet.findOneAndUpdate({email}, {email_status: true, email_verification_token: null})
                     .then(_ => res.status(202).json())
                     .catch(err => res.status(500).json(err));
             } else {

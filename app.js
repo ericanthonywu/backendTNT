@@ -28,18 +28,18 @@ io.on('connection', connection => {
     if (id && client) {
         switch (client) {
             case "user":
-                User.findByIdAndUpdate(conId, {
-                    socketId: connection.id
+                User.findByIdAndUpdate(id, {
+                    socketId: conId
                 }).catch(console.log)
                 break;
             case "vet":
-                Vet.findByIdAndUpdate(conId, {
-                    socketId: connection.id
+                Vet.findByIdAndUpdate(id, {
+                    socketId: conId
                 }).catch(console.log)
                 break;
             case "clinic":
-                Clinic.findByIdAndUpdate(conId, {
-                    socketId: connection.id
+                Clinic.findByIdAndUpdate(id, {
+                    socketId: conId
                 }).catch(console.log)
         }
     }
