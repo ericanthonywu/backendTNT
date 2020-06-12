@@ -4,3 +4,4 @@
 chatBackupTemp/
 node_modules
 .idea
+.env
