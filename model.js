@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "development") {
     }).then(_ => mongoose.connection.db.on('error', console.error.bind(console, 'connection error:')))
         .catch(err => console.log(err));
 } else {
-    mongoose.connect('mongodb://10.148.0.12:27017/tnt', {
+    mongoose.connect(process.env.MONGOURL, {
         auth: {authSource: "admin"},
         user: "mg-adm01",
         pass: "4nn15A4176",
