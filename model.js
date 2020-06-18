@@ -1,18 +1,29 @@
 const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://10.148.0.12:27017/tnt', {
-//     auth: {authSource: "admin"},
-//     user: "mongodadmin",
-//     pass: "password123",
-mongoose.connect(process.env.MONGOURL, {
-    useNewUrlParser: true,
-    keepAlive: true,
-    keepAliveInitialDelay: 300000,
-    useFindAndModify: false,
-    useCreateIndex: true,
-    useUnifiedTopology: true
-}).then(_ => mongoose.connection.db.on('error', console.error.bind(console, 'connection error:')))
-    .catch(err => console.log(err));
+if (process.env.NODE_ENV === "development") {
+    mongoose.connect(process.env.MONGOURL, {
+        useNewUrlParser: true,
+        keepAlive: true,
+        keepAliveInitialDelay: 300000,
+        useFindAndModify: false,
+        useCreateIndex: true,
+        useUnifiedTopology: true
+    }).then(_ => mongoose.connection.db.on('error', console.error.bind(console, 'connection error:')))
+        .catch(err => console.log(err));
+} else {
+    mongoose.connect('mongodb://10.148.0.12:27017/tnt', {
+        auth: {authSource: "admin"},
+        user: "mg-adm01",
+        pass: "4nn15A4176",
+        useNewUrlParser: true,
+        keepAlive: true,
+        keepAliveInitialDelay: 300000,
+        useFindAndModify: false,
+        useCreateIndex: true,
+        useUnifiedTopology: true
+    }).then(_ => mongoose.connection.db.on('error', console.error.bind(console, 'connection error:')))
+        .catch(err => console.log(err));
+}
 
 const vetSchema = new mongoose.Schema({
     username: {type: String, required: true, trim: true, unique: true},

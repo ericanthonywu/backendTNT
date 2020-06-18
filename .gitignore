@@ -5,3 +5,4 @@ chatBackupTemp/
 node_modules
 .idea
 .env
+uploads/clinic/.gitignore
