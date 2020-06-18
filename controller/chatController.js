@@ -161,7 +161,7 @@ exports.vetFileChat = (req, res) => {
     }).setOptions({
         setDefaultsOnInsert: true,
         upsert: true
-    }).lean()
+    })
         .then(async _ => {
             res.status(200).json()
             const {io} = req
