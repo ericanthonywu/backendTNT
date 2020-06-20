@@ -75,7 +75,7 @@ exports.showClinic = (req, res) => {
         },
         {$limit: 8},
         {$skip: offset || 0}
-    ]).lean()
+    ])
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json(err))
 }
