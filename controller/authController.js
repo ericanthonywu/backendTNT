@@ -111,18 +111,16 @@ exports.register = (req, res) => {
                         pass: process.env.EMAILPASSWORD
                     }
                 });
-                const mailOption = {
-                    from: "noreply@tailandtale.com",
-                    to: email,
-                    subject: "Token Verification",
-                    html: `Hello ${username}! <br><br>Thank you for registering, your token verification is: <br><br><p style="font-size:24px;"><b>${token}</b></p><br>
-                        IMPORTANT! NEVER TELL YOUR TOKEN TO ANYONE!
-                        <img alt="TNT Logo" src="http://tailandtale.com/wp-content/uploads/2019/08/tnt_logo_jul19-1.png"/>
-`
-                };
                 new User(userData).save()
                     .then(userDataDatabase => {
-                        transpoter.sendMail(mailOption, err => {
+                        transpoter.sendMail({
+                            from: "noreply@tailandtale.com",
+                            to: email,
+                            subject: "Token Verification",
+                            html: `Hello ${username}! <br><br>Thank you for registering, your token verification is: <br><br><p style="font-size:24px;"><b>${token}</b></p><br>
+                        IMPORTANT! NEVER TELL YOUR TOKEN TO ANYONE!
+                        <img alt="TNT Logo" src="http://tailandtale.com/wp-content/uploads/2019/08/tnt_logo_jul19-1.png"/>`
+                        }, err => {
                             if (err) {
                                 console.log(err)
                             }

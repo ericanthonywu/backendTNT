@@ -19,9 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="remove unnecessary lean">
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update auth and crud">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/crudController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/crudController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +284,7 @@
       <workItem from="1592539986080" duration="824000" />
       <workItem from="1592651405475" duration="1686000" />
       <workItem from="1592811226319" duration="501000" />
-      <workItem from="1592829024200" duration="414000" />
+      <workItem from="1592829024200" duration="852000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -537,7 +538,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592455796356</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="update auth and crud">
+      <created>1592830185059</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1592830185059</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,7 +570,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="optimize push notif" />
     <MESSAGE value="agenda" />
     <MESSAGE value="fix bug" />
     <MESSAGE value="add chat file" />
@@ -587,7 +594,8 @@
     <MESSAGE value="update gitignore" />
     <MESSAGE value="update connect to server production" />
     <MESSAGE value="remove unnecessary lean" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove unnecessary lean" />
+    <MESSAGE value="update auth and crud" />
+    <option name="LAST_COMMIT_MESSAGE" value="update auth and crud" />
   </component>
   <component name="WindowStateProjectService">
     <state x="320" y="115" key="#Go_Linter" timestamp="1588953320111">
@@ -606,34 +614,34 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1587981797980" />
-    <state width="1398" height="345" key="GridCell.Tab.0.bottom" timestamp="1592829048657">
+    <state width="1398" height="345" key="GridCell.Tab.0.bottom" timestamp="1592830283425">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="345" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1592829048657" />
+    <state width="1398" height="345" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1592830283425" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1588614519873" />
-    <state width="1398" height="345" key="GridCell.Tab.0.center" timestamp="1592829048654">
+    <state width="1398" height="345" key="GridCell.Tab.0.center" timestamp="1592830283423">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="345" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1592829048654" />
+    <state width="1398" height="345" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1592830283423" />
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1588614519871" />
-    <state width="1398" height="345" key="GridCell.Tab.0.left" timestamp="1592829048650">
+    <state width="1398" height="345" key="GridCell.Tab.0.left" timestamp="1592830283422">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="345" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1592829048650" />
+    <state width="1398" height="345" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1592830283422" />
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1588614519870" />
-    <state width="1398" height="345" key="GridCell.Tab.0.right" timestamp="1592829048656">
+    <state width="1398" height="345" key="GridCell.Tab.0.right" timestamp="1592830283424">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="345" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1592829048656" />
+    <state width="1398" height="345" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1592830283424" />
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1588614519872" />
     <state x="221" y="63" key="SettingsEditor" timestamp="1591771295794">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1591771295794" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1592455797600">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1592830187398">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1592455797600" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1592830187397" />
     <state x="397" y="312" key="com.intellij.ide.util.TipDialog" timestamp="1584954469555">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
