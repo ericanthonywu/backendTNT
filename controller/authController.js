@@ -112,7 +112,7 @@ exports.register = (req, res) => {
                     }
                 });
                 const mailOption = {
-                    from: "Tail 'n Tales Token Verification",
+                    from: "noreply@tailandtale.com",
                     to: email,
                     subject: "Token Verification",
                     html: `Hello ${username}! <br><br>Thank you for registering, your token verification is: <br><br><p style="font-size:24px;"><b>${token}</b></p><br>

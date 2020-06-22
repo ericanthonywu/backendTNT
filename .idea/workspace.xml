@@ -281,6 +281,9 @@
       <workItem from="1592459688876" duration="1217000" />
       <workItem from="1592490244724" duration="592000" />
       <workItem from="1592539986080" duration="824000" />
+      <workItem from="1592651405475" duration="1686000" />
+      <workItem from="1592811226319" duration="501000" />
+      <workItem from="1592829024200" duration="414000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -603,25 +606,25 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1587981797980" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1591852358952">
+    <state width="1398" height="345" key="GridCell.Tab.0.bottom" timestamp="1592829048657">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1591852358952" />
+    <state width="1398" height="345" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1592829048657" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1588614519873" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1591852358949">
+    <state width="1398" height="345" key="GridCell.Tab.0.center" timestamp="1592829048654">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1591852358949" />
+    <state width="1398" height="345" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1592829048654" />
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1588614519871" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1591852358947">
+    <state width="1398" height="345" key="GridCell.Tab.0.left" timestamp="1592829048650">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1591852358947" />
+    <state width="1398" height="345" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1592829048650" />
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1588614519870" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1591852358951">
+    <state width="1398" height="345" key="GridCell.Tab.0.right" timestamp="1592829048656">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1591852358951" />
+    <state width="1398" height="345" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1592829048656" />
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1588614519872" />
     <state x="221" y="63" key="SettingsEditor" timestamp="1591771295794">
       <screen x="0" y="0" width="1440" height="900" />
@@ -635,10 +638,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="397" y="312" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1584954469555" />
-    <state x="97" y="27" key="new project wizard" timestamp="1585045222943">
+    <state x="97" y="27" key="new project wizard" timestamp="1592653288888">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="97" y="27" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1585045222943" />
+    <state x="97" y="27" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1592653288888" />
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1584449063967">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

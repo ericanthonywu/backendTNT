@@ -103,6 +103,7 @@ exports.addVetClinic = (req, res) => {
         if (count) {
             return res.status(409).json()
         }
+
         Clinic.findByIdAndUpdate(res.userData.id, {
             $push: {
                 vet: vetId
@@ -116,7 +117,7 @@ exports.banVetClinic = (req, res) => {
     const {vetId, ban} = req.body
     Vet.findByIdAndUpdate(vetId, {
         ban: ban
-    }).then(_ => {
+    }).then(() => {
         res.status(200).json()
         const {io} = req
         Vet.findById(vetId).select("fcmToken socketId").then(({fcmToken, socketId}) => {
@@ -129,6 +130,7 @@ exports.banVetClinic = (req, res) => {
 
 exports.searchVetClinic = (req, res) => {
     const {keyword} = req.body
+
     // Clinic.aggregate([
     //     {
     //         $lookup: {
