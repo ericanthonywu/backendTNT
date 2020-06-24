@@ -32,7 +32,6 @@ exports.login = (req, res) => {
                     if (!check) {
                         return res.status(401).json()
                     }
-                    const {profile_picture} = data;
 
                     jwt.sign({
                         username: data.username,
@@ -79,10 +78,7 @@ exports.login = (req, res) => {
 
 exports.register = (req, res) => {
     const {username, password, email, noHp, loginWithGoogle, loginWithFacebook} = req.body;
-    if (!username && !email) {
-        return res.status(400).json()
-    }
-    if ((!loginWithFacebook && !loginWithGoogle) && !password) {
+    if (!username && !email && !loginWithFacebook && !loginWithGoogle && !password) {
         return res.status(400).json()
     }
 
@@ -99,7 +95,7 @@ exports.register = (req, res) => {
                 const token = Math.floor((Math.random() * 1000000) + 1); //generate 6 number token
                 userData.password = password
                 userData.email_verification_token = token;
-                userData.email_expire_token = moment(Date.now()).add(3, "minutes").toISOString();
+                userData.email_expire_token = moment().add(3, "minutes").toISOString();
                 const transpoter = nodeMailer.createTransport({
                     host: "smtp.gmail.com",
                     port: process.env.EMAILPORT,
@@ -192,7 +188,7 @@ exports.reSendEmail = async (req, res) => {
             requireTLS: false,
             auth: {
                 user: process.env.EMAIL,
-                // pass: process.env.EMAILPASSWORD
+                pass: process.env.EMAILPASSWORD
             }
         }).sendMail({
             from: "Tail 'n Tales Token Verification",
@@ -218,12 +214,12 @@ exports.verifyEmail = (req, res) => {
         email: email,
         email_status: false,
         email_verification_token: parseInt(token),
-        email_expire_token: {$gte: moment(Date.now()).toISOString()}
+        email_expire_token: {$gte: moment().toISOString()}
     })
         .lean()
         .then(doc => {
             if (doc) {
-                User.findOneAndUpdate({email: email}, {email_status: true, email_verification_token: null})
+                User.findOneAndUpdate({email}, {email_status: true, email_verification_token: null})
                     .then(_ => res.status(201).json())
                     .catch(err => res.status(500).json(err))
             } else {

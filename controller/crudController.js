@@ -224,7 +224,7 @@ exports.showAllVet = (req, res) => {
 
 exports.addVet = (req, res) => {
     const {cert_id, KTP, vet_name, vet_email, expYear, address, password, session} = req.body
-    if (cert_id && KTP && vet_email && vet_name && expYear && address && password && session) {
+    // if (cert_id && KTP && vet_email && vet_name && expYear && address && password && session) {
         bcrypt.hash(password, parseInt(process.env.BcryptSalt)).then(password => {
             new Vet({
                 cert_id: cert_id,
@@ -239,9 +239,9 @@ exports.addVet = (req, res) => {
                 .then(({_id}) => res.status(201).json({id: _id}))
                 .catch(err => res.status(500).json(err))
         }).catch(err => res.status(500).json(err))
-    } else {
-        return res.status(400).json({msg: "input must be filled"})
-    }
+    // } else {
+    //     return res.status(400).json({msg: "input must be filled"})
+    // }
 }
 
 exports.detailVet = (req, res) => {
