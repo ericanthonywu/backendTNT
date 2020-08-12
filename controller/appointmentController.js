@@ -13,40 +13,41 @@ exports.addAppointment = (req, res) => {
                 $lte: moment(time).add(1, "hour")
             },
             vet: vet,
-        }).lean().then(c => {
-            if (c < 4) {
-                new Appointment({
-                    vet,
-                    clinic,
-                    time,
-                    user: res.userData.id,
-                    pet: petId
-                }).save()
-                    .then(async ({_id}) => {
-                        res.status(200).json()
-                        const {io} = req
-                        Vet.findById(vet).select("socketId username fcmToken").lean().then(({socketId, username, fcmToken}) => {
-                            scheduler.scheduleJob(_id.toString(), moment(time).subtract(15, "minutes").toISOString(), _ => {
-                                pushNotif(fcmToken, "Appointment Reminder", `sebentar lagi ada appoinment dengan user ${res.userData.username} jangan sampai telat ya!`)
-                                userPushNotif(res.userData.id, "Appointment Reminder", `sebentar lagi ada appoinment dengan Dr. ${username} jangan sampai telat ya!`)
-                            })
-                            scheduler.scheduleJob(_id.toString(), moment(time).add(15, "minutes").toISOString(), _ =>
-                                userPushNotif(fcmToken, "Thank you for use our booking system", `You are free to book again anytime with any doctor :)`)
-                            )
-                            pushNotif(fcmToken, "New Appointment", `Ada appointment baru dengan ${res.userData.username} pada ${moment(time).format("D MMMM HH:mm")}`)
-                            if (io.sockets.connected[socketId]) {
-                                io.sockets.connected[socketId].emit('newAppointment', {
-                                    user: res.userData.username,
-                                    time: time
+        }).lean()
+            .then(c => {
+                if (c < 4) {
+                    new Appointment({
+                        vet,
+                        clinic,
+                        time,
+                        user: res.userData.id,
+                        pet: petId
+                    }).save()
+                        .then(async ({_id}) => {
+                            res.status(200).json()
+                            const {io} = req
+                            Vet.findById(vet).select("socketId username fcmToken").lean().then(({socketId, username, fcmToken}) => {
+                                scheduler.scheduleJob(_id.toString(), moment(time).subtract(15, "minutes").toISOString(), _ => {
+                                    pushNotif(fcmToken, "Appointment Reminder", `sebentar lagi ada appoinment dengan user ${res.userData.username} jangan sampai telat ya!`)
+                                    userPushNotif(res.userData.id, "Appointment Reminder", `sebentar lagi ada appoinment dengan Dr. ${username} jangan sampai telat ya!`)
                                 })
-                            }
+                                scheduler.scheduleJob(_id.toString(), moment(time).add(15, "minutes").toISOString(), _ =>
+                                    userPushNotif(fcmToken, "Thank you for use our booking system", `You are free to book again anytime with any doctor :)`)
+                                )
+                                pushNotif(fcmToken, "New Appointment", `Ada appointment baru dengan ${res.userData.username} pada ${moment(time).format("D MMMM HH:mm")}`)
+                                if (io.sockets.connected[socketId]) {
+                                    io.sockets.connected[socketId].emit('newAppointment', {
+                                        user: res.userData.username,
+                                        time: time
+                                    })
+                                }
+                            })
                         })
-                    })
-                    .catch(err => res.status(500).json(err))
-            } else {
-                return res.status(406).json()
-            }
-        }).catch(err => res.status(500).json(err))
+                        .catch(err => res.status(500).json(err))
+                } else {
+                    return res.status(406).json()
+                }
+            }).catch(err => res.status(500).json(err))
     } else {
         return res.status(400).json()
     }
@@ -65,7 +66,7 @@ exports.reScheduleAppointment = (req, res) => {
             .populate("clinic", "socketId")
             .populate("vet", "username")
             .lean()
-            .then(({clinic,vet}) => {
+            .then(({clinic, vet}) => {
                 const {io} = req
                 if (io.sockets.connected[clinic.socketId]) {
                     io.sockets.connected[clinic.socketId].emit("requestEdit", {
@@ -73,7 +74,7 @@ exports.reScheduleAppointment = (req, res) => {
                             username: res.userData.username,
                             _id: res.userData.id
                         },
-                        vet: {...vet},
+                        vet,
                         timeRequested: time,
                         _id: res.userData.id,
                     })

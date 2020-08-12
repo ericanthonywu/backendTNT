@@ -59,13 +59,13 @@ exports.update_pet = (req, res) => {
 
 exports.delete_pet = (req, res) => {
     const {id: petId} = req.body
-    console.log(petId)
-    User.aggregate([
-        {$match: {_id: res.userData.id}},
-        {$unwind: '$pet'},
-        {$match: {"pet._id": petId}},
-        {$group: {_id: '$_id', list: {$push: 'pet.photo'}}}
-    ]).then(data => console.log(data))
+    // console.log(petId)
+    // User.aggregate([
+    //     {$match: {_id: res.userData.id}},
+    //     {$unwind: '$pet'},
+    //     {$match: {"pet._id": petId}},
+    //     {$group: {_id: '$_id', list: {$push: 'pet.photo'}}}
+    // ]).then(data => console.log(data))
     User.findOne({
         _id: res.userData.id,
         pet: {$elemMatch: {_id: petId}},
