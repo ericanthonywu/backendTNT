@@ -9,8 +9,8 @@ exports.user_profile = (req, res) => {
     User.findById(res.userData.id)
         .select("username email profile_picture pet phoneNumber address loginWithGoogle loginWithFacebook")
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "user profile",data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 };
 
 exports.add_pet = (req, res) => {
@@ -26,8 +26,8 @@ exports.add_pet = (req, res) => {
                 status: status
             }
         }
-    }).then(() => res.status(200).json({id}))
-        .catch(err => res.status(500).json(err))
+    }).then(() => res.status(201).json({message: "Pet succesfully added", data: {pet_id: id}}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 };
 
 exports.update_pet = (req, res) => {
@@ -44,7 +44,13 @@ exports.update_pet = (req, res) => {
             'pet._id': petid
         }).lean()
             .select("pet.$.photo")
-            .then(data => fs.unlinkSync(path.join(__dirname, "../uploads/pet/" + data.pet[0].photo)))
+            .then(data => {
+                try{
+                    fs.unlinkSync(path.join(__dirname, "../uploads/pet/" + data.pet[0].photo))
+                } catch (e){
+                    console.log(e)
+                }
+            })
     }
     User.findOneAndUpdate({
             _id: res.userData.id,
@@ -53,8 +59,8 @@ exports.update_pet = (req, res) => {
         {
             $set: updatedData
         })
-        .then(_ => res.status(200).json())
-        .catch(err => res.status(500).json(err))
+        .then(() => res.status(200).json({message: "pet updated"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 };
 
 exports.delete_pet = (req, res) => {
@@ -71,7 +77,6 @@ exports.delete_pet = (req, res) => {
         pet: {$elemMatch: {_id: petId}},
     }).select("pet.photo pet._id").lean()
         .then(async ({pet}) => {
-            console.log(pet)
             // fs.unlinkSync(path.join(__dirname, "../uploads/pet/" + realPhoto))
 
             User.findByIdAndUpdate(res.userData.id, {
@@ -79,10 +84,10 @@ exports.delete_pet = (req, res) => {
                     pet: {_id: petId}
                 }
             })
-                .then(() => res.status(200).json())
-                .catch(err => res.status(500).json(err))
+                .then(() => res.status(202).json({message: "pet deleted"}))
+                .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
         })
-    // .catch(err => res.status(500).json(err))
+    // .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 
 }
 
@@ -122,8 +127,8 @@ exports.update_profile = (req, res) => {
         });
     }
     User.findByIdAndUpdate(res.userData.id, updatedData)
-        .then(_ => res.status(200).json())
-        .catch(err => res.status(500).json(err))
+        .then(() => res.status(200).json({message: "Profile updated"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 };
 
 exports.updateProfileVet = (req, res) => {
@@ -134,8 +139,8 @@ exports.updateProfileVet = (req, res) => {
     })
     Vet.findByIdAndUpdate(res.userData.id, {
         profile_picture: req.file.filename
-    }).then(_ => res.status(200).json())
-        .catch(err => res.status(500).json(err))
+    }).then(() => res.status(200).json({message: "Profile vet updated"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.updateLocation = (req, res) => {
@@ -144,6 +149,6 @@ exports.updateLocation = (req, res) => {
         session: {
             coordinates: [longitude, latitude]
         }
-    }).then(_ => res.status(200).json())
-        .catch(err => res.status(500).json(err))
+    }).then(() => res.status(200).json({message: "Location updated"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }

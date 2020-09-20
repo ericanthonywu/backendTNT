@@ -3,6 +3,10 @@ const moment = require('moment')
 const scheduler = require('node-schedule')
 const {userPushNotif, pushNotif, vetPushNotif} = require("../globalHelper");
 
+/**
+ * @param {Request} req
+ * @param {Response<ResBody>|Request<P, ResBody, ReqBody, ReqQuery>} res
+ */
 exports.addAppointment = (req, res) => {
     const {time, vet, clinic, petId} = req.body
 
@@ -24,7 +28,7 @@ exports.addAppointment = (req, res) => {
                         pet: petId
                     }).save()
                         .then(async ({_id}) => {
-                            res.status(200).json()
+                            res.status(200).json({message: "Appointment successfully made"})
                             const {io} = req
                             Vet.findById(vet).select("socketId username fcmToken").lean().then(({socketId, username, fcmToken}) => {
                                 scheduler.scheduleJob(_id.toString(), moment(time).subtract(15, "minutes").toISOString(), _ => {
@@ -43,24 +47,31 @@ exports.addAppointment = (req, res) => {
                                 }
                             })
                         })
-                        .catch(err => res.status(500).json(err))
+                        .catch(err => res.status(500).json({message: "failed to run query", error: err}))
                 } else {
-                    return res.status(406).json()
+                    return res.status(406).json({message: "Appointment already full"})
                 }
-            }).catch(err => res.status(500).json(err))
+            }).catch(err => res.status(500).json({message: "error when perform query", error: err}))
     } else {
-        return res.status(400).json()
+        return res.status(400).json({message: "Field required"})
     }
 }
 
+/**
+ * @param {Request} req
+ * @param {Response<ResBody>|Request<P, ResBody, ReqBody, ReqQuery>} res
+ */
 exports.reScheduleAppointment = (req, res) => {
     const {id, time} = req.body;
+    if (!id || !time) {
+        return res.status(400).json({message: "Id and time needed"})
+    }
 
     Appointment.findByIdAndUpdate(id, {
         timeRequested: time,
         status: 1
     }).then(() => {
-        res.status(200).json()
+        res.status(200).json({message: "Success reschedule"})
         Appointment.findById(id)
             .select("clinic vet")
             .populate("clinic", "socketId")
@@ -79,7 +90,7 @@ exports.reScheduleAppointment = (req, res) => {
                         _id: res.userData.id,
                     })
                 }
-            })
+            }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
     })
 }
 
@@ -99,20 +110,20 @@ exports.reScheduleAppointmentAction = (req, res) => {
                     Appointment.findByIdAndUpdate(id, {
                         time: time,
                         status: 2
-                    }).then(_ => {
-                        res.status(200).json();
+                    }).then(() => {
+                        res.status(200).json({message: "Appointment rescheduled"});
                         scheduler.scheduledJobs[id].reschedule(moment(time).subtract(15, "minutes").toISOString())
-                        pushNotif(user.fcmToken, `Appointment dengan ${vet.username} sudah di reschedule menjadi ${moment(time).format("DD/MM/YYY HH:mm")}`)
-                        pushNotif(vet.fcmToken, `Appointment dengan ${user.username} sudah di reschedule menjadi ${moment(time).format("DD/MM/YYY HH:mm")}`)
-                    }).catch(err => res.status(500).json(err))
+                        pushNotif(user.fcmToken, "Reschedule appointment", `Appointment dengan ${vet.username} sudah di reschedule menjadi ${moment(time).format("DD/MM/YYY HH:mm")}`)
+                        pushNotif(vet.fcmToken, "Reschedule appointment", `Appointment dengan ${user.username} sudah di reschedule menjadi ${moment(time).format("DD/MM/YYY HH:mm")}`)
+                    }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
                     break;
                 case "reject":
                     Appointment.findByIdAndDelete(id).then(() => {
-                        res.status(202).json();
+                        res.status(202).json({message: "Appointment rejected"});
                         scheduler.scheduledJobs[id].cancel()
-                        pushNotif(user.fcmToken, `Appointment dengan ${vet.username} di cancel dengan alasan ${reason}`)
-                        pushNotif(vet.fcmToken, `Appointment dengan ${user.username} di cancel oleh clinic ${res.userData.username}`)
-                    }).catch(err => res.status(500).json(err))
+                        pushNotif(user.fcmToken, "Pembatalan appointment",`Appointment dengan ${vet.username} di cancel dengan alasan ${reason}`)
+                        pushNotif(vet.fcmToken, "Pembatalan appointment",`Appointment dengan ${user.username} di cancel oleh clinic ${res.userData.username}`)
+                    }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
                     break;
                 default:
                     res.status(400).json({message: "action unknown"})
@@ -123,8 +134,8 @@ exports.reScheduleAppointmentAction = (req, res) => {
 exports.cancelAppointment = (req, res) => {
     const {id} = req.body
     Appointment.findByIdAndDelete(id)
-        .then(_ => {
-            res.status(200).json()
+        .then(() => {
+            res.status(200).json({message: "Appointment canceled"})
             scheduler.scheduledJobs[id].cancel()
             Appointment.findById(id)
                 .select("vet time")
@@ -138,7 +149,7 @@ exports.cancelAppointment = (req, res) => {
                     )
                 )
                 .catch(console.log)
-        }).catch(err => res.status(500).json(err))
+        }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.showVetAvailable = (req, res) => {
@@ -152,8 +163,8 @@ exports.showVetAvailable = (req, res) => {
         }
     }).select("time")
         .lean()
-        .then(time => res.status(200).json(time))
-        .catch(err => res.status(500).json(err))
+        .then(time => res.status(200).json({message: "Vet available time", data: time}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.showVetAppointment = (req, res) => {
@@ -166,8 +177,8 @@ exports.showVetAppointment = (req, res) => {
     }).populate("user", "username")
         .select("user time")
         .lean()
-        .then(appointment => res.status(200).json(appointment))
-        .catch(err => res.status(500).json(err))
+        .then(appointment => res.status(200).json({message: "Appointment data", data: appointment}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.showUserAppointment = (req, res) => {
@@ -179,8 +190,8 @@ exports.showUserAppointment = (req, res) => {
         .select("time status clinic vet")
         .sort({time: -1})
         .lean()
-        .then(appointment => res.status(200).json(appointment))
-        .catch(err => res.status(500).json(err))
+        .then(appointment => res.status(200).json({message: "Appointment data", data: appointment}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.showUsersTodayAppointment = (req, res) => {
@@ -195,8 +206,8 @@ exports.showUsersTodayAppointment = (req, res) => {
         .select("time vet")
         .sort({time: 1})
         .lean()
-        .then(appointment => res.status(200).json(appointment))
-        .catch(err => res.status(500).json(err))
+        .then(appointment => res.status(200).json({message: "Appointment data", data: appointment}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.clinicShowAllPendingAppointment = (req, res) => {
@@ -206,8 +217,8 @@ exports.clinicShowAllPendingAppointment = (req, res) => {
         .populate("user", "username")
         .populate("vet", "username")
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(appointment => res.status(200).json({message: "Appointment data", data: appointment}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.clinicShowQuickPendingAppointment = (req, res) => {
@@ -217,8 +228,8 @@ exports.clinicShowQuickPendingAppointment = (req, res) => {
         .populate("user", "username")
         .populate("vet", "username")
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(appointment => res.status(200).json({message: "Appointment data", data: appointment}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.clinicShowAllBookingAppointment = (req, res) => {
@@ -232,8 +243,8 @@ exports.clinicShowAllBookingAppointment = (req, res) => {
         .limit(10)
         .skip(offset)
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(appointment => res.status(200).json({message: "Appointment data", data: appointment}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.clinicShowOngoingAppointment = (req, res) => {
@@ -249,7 +260,7 @@ exports.clinicShowOngoingAppointment = (req, res) => {
         .limit(10)
         .skip(offset)
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(appointment => res.status(200).json({message: "Appointment data", data: appointment}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 
 }

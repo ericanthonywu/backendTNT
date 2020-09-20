@@ -19,10 +19,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="remove validation backend">
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update kurang">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/appointmentController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/crudController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/crudController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/dashboardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/dashboardController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +57,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/routes/admin.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/model.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/query.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/types/subdocument.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/mongoose/lib/model.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
@@ -73,7 +82,8 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="javascript.nodejs.core.library.configured.version" value="12.13.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.18.1" />
+    <property name="javascript.nodejs.core.library.typings.version" value="12.12.54" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/uploads/vet" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -107,6 +117,20 @@
       <recent name="$PROJECT_DIR$/images" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -287,6 +311,10 @@
       <workItem from="1594665093819" duration="17000" />
       <workItem from="1594666193137" duration="179000" />
       <workItem from="1595067209525" duration="3265000" />
+      <workItem from="1597227387352" duration="490000" />
+      <workItem from="1597838260962" duration="356000" />
+      <workItem from="1597845962605" duration="354000" />
+      <workItem from="1600350850674" duration="13068000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -561,11 +589,18 @@
       <option name="project" value="LOCAL" />
       <updated>1593003968581</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="update kurang">
+      <created>1597227405190</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1597227405190</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -586,7 +621,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="add chat file" />
     <MESSAGE value="end chat with api drive &amp;&amp; add ban" />
     <MESSAGE value="update beberapa buat admin endpoint" />
     <MESSAGE value="update model and env for prod" />
@@ -611,56 +645,41 @@
     <MESSAGE value="update auth and crud" />
     <MESSAGE value="update email configuration" />
     <MESSAGE value="remove validation backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove validation backend" />
+    <MESSAGE value="update kurang" />
+    <option name="LAST_COMMIT_MESSAGE" value="update kurang" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="320" y="115" key="#Go_Linter" timestamp="1588953320111">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="320" y="115" key="#Go_Linter/0.0.1440.900@0.0.1440.900" timestamp="1588953320111" />
-    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2" timestamp="1587981810918">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="96" y="23" width="1008" height="877" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1587981810918" />
-    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog" timestamp="1587981797980">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1587981797980" />
     <state width="1398" height="228" key="GridCell.Tab.0.bottom" timestamp="1593077099429">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="228" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593077099429" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1588614519873" />
     <state width="1398" height="228" key="GridCell.Tab.0.center" timestamp="1593077099427">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="228" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593077099427" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1588614519871" />
     <state width="1398" height="228" key="GridCell.Tab.0.left" timestamp="1593077099426">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="228" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593077099426" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1588614519870" />
     <state width="1398" height="228" key="GridCell.Tab.0.right" timestamp="1593077099428">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="228" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593077099428" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1588614519872" />
-    <state x="221" y="63" key="SettingsEditor" timestamp="1591771295794">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1597227406037">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="221" y="63" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1591771295794" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1593003969514">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1597227406037" />
+    <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600419815825">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1593003969514" />
-    <state x="419" y="189" width="602" height="522" key="find.popup" timestamp="1594219155887">
+    <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1600419815825" />
+    <state x="419" y="189" width="602" height="636" key="find.popup" timestamp="1600624739720">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="419" y="189" width="602" height="522" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1594219155887" />
-    <state x="97" y="27" key="new project wizard" timestamp="1592653288888">
+    <state x="419" y="189" width="602" height="636" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1600624739720" />
+    <state x="97" y="27" key="new project wizard" timestamp="1600608598014">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="97" y="27" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1592653288888" />
+    <state x="97" y="27" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1600608598014" />
   </component>
 </project>
