@@ -19,10 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="rapihin balikan">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authMiddleware.js" afterDir="false" />
-    </list>
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="get token from headers, not body" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -306,7 +303,7 @@
       <workItem from="1597227387352" duration="490000" />
       <workItem from="1597838260962" duration="356000" />
       <workItem from="1597845962605" duration="354000" />
-      <workItem from="1600350850674" duration="14570000" />
+      <workItem from="1600350850674" duration="14870000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -609,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600675079481</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="get token from headers, not body">
+      <created>1600675652347</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1600675652347</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,7 +638,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="update beberapa buat admin endpoint" />
     <MESSAGE value="update model and env for prod" />
     <MESSAGE value="admin backend done" />
     <MESSAGE value="book with admin progress 80 / 100" />
@@ -659,7 +662,8 @@
     <MESSAGE value="remove validation backend" />
     <MESSAGE value="update kurang" />
     <MESSAGE value="rapihin balikan" />
-    <option name="LAST_COMMIT_MESSAGE" value="rapihin balikan" />
+    <MESSAGE value="get token from headers, not body" />
+    <option name="LAST_COMMIT_MESSAGE" value="get token from headers, not body" />
   </component>
   <component name="WindowStateProjectService">
     <state width="1398" height="228" key="GridCell.Tab.0.bottom" timestamp="1593077099429">
@@ -678,10 +682,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="228" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593077099428" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1600675082734">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1600675653457">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1600675082734" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1600675653457" />
     <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600419815825">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

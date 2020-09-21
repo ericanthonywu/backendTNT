@@ -190,7 +190,7 @@ exports.reSendEmail = async (req, res) => {
             return token
         }
     };
-    User.findOneAndUpdate({email: email}, {
+    User.findOneAndUpdate({email}, {
         email_verification_token: token,
         email_expire_token: moment(Date.now()).add(3, "minutes").toISOString(),
     }).then(() => {
