@@ -1,8 +1,8 @@
 /uploads/chat
 /uploads/pet
 /uploads/vet
+/uploads/clinic
 chatBackupTemp/
 node_modules
 .idea
 .env
-uploads/clinic/.gitignore
