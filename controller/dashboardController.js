@@ -92,6 +92,6 @@ exports.getClinicByVet = (req,res) => {
     Clinic.find({vet: vetId})
         .select("username")
         .lean()
-        .then(data => res.status(200).json(data))
+        .then(data => res.status(200).json({message: "clinic data", data}))
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
