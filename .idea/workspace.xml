@@ -19,7 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="get token from headers, not body" />
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update http method">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -105,19 +108,6 @@
       <recent name="$PROJECT_DIR$/uploads" />
       <recent name="$PROJECT_DIR$/images" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -303,7 +293,8 @@
       <workItem from="1597227387352" duration="490000" />
       <workItem from="1597838260962" duration="356000" />
       <workItem from="1597845962605" duration="354000" />
-      <workItem from="1600350850674" duration="14870000" />
+      <workItem from="1600350850674" duration="15612000" />
+      <workItem from="1600771531452" duration="1755000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -613,7 +604,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600675652347</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="update http method">
+      <created>1600676175344</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1600676175344</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -638,7 +636,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="update model and env for prod" />
     <MESSAGE value="admin backend done" />
     <MESSAGE value="book with admin progress 80 / 100" />
     <MESSAGE value="add default appointmentController.js and default helper for send data in FCM" />
@@ -663,29 +660,30 @@
     <MESSAGE value="update kurang" />
     <MESSAGE value="rapihin balikan" />
     <MESSAGE value="get token from headers, not body" />
-    <option name="LAST_COMMIT_MESSAGE" value="get token from headers, not body" />
+    <MESSAGE value="update http method" />
+    <option name="LAST_COMMIT_MESSAGE" value="update http method" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="228" key="GridCell.Tab.0.bottom" timestamp="1593077099429">
+    <state width="1398" height="228" key="GridCell.Tab.0.bottom" timestamp="1600693619752">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="228" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593077099429" />
-    <state width="1398" height="228" key="GridCell.Tab.0.center" timestamp="1593077099427">
+    <state width="1398" height="228" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1600693619752" />
+    <state width="1398" height="228" key="GridCell.Tab.0.center" timestamp="1600693619751">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="228" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593077099427" />
-    <state width="1398" height="228" key="GridCell.Tab.0.left" timestamp="1593077099426">
+    <state width="1398" height="228" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1600693619751" />
+    <state width="1398" height="228" key="GridCell.Tab.0.left" timestamp="1600693619751">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="228" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593077099426" />
-    <state width="1398" height="228" key="GridCell.Tab.0.right" timestamp="1593077099428">
+    <state width="1398" height="228" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1600693619751" />
+    <state width="1398" height="228" key="GridCell.Tab.0.right" timestamp="1600693619752">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="228" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593077099428" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1600675653457">
+    <state width="1398" height="228" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1600693619752" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1600676176276">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1600675653457" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1600676176276" />
     <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600419815825">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

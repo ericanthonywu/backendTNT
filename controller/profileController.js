@@ -9,7 +9,7 @@ exports.user_profile = (req, res) => {
     User.findById(res.userData.id)
         .select("username email profile_picture pet phoneNumber address loginWithGoogle loginWithFacebook")
         .lean()
-        .then(data => res.status(200).json({message: "user profile",data}))
+        .then(data => res.status(200).json({message: "user profile", data}))
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 };
 
@@ -45,9 +45,9 @@ exports.update_pet = (req, res) => {
         }).lean()
             .select("pet.$.photo")
             .then(data => {
-                try{
+                try {
                     fs.unlinkSync(path.join(__dirname, "../uploads/pet/" + data.pet[0].photo))
-                } catch (e){
+                } catch (e) {
                     console.log(e)
                 }
             })
