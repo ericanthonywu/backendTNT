@@ -29,7 +29,7 @@ const vetSchema = new mongoose.Schema({
     username: {type: String, required: true, trim: true, unique: true},
     email: {type: String, unique: true, trim: true,},
     expYear: {type: Number},
-    KTP: {type: String, unique: true, trim: true},
+    KTP: {type: String, trim: true},
     cert_id: {type: String, unique: true, trim: true, select: false},
     password: {type: String, required: true, select: false},
     promoted: {type: Boolean, default: false},
