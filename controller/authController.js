@@ -245,6 +245,9 @@ exports.verifyEmail = (req, res) => {
 
 exports.loginVet = (req, res) => {
     const {usernameOrEmail, password} = req.body;
+    if (!usernameOrEmail || !password){
+        return res.status(400).json({message: "Username or email or password needed"})
+    }
     Vet.findOne({
         $or: [
             {username: usernameOrEmail},
