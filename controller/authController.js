@@ -304,7 +304,7 @@ exports.registerVet = (req, res) => {
             street: street,
             session: {
                 coordinates: [long, lat],
-                last_login: moment(Date.now()).toISOString()
+                last_login: moment().toISOString()
             }
         };
         new Vet(vetData).save()
