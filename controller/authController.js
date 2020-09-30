@@ -92,7 +92,7 @@ exports.login = (req, res) => {
 
 exports.register = (req, res) => {
     const {username, password, email, noHp, loginWithGoogle, loginWithFacebook} = req.body;
-    if (!username && !email && !loginWithFacebook && !loginWithGoogle && !password) {
+    if (!username && !email && !password) {
         return res.status(400).json({message: "Field required"})
     }
 
@@ -142,11 +142,14 @@ exports.register = (req, res) => {
                                 role: "user"
                             }, process.env.JWTTOKEN, {}, (err, token) =>
                                 res.status(201).json({
-                                    _token: token,
-                                    id: userDataDatabase._id,
-                                    profile_picture: userDataDatabase.profile_picture,
-                                    username: userData.username,
-                                    email: userData.email,
+                                    message: "Success login",
+                                    data: {
+                                        _token: token,
+                                        id: userDataDatabase._id,
+                                        profile_picture: userDataDatabase.profile_picture,
+                                        username: userData.username,
+                                        email: userData.email,
+                                    }
                                 })
                         )
                     })

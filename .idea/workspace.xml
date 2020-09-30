@@ -20,9 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="add validation request">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/model.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,7 +294,8 @@
       <workItem from="1597838260962" duration="356000" />
       <workItem from="1597845962605" duration="354000" />
       <workItem from="1600350850674" duration="15612000" />
-      <workItem from="1600771531452" duration="3572000" />
+      <workItem from="1600771531452" duration="5281000" />
+      <workItem from="1600806073724" duration="5000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -633,7 +633,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600775206989</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="add validation request">
+      <created>1600777896169</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1600777896169</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -702,10 +709,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="228" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1600693619752" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1600775208146">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1600777896954">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1600775208145" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1600777896954" />
     <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600419815825">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
