@@ -19,9 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="add validation request">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update auth validation register">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -296,13 +299,12 @@
       <workItem from="1600350850674" duration="15612000" />
       <workItem from="1600771531452" duration="5281000" />
       <workItem from="1600806073724" duration="5000" />
-    </task>
-    <task id="LOCAL-00001" summary="add database model">
-      <created>1572361255920</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1572361255920</updated>
+      <workItem from="1601468249165" duration="1892000" />
+      <workItem from="1601472329034" duration="667000" />
+      <workItem from="1601636010419" duration="2073000" />
+      <workItem from="1601826646289" duration="181000" />
+      <workItem from="1601929689273" duration="132000" />
+      <workItem from="1602394021435" duration="168000" />
     </task>
     <task id="LOCAL-00002" summary="backend login and register">
       <created>1572543846837</created>
@@ -640,7 +642,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600777896169</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="update auth validation register">
+      <created>1601468473255</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1601468473255</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -665,7 +674,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="book with admin progress 80 / 100" />
     <MESSAGE value="add default appointmentController.js and default helper for send data in FCM" />
     <MESSAGE value="production upload" />
     <MESSAGE value="edit .env" />
@@ -690,33 +698,38 @@
     <MESSAGE value="get token from headers, not body" />
     <MESSAGE value="update http method" />
     <MESSAGE value="add validation request" />
-    <option name="LAST_COMMIT_MESSAGE" value="add validation request" />
+    <MESSAGE value="update auth validation register" />
+    <option name="LAST_COMMIT_MESSAGE" value="update auth validation register" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="228" key="GridCell.Tab.0.bottom" timestamp="1600693619752">
+    <state width="1398" height="228" key="GridCell.Tab.0.bottom" timestamp="1601821320218">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="228" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1600693619752" />
-    <state width="1398" height="228" key="GridCell.Tab.0.center" timestamp="1600693619751">
+    <state width="1398" height="228" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601821320218" />
+    <state width="1398" height="228" key="GridCell.Tab.0.bottom/0.23.1440.826@0.23.1440.826" timestamp="1601471034163" />
+    <state width="1398" height="228" key="GridCell.Tab.0.center" timestamp="1601821320216">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="228" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1600693619751" />
-    <state width="1398" height="228" key="GridCell.Tab.0.left" timestamp="1600693619751">
+    <state width="1398" height="228" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1601821320216" />
+    <state width="1398" height="228" key="GridCell.Tab.0.center/0.23.1440.826@0.23.1440.826" timestamp="1601471034161" />
+    <state width="1398" height="228" key="GridCell.Tab.0.left" timestamp="1601821320215">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="228" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1600693619751" />
-    <state width="1398" height="228" key="GridCell.Tab.0.right" timestamp="1600693619752">
+    <state width="1398" height="228" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1601821320215" />
+    <state width="1398" height="228" key="GridCell.Tab.0.left/0.23.1440.826@0.23.1440.826" timestamp="1601471034160" />
+    <state width="1398" height="228" key="GridCell.Tab.0.right" timestamp="1601821320217">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="228" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1600693619752" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1600777896954">
+    <state width="1398" height="228" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601821320217" />
+    <state width="1398" height="228" key="GridCell.Tab.0.right/0.23.1440.826@0.23.1440.826" timestamp="1601471034162" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1601468475496">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1600777896954" />
-    <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600419815825">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1601468475496" />
+    <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601469088051">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1600419815825" />
+    <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1601469088051" />
     <state x="419" y="189" width="602" height="636" key="find.popup" timestamp="1600624739720">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
