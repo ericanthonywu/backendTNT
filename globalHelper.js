@@ -1,5 +1,6 @@
 const Axios = require('axios')
 const {user: User, vet: Vet} = require('./model')
+const nodeMailer = require("nodemailer")
 
 /**
  * Push notif by user Id
@@ -72,3 +73,30 @@ exports.userAddNotification = (user, updatedData) => {
         }
     })
 }
+
+/**
+ * Global email transporter
+ *
+ * @type {Mail}
+ */
+exports.transpoter = nodeMailer.createTransport({
+    host: process.env.EMAILHOST,
+    port: process.env.EMAILPORT,
+    secure: false,
+    service: "Gmail",
+    requireTLS: false,
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAILPASSWORD
+    }
+});
+
+/**
+ * Generate OTP Number
+ *
+ * @return {number}
+ */
+exports.generateToken = () => {
+    const token = Math.floor((Math.random() * 1000000) + 1)
+    return token.toString().length !== 6 ? this() : token;
+};

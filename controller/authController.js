@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const nodeMailer = require('nodemailer');
+const {transpoter, generateToken} = require("../globalHelper")
 
 /**
  * User Login, if user was not found, it will register
@@ -23,191 +24,134 @@ exports.login = (req, res) => {
         ]
     }).select("username password email ban profile_picture email_status loginWithFacebook loginWithGoogle")
         .lean()
-        .then(data => {
-            if (data) {
-                if (data.ban) {
-                    return res.status(403).json({message: "You have been banned by admin"})
-                }
-                if (!data.email_status) {
-                    return res.status(403).json({message: "Your email has not verified"})
-                }
-
-                if (!data.loginWithFacebook && !data.loginWithGoogle) {
-                    bcrypt.compare(password, data.password).then(check => {
-                        if (!check) {
-                            return res.status(401).json({message: "Password not match"})
-                        }
-
-                        jwt.sign({
-                            username: data.username,
-                            email: data.email,
-                            id: data._id,
-                            role: "user"
-                        }, process.env.JWTTOKEN, (err, token) => {
-                            if (err) {
-                                return res.status(500).json({message: "Failed to assign JWT", error: err})
-                            }
-                            return res.status(200).json({
-                                message: "Success Login",
-                                data: {
-                                    _token: token,
-                                    username: data.username,
-                                    profile_picture: data.profile_picture,
-                                    id: data._id,
-                                    email: data.email,
-                                    role: "user"
-                                }
-                            });
-                        })
-                    }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
-                } else {
-                    const {profile_picture} = data;
-
-                    jwt.sign({
-                        username: data.username,
-                        email: data.email,
-                        id: data._id,
-                        role: "user"
-                    }, process.env.JWTTOKEN, {}, (err, token) => {
-                        data.profile_picture = profile_picture;
-                        return res.status(200).json({
-                            message: "Success login as user",
-                            data: {
-                                _token: token,
-                                username: data.username,
-                                profile_picture: data.profile_picture,
-                                id: data._id,
-                                email: data.email,
-                                role: "user"
-                            }
-                        });
-                    })
-                }
-
-            } else {
+        .then(async data => {
+            if (!data) {
                 return res.status(404).json({message: "User not found"})
             }
+            if (data.ban) {
+                return res.status(403).json({message: "You have been banned by admin"})
+            }
+            if (!data.email_status) {
+                return res.status(403).json({message: "Your email has not verified"})
+            }
+
+            if (!data.loginWithFacebook || !data.loginWithGoogle) {
+                if (!await bcrypt.compare(password, data.password)) {
+                    return res.status(401).json({message: "Password not match"})
+                }
+            }
+
+            jwt.sign({
+                username: data.username,
+                email: data.email,
+                id: data._id,
+                role: "user"
+            }, process.env.JWTTOKEN, (err, token) => {
+                if (err) {
+                    return res.status(500).json({message: "Failed to assign jwt", error: err})
+                }
+
+                return res.status(200).json({
+                    message: "Success login as user",
+                    data: {
+                        _token: token,
+                        username: data.username,
+                        profile_picture: data.profile_picture,
+                        id: data._id,
+                        email: data.email,
+                        role: "user"
+                    }
+                });
+            })
+
         }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 };
 
 exports.register = (req, res) => {
-    const {username, password, email, noHp, loginWithGoogle, loginWithFacebook} = req.body;
-    if (!username && !email && !password) {
+    const {username, password, email, noHp, loginWithGoogle = "", loginWithFacebook = ""} = req.body;
+    if (!username || !email || !password) {
         return res.status(400).json({message: "Field required"})
     }
-
     const userData = {
-        username: username,
-        email: email,
-        phoneNumber: noHp || "0",
-        loginWithGoogle: loginWithGoogle || "",
-        loginWithFacebook: loginWithFacebook || ""
+        username,
+        email,
+        phoneNumber: noHp,
+        loginWithGoogle,
+        loginWithFacebook
     };
-    if (email) {
-        if (!loginWithFacebook && !loginWithGoogle) {
-            bcrypt.hash(password, parseInt(process.env.BcryptSalt)).then(password => {
-                const token = Math.floor((Math.random() * 1000000) + 1); //generate 6 number token
-                userData.password = password
-                userData.email_verification_token = token;
-                userData.email_expire_token = moment().add(3, "minutes").toISOString();
-                const transpoter = nodeMailer.createTransport({
-                    host: "smtp.gmail.com",
-                    port: process.env.EMAILPORT,
-                    secure: true,
-                    service: "Gmail",
-                    requireTLS: true,
-                    auth: {
-                        user: process.env.EMAIL,
-                        pass: process.env.EMAILPASSWORD
-                    }
-                });
-                new User(userData).save()
-                    .then(userDataDatabase => {
-                        transpoter.sendMail({
-                            from: "noreply@tailandtale.com",
-                            to: email,
-                            subject: "Token Verification",
-                            html: `Hello ${username}! <br><br>Thank you for registering, your token verification is: <br><br><p style="font-size:24px;"><b>${token}</b></p><br>
-                        IMPORTANT! NEVER TELL YOUR TOKEN TO ANYONE!
-                        <img alt="TNT Logo" src="http://tailandtale.com/wp-content/uploads/2019/08/tnt_logo_jul19-1.png"/>`
-                        }, err => {
-                            if (err) {
-                                console.log(err)
-                            }
-                        });
-                        jwt.sign({
-                                username: userData.username,
-                                email: userData.email,
-                                id: userDataDatabase._id,
-                                role: "user"
-                            }, process.env.JWTTOKEN,  (err, token) =>
-                                res.status(201).json({
-                                    message: "Success login",
-                                    data: {
-                                        _token: token,
-                                        id: userDataDatabase._id,
-                                        profile_picture: userDataDatabase.profile_picture,
-                                        username: userData.username,
-                                        email: userData.email,
-                                    }
-                                })
-                        )
-                    })
-                    .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
-            }).catch(err => res.status(500).json({message: "Failed to put bcrypt hash password", error: err}))
-        } else {
-            userData.email_status = true;
-            userData.loginWithFacebook = loginWithFacebook || false
-            userData.loginWithGoogle = loginWithGoogle || false
+
+    if (!loginWithFacebook || !loginWithGoogle) {
+        bcrypt.hash(password, 10).then(password => {
+            const token = generateToken()
+            userData.password = password
+            userData.email_verification_token = token;
+            userData.email_expire_token = moment().add(3, "minutes").toISOString();
+
             new User(userData).save()
                 .then(userDataDatabase => {
+                    transpoter.sendMail({
+                        from: "noreply@tailandtale.com",
+                        to: email,
+                        subject: "Token Verification",
+                        html: `Hello ${username}! <br><br>Thank you for registering, your token verification is: <br><br><p style="font-size:24px;"><b>${token}</b></p><br>
+                        IMPORTANT! NEVER TELL YOUR TOKEN TO ANYONE!
+                        <img alt="TNT Logo" src="http://tailandtale.com/wp-content/uploads/2019/08/tnt_logo_jul19-1.png"/>`
+                    });
                     jwt.sign({
-                        username: userData.username,
-                        email: userData.email,
-                        id: userDataDatabase._id,
-                        role: "user"
-                    }, process.env.JWTTOKEN, {}, (err, token) => {
-                        return res.status(201).json({
-                            _token: token,
-                            id: userDataDatabase._id,
-                            profile_picture: userDataDatabase.profile_picture,
                             username: userData.username,
                             email: userData.email,
-                        });
-                    })
+                            id: userDataDatabase._id,
+                            role: "user"
+                        }, process.env.JWTTOKEN, (err, token) =>
+                            res.status(201).json({
+                                message: "Success login",
+                                data: {
+                                    _token: token,
+                                    id: userDataDatabase._id,
+                                    profile_picture: userDataDatabase.profile_picture,
+                                    username: userData.username,
+                                    email: userData.email,
+                                }
+                            })
+                    )
                 })
                 .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
-        }
+        }).catch(err => res.status(500).json({message: "Failed to put bcrypt hash password", error: err}))
     } else {
-        return res.status(400).json({message: "Email not found"})
+        userData.email_status = true;
+        userData.loginWithFacebook = loginWithFacebook || false
+        userData.loginWithGoogle = loginWithGoogle || false
+        new User(userData).save()
+            .then(userDataDatabase => {
+                jwt.sign({
+                    username: userData.username,
+                    email: userData.email,
+                    id: userDataDatabase._id,
+                    role: "user"
+                }, process.env.JWTTOKEN, {}, (err, token) => {
+                    return res.status(201).json({
+                        _token: token,
+                        id: userDataDatabase._id,
+                        profile_picture: userDataDatabase.profile_picture,
+                        username: userData.username,
+                        email: userData.email,
+                    });
+                })
+            })
+            .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
     }
 };
 
 exports.reSendEmail = async (req, res) => {
     const {email, username} = req.body
-    const token = await function () {
-        const token = Math.floor((Math.random() * 1000000) + 1)
-        if (token.toString().length !== 6) {
-            return this()
-        } else {
-            return token
-        }
-    };
+
+    const token = generateToken()
+
     User.findOneAndUpdate({email}, {
         email_verification_token: token,
         email_expire_token: moment(Date.now()).add(3, "minutes").toISOString(),
     }).then(() => {
-        nodeMailer.createTransport({
-            host: process.env.EMAILHOST,
-            port: process.env.EMAILPORT,
-            secure: false,
-            service: "Gmail",
-            requireTLS: false,
-            auth: {
-                user: process.env.EMAIL,
-                pass: process.env.EMAILPASSWORD
-            }
-        }).sendMail({
+        transpoter.sendMail({
             from: "Tail 'n Tales Token Verification",
             to: email,
             subject: "Token Verification",
@@ -248,7 +192,7 @@ exports.verifyEmail = (req, res) => {
 
 exports.loginVet = (req, res) => {
     const {usernameOrEmail, password} = req.body;
-    if (!usernameOrEmail || !password){
+    if (!usernameOrEmail || !password) {
         return res.status(400).json({message: "Username or email or password needed"})
     }
     Vet.findOne({
@@ -298,7 +242,7 @@ exports.registerVet = (req, res) => {
         return res.status(400).json({message: "username, email and password required"})
     }
 
-    bcrypt.hash(password, Number(process.env.BcryptSalt)).then(password => {
+    bcrypt.hash(password, 10).then(password => {
         const vetData = {
             username: username,
             password: password,
@@ -311,7 +255,7 @@ exports.registerVet = (req, res) => {
             }
         };
         new Vet(vetData).save()
-            .then(() => res.status(201).json())
+            .then(() => res.status(201).json({message: "Vet registered"}))
             .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 
     }).catch(err => res.status(500).json({message: "Failed to assign bcrypt hash password", error: err}))
@@ -340,7 +284,7 @@ exports.loginClinic = (req, res) => {
                 id: data.id,
                 username: data.username,
                 role: "clinic"
-            }, process.env.JWTTOKEN, {}, (err, token) => {
+            }, process.env.JWTTOKEN, (err, token) => {
                 if (err) {
                     return res.status(500).json({message: "Failed to get jwt token", error: err})
                 }
@@ -380,7 +324,7 @@ exports.loginAdmin = (req, res) => {
                 role: "admin"
             }, process.env.JWTTOKEN, {}, (err, token) => {
                 if (err) {
-                    return res.status(500).json(err)
+                    return res.status(500).json({message: "Failed to get jwt token", error: err})
                 }
 
                 res.status(200).json({

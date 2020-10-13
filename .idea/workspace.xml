@@ -19,12 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update auth validation register">
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="beautify">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -304,14 +302,12 @@
       <workItem from="1601636010419" duration="2073000" />
       <workItem from="1601826646289" duration="181000" />
       <workItem from="1601929689273" duration="132000" />
-      <workItem from="1602394021435" duration="168000" />
-    </task>
-    <task id="LOCAL-00002" summary="backend login and register">
-      <created>1572543846837</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1572543846837</updated>
+      <workItem from="1602394021435" duration="2385000" />
+      <workItem from="1602416805086" duration="1052000" />
+      <workItem from="1602503085103" duration="428000" />
+      <workItem from="1602557492355" duration="1514000" />
+      <workItem from="1602595769044" duration="1071000" />
+      <workItem from="1602600636194" duration="3418000" />
     </task>
     <task id="LOCAL-00003" summary="backend search by distance &amp;&amp; profiling">
       <created>1573464488237</created>
@@ -649,7 +645,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601468473255</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="beautify">
+      <created>1602395397763</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1602395397764</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -678,7 +681,6 @@
     <MESSAGE value="production upload" />
     <MESSAGE value="edit .env" />
     <MESSAGE value="backend upload vet and appointmentController.js" />
-    <MESSAGE value="beautify" />
     <MESSAGE value="add eslint &amp;&amp; controller" />
     <MESSAGE value="add clinic photo" />
     <MESSAGE value="blog crud" />
@@ -699,7 +701,8 @@
     <MESSAGE value="update http method" />
     <MESSAGE value="add validation request" />
     <MESSAGE value="update auth validation register" />
-    <option name="LAST_COMMIT_MESSAGE" value="update auth validation register" />
+    <MESSAGE value="beautify" />
+    <option name="LAST_COMMIT_MESSAGE" value="beautify" />
   </component>
   <component name="WindowStateProjectService">
     <state width="1398" height="228" key="GridCell.Tab.0.bottom" timestamp="1601821320218">
@@ -722,10 +725,10 @@
     </state>
     <state width="1398" height="228" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601821320217" />
     <state width="1398" height="228" key="GridCell.Tab.0.right/0.23.1440.826@0.23.1440.826" timestamp="1601471034162" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1601468475496">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1602395399033">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1601468475496" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1602395399033" />
     <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601469088051">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
