@@ -2,8 +2,8 @@ const {user: User, vet: Vet} = require('../model')
 const moment = require('moment')
 const fs = require('fs')
 const path = require('path')
-const nodeMailer = require("nodemailer");
 const mongoose = require("mongoose");
+const {generateToken, transpoter} = require("../globalHelper");
 
 exports.user_profile = (req, res) => {
     User.findById(res.userData.id)
@@ -101,21 +101,11 @@ exports.update_profile = (req, res) => {
     }
     if (email) {
         updatedData.email = email
-        const token = Math.floor((Math.random() * 1000000) + 1); //generate 6 number token
+        const token = generateToken()
         updatedData.email_verification_token = token;
-        updatedData.email_expire_token = moment(Date.now()).add(3, "minutes").toISOString();
+        updatedData.email_expire_token = moment().add(3, "minutes").toISOString();
 
-        nodeMailer.createTransport({
-            host: process.env.EMAILHOST,
-            port: process.env.EMAILPORT,
-            secure: true,
-            service: "Gmail",
-            requireTLS: true,
-            auth: {
-                user: process.env.EMAIL,
-                pass: process.env.EMAILPASSWORD
-            }
-        }).sendMail({
+        transpoter.sendMail({
             from: "Tail 'n Tales Email Verification",
             to: email,
             subject: "Email Verification",

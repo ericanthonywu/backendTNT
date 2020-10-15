@@ -97,7 +97,7 @@ exports.reScheduleAppointment = (req, res) => {
 exports.reScheduleAppointmentAction = (req, res) => {
     const {id, time, action, reason} = req.body;
     if (!id || !time || typeof action !== "undefined" || (action === "reject" && typeof reason == "undefined")) {
-        return res.status(400).json()
+        return res.status(400).json({message: "bad request"})
     }
     Appointment.findById(id)
         .select("user vet")
