@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="fix register" />
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update validate">
+      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -306,14 +308,7 @@
       <workItem from="1602600636194" duration="4463000" />
       <workItem from="1602669717126" duration="235000" />
       <workItem from="1602737665015" duration="2100000" />
-      <workItem from="1602760409231" duration="278000" />
-    </task>
-    <task id="LOCAL-00006" summary="update profile not tested">
-      <created>1574946390903</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1574946390903</updated>
+      <workItem from="1602760409231" duration="603000" />
     </task>
     <task id="LOCAL-00007" summary="fix profiling, intergrate with mobile">
       <created>1577981226456</created>
@@ -651,7 +646,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602760545242</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="update validate">
+      <created>1602760856440</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1602760856441</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -676,7 +678,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="edit .env" />
     <MESSAGE value="backend upload vet and appointmentController.js" />
     <MESSAGE value="add eslint &amp;&amp; controller" />
     <MESSAGE value="add clinic photo" />
@@ -701,7 +702,8 @@
     <MESSAGE value="beautify" />
     <MESSAGE value="beautify and global transporter" />
     <MESSAGE value="fix register" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix register" />
+    <MESSAGE value="update validate" />
+    <option name="LAST_COMMIT_MESSAGE" value="update validate" />
   </component>
   <component name="WindowStateProjectService">
     <state width="1398" height="201" key="GridCell.Tab.0.bottom" timestamp="1602743524288">
@@ -724,10 +726,10 @@
     </state>
     <state width="1398" height="201" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1602743524288" />
     <state width="1398" height="228" key="GridCell.Tab.0.right/0.23.1440.826@0.23.1440.826" timestamp="1601471034162" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1602760546087">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1602760857356">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1602760546087" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1602760857356" />
     <state x="516" y="367" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601469088051">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

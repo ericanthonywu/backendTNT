@@ -70,7 +70,7 @@ exports.login = (req, res) => {
 exports.register = (req, res) => {
     const {username, password, email, noHp, loginWithGoogle = "", loginWithFacebook = ""} = req.body;
     if (!username || !email) {
-        return res.status(400).json({message: "Field required"})
+        return res.status(400).json({message: "username dan email required"})
     }
     const userData = {
         username,
