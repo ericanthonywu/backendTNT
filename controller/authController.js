@@ -81,6 +81,9 @@ exports.register = (req, res) => {
     };
 
     if (!loginWithFacebook && !loginWithGoogle) {
+        if (!password){
+            return res.status(400).json({message: "Password required"})
+        }
         bcrypt.hash(password, 10).then(password => {
             const token = generateToken()
             userData.password = password
