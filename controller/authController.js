@@ -69,7 +69,7 @@ exports.login = (req, res) => {
 
 exports.register = (req, res) => {
     const {username, password, email, noHp, loginWithGoogle = "", loginWithFacebook = ""} = req.body;
-    if (!username || !email || !password) {
+    if (!username || !email) {
         return res.status(400).json({message: "Field required"})
     }
     const userData = {
@@ -80,7 +80,7 @@ exports.register = (req, res) => {
         loginWithFacebook
     };
 
-    if (!loginWithFacebook || !loginWithGoogle) {
+    if (!loginWithFacebook && !loginWithGoogle) {
         bcrypt.hash(password, 10).then(password => {
             const token = generateToken()
             userData.password = password
@@ -96,7 +96,7 @@ exports.register = (req, res) => {
                         html: `Hello ${username}! <br><br>Thank you for registering, your token verification is: <br><br><p style="font-size:24px;"><b>${token}</b></p><br>
                         IMPORTANT! NEVER TELL YOUR TOKEN TO ANYONE!
                         <img alt="TNT Logo" src="http://tailandtale.com/wp-content/uploads/2019/08/tnt_logo_jul19-1.png"/>`
-                    });
+                    }).catch(console.log);
                     jwt.sign({
                             username: userData.username,
                             email: userData.email,
@@ -119,8 +119,11 @@ exports.register = (req, res) => {
         }).catch(err => res.status(500).json({message: "Failed to put bcrypt hash password", error: err}))
     } else {
         userData.email_status = true;
-        userData.loginWithFacebook = loginWithFacebook || false
-        userData.loginWithGoogle = loginWithGoogle || false
+        if (loginWithFacebook) {
+            userData.loginWithFacebook = loginWithFacebook
+        } else if (loginWithGoogle) {
+            userData.loginWithGoogle = loginWithGoogle
+        }
         new User(userData).save()
             .then(userDataDatabase => {
                 jwt.sign({
