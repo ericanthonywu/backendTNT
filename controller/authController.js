@@ -134,13 +134,16 @@ exports.register = (req, res) => {
                     email: userData.email,
                     id: userDataDatabase._id,
                     role: "user"
-                }, process.env.JWTTOKEN, {}, (err, token) => {
+                }, process.env.JWTTOKEN, (err, token) => {
                     return res.status(201).json({
-                        _token: token,
-                        id: userDataDatabase._id,
-                        profile_picture: userDataDatabase.profile_picture,
-                        username: userData.username,
-                        email: userData.email,
+                        message: "Success login",
+                        data: {
+                            _token: token,
+                            id: userDataDatabase._id,
+                            profile_picture: userDataDatabase.profile_picture,
+                            username: userData.username,
+                            email: userData.email,
+                        }
                     });
                 })
             })
