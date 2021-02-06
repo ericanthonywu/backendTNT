@@ -96,12 +96,9 @@ exports.register = (req, res) => {
                 userData.password = password
                 userData.email_verification_token = token;
                 userData.email_expire_token = moment().add(3, "minutes").toISOString();
+
                 const transpoter = nodeMailer.createTransport({
-                    host: "smtp.gmail.com",
-                    port: process.env.EMAILPORT,
-                    secure: true,
                     service: "Gmail",
-                    requireTLS: true,
                     auth: {
                         user: process.env.EMAIL,
                         pass: process.env.EMAILPASSWORD
@@ -120,21 +117,22 @@ exports.register = (req, res) => {
                             if (err) {
                                 console.log(err)
                             }
-                        });
-                        jwt.sign({
-                                username: userData.username,
-                                email: userData.email,
-                                id: userDataDatabase._id,
-                                role: "user"
-                            }, process.env.JWTTOKEN, {}, (err, token) =>
-                                res.status(201).json({
-                                    _token: token,
-                                    id: userDataDatabase._id,
-                                    profile_picture: userDataDatabase.profile_picture,
+
+                            jwt.sign({
                                     username: userData.username,
                                     email: userData.email,
-                                })
-                        )
+                                    id: userDataDatabase._id,
+                                    role: "user"
+                                }, process.env.JWTTOKEN, {}, (err, token) =>
+                                    res.status(201).json({
+                                        _token: token,
+                                        id: userDataDatabase._id,
+                                        profile_picture: userDataDatabase.profile_picture,
+                                        username: userData.username,
+                                        email: userData.email,
+                                    })
+                            )
+                        });
                     })
                     .catch(err => res.status(500).json(err))
             }).catch(err => res.status(500).json(err))
@@ -176,10 +174,10 @@ exports.reSendEmail = async (req, res) => {
             return token
         }
     };
-    User.findOneAndUpdate({email: email}, {
+    User.findOneAndUpdate({email}, {
         email_verification_token: token,
         email_expire_token: moment(Date.now()).add(3, "minutes").toISOString(),
-    }).then(_ => {
+    }).then(() => {
         nodeMailer.createTransport({
             host: process.env.EMAILHOST,
             port: process.env.EMAILPORT,
