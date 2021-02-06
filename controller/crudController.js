@@ -32,8 +32,8 @@ exports.addClinic = async (req, res) => {
                 photo: filenameArr
             }).save()
                 .then(({_id: id}) => res.status(201).json({id}))
-                .catch(err => res.status(500).json(err))
-        }).catch(err => res.status(500).json(err))
+                .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
+        }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
     } else {
         return res.status(400).json()
     }
@@ -43,23 +43,23 @@ exports.banClinic = (req, res) => {
     const {clinicId} = req.body
 
     if (!clinicId) {
-        return res.status(400).json()
+        return res.status(400).json({message: "Clinic id needed"})
     }
 
     Clinic.findByIdAndUpdate(clinicId, {
         ban: true
     }).then(() => {
-        res.status(200).json()
+        res.status(200).json({message: "Clinic banned"})
         const {io} = req
         Clinic.findById(clinicId).select("socketId").then(({socketId}) => io.sockets.connected[socketId].emit("ban"))
-    }).catch(err => res.status(500).json(err))
+    }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.deleteClinic = (req, res) => {
     const {clinicId} = req.body
     Clinic.findByIdAndDelete(clinicId)
-        .then(() => res.status(200).json())
-        .catch(err => res.status(500).json(err))
+        .then(() => res.status(200).json({message: "Clinic deleted"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.showClinic = (req, res) => {
@@ -76,8 +76,8 @@ exports.showClinic = (req, res) => {
         {$limit: 8},
         {$skip: offset || 0}
     ])
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "Clinic data", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.showVetClinic = (req, res) => {
@@ -92,8 +92,8 @@ exports.showVetClinic = (req, res) => {
         .skip(offset)
         .populate("vet", "username createdAt cert_id expYear KTP")
         .lean()
-        .then(({vet}) => res.status(200).json(({vet})))
-        .catch(err => res.status(500).json(err))
+        .then(({vet}) => res.status(200).json({message: "Vet clinic data", vet}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.addVetClinic = (req, res) => {
@@ -101,16 +101,16 @@ exports.addVetClinic = (req, res) => {
 
     Clinic.countDocuments({_id: res.userData.id, vet: vetId}).then(count => {
         if (count) {
-            return res.status(409).json()
+            return res.status(409).json({message: "clinic cannot be same"})
         }
 
         Clinic.findByIdAndUpdate(res.userData.id, {
             $push: {
                 vet: vetId
             }
-        }).then(_ => res.status(200).json())
-            .catch(err => res.status(500).json(err))
-    }).catch(err => res.status(500).json(err))
+        }).then(() => res.status(200).json({message: "Vet added to clinic"}))
+            .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
+    }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.banVetClinic = (req, res) => {
@@ -118,14 +118,14 @@ exports.banVetClinic = (req, res) => {
     Vet.findByIdAndUpdate(vetId, {
         ban: ban
     }).then(() => {
-        res.status(200).json()
+        res.status(200).json({message: "Vet banned"})
         const {io} = req
         Vet.findById(vetId).select("fcmToken socketId").then(({fcmToken, socketId}) => {
             pushNotif(fcmToken, "Oh no! You has been banned from admin")
             io.sockets.connected[socketId].emit("ban")
         })
     })
-        .catch(err => res.status(500).json(err))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.searchVetClinic = (req, res) => {
@@ -175,7 +175,7 @@ exports.searchVetClinic = (req, res) => {
     Vet.find({username: {$regex: `(?i)${keyword}.*`}})
         .select("username profile_picture id_cert")
         .lean()
-        .then(data => res.status(200).json(data))
+        .then(data => res.status(200).json({message: "vet search data", data}))
         .catch(err => res.status(200).json(err))
 }
 
@@ -193,8 +193,8 @@ exports.editClinic = async (req, res) => {
     }
 
     Clinic.findByIdAndUpdate(id, query)
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "Clinic edited", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.detailClinic = (req, res) => {
@@ -207,8 +207,8 @@ exports.detailClinic = (req, res) => {
         .select("vet username email address location createdAt photo session.coordinates")
         .populate("vet", "cert_id username createdAt expYear")
         .lean()
-        .then(data => res.status(data ? 200 : 404).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(data ? 200 : 404).json({message: data ? "Clinic data" : "Clinic not found", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.showAllVet = (req, res) => {
@@ -218,27 +218,27 @@ exports.showAllVet = (req, res) => {
         .skip(offset || 0)
         .limit(8)
         .lean()
-        .then(data => res.status(data ? 200 : 404).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(data ? 200 : 404).json({message: "Vet data", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.addVet = (req, res) => {
     const {cert_id, KTP, vet_name, vet_email, expYear, address, password, session} = req.body
     // if (cert_id && KTP && vet_email && vet_name && expYear && address && password && session) {
-        bcrypt.hash(password, parseInt(process.env.BcryptSalt)).then(password => {
-            new Vet({
-                cert_id: cert_id,
-                KTP: KTP,
-                email: vet_email,
-                username: vet_name,
-                expYear: expYear,
-                street: address,
-                password: password,
-                session
-            }).save()
-                .then(({_id}) => res.status(201).json({id: _id}))
-                .catch(err => res.status(500).json(err))
-        }).catch(err => res.status(500).json(err))
+    bcrypt.hash(password, parseInt(process.env.BcryptSalt)).then(password => {
+        new Vet({
+            cert_id: cert_id,
+            KTP: KTP,
+            email: vet_email,
+            username: vet_name,
+            expYear: expYear,
+            street: address,
+            password: password,
+            session
+        }).save()
+            .then(({_id}) => res.status(201).json({message: "vet added", id: _id}))
+            .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
+    }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
     // } else {
     //     return res.status(400).json({msg: "input must be filled"})
     // }
@@ -249,8 +249,8 @@ exports.detailVet = (req, res) => {
     Vet.findById(vetId)
         .select("username profile_picture email expYear KTP cert_id createdAt session.coordinates")
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "Detail vet", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.editVet = (req, res) => {
@@ -274,16 +274,16 @@ exports.editVet = (req, res) => {
     }
 
     Vet.findByIdAndUpdate(id, updatedData)
-        .then(() => res.status(200).json())
-        .catch(err => res.status(500).json(err))
+        .then(() => res.status(200).json({message: "vet edited"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.deleteVet = (req, res) => {
     const {idVet} = req.body
 
     Vet.findByIdAndDelete(idVet)
-        .then(() => res.status(202).json())
-        .catch(err => res.status(500).json(err))
+        .then(() => res.status(202).json({message: "vet deleted"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.getBlog = (req, res) => {
@@ -293,21 +293,21 @@ exports.getBlog = (req, res) => {
         .skip(offset)
         .limit(limit)
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "Blog data", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
-exports.getDetailBlog = (req,res) => {
+exports.getDetailBlog = (req, res) => {
     const {id} = req.body
-    if (!id){
-        return res.status(400).json()
+    if (!id) {
+        return res.status(400).json({message: "id not found"})
     }
 
     Blog.findById(id)
         .select('html')
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "Detail blog", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.addBlog = (req, res) => {
@@ -316,28 +316,28 @@ exports.addBlog = (req, res) => {
         return res.status(400).json()
     }
     Blog.create({html, title})
-        .then(() => res.status(201).json())
-        .catch(err => res.status(500).json(err))
+        .then(() => res.status(201).json({message: "Blog added"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.editBlog = (req, res) => {
     const {id, html, title} = req.body
     if (!id || !html || !title) {
-        return res.status(400).json()
+        return res.status(400).json({message: "Id, html and title needed"})
     }
 
     Blog.findByIdAndUpdate(id, {html, title})
-        .then(() => res.status(200).json())
-        .catch(err => res.status(500).json(err))
+        .then(() => res.status(200).json({message: "Blog edited"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.deleteBlog = (req, res) => {
     const {id} = req.body
     if (!id) {
-        return res.status(400).json()
+        return res.status(400).json({message: "Id needed"})
     }
 
     Blog.findByIdAndDelete(id)
-        .then(() => res.status(202).json())
-        .catch(err => res.status(500).json(err))
+        .then(() => res.status(202).json({message: "blog deleted"}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }

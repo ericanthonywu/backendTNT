@@ -23,30 +23,30 @@ router.post('/setFCMToken', authMiddleware, userFCMToken);
 //care router
 router.post('/searchVet', authMiddleware, searchVet);
 router.post('/searchClinic', authMiddleware, searchClinic);
-router.post('/getClinicByVet', authMiddleware, getClinicByVet);
+router.get('/getClinicByVet', authMiddleware, getClinicByVet);
 
 //profile router
-router.post('/user_profile', authMiddleware, user_profile);
-router.post('/update_profile', authMiddleware, update_profile);
+router.get('/user_profile', authMiddleware, user_profile);
+router.put('/update_profile', authMiddleware, update_profile);
 router.post('/delete_pet', authMiddleware, delete_pet);
 router.post('/add_pet', uploadPet.single('image'), authMiddleware, add_pet);
-router.post('/update_pet', uploadPet.single('image'), authMiddleware, update_pet);
+router.put('/update_pet', uploadPet.single('image'), authMiddleware, update_pet);
 
 //chat router
 router.post('/fileChat', uploadChat.single("image"), authMiddleware, userFileChat);
 router.post('/sendChat', authMiddleware, userSendChat);
-router.post('/showChat', authMiddleware, userShowChat);
-router.post('/getVet', authMiddleware, getVet);
+router.get('/showChat', authMiddleware, userShowChat);
+router.get('/getVet', authMiddleware, getVet);
 router.post('/endChat', authMiddleware, endChat);
 
 //appointment router
 router.post('/addAppointment', authMiddleware, addAppointment);
-router.post('/reScheduleAppointment', authMiddleware, reScheduleAppointment)
+router.put('/reScheduleAppointment', authMiddleware, reScheduleAppointment)
 router.post('/cancelAppointment', authMiddleware, cancelAppointment)
-router.post('/showVetAvailable', authMiddleware, showVetAvailable)
-router.post('/showUsersTodayAppointment', authMiddleware, showUsersTodayAppointment)
-router.post('/showUserAppointment', authMiddleware, showUserAppointment)
+router.get('/showVetAvailable', authMiddleware, showVetAvailable)
+router.get('/showUsersTodayAppointment', authMiddleware, showUsersTodayAppointment)
+router.get('/showUserAppointment', authMiddleware, showUserAppointment)
 
-router.post('/getBlog', authMiddleware, getBlog)
+router.get('/getBlog', authMiddleware, getBlog)
 
 module.exports = router;

@@ -24,7 +24,7 @@ exports.userSendChat = (req, res) => {
         upsert: true
     })
         .then(async _ => {
-            res.status(200).json()
+            res.status(200).json({message: "Send chat success"})
             const {io} = req
             Vet.findById(vet).select("socketId fcmToken").lean().then(async ({socketId, fcmToken}) => {
                 if (io.sockets.connected[socketId]) {
@@ -36,7 +36,7 @@ exports.userSendChat = (req, res) => {
                 await pushNotif(fcmToken, res.userData.username, `${res.userData.username}: ${message}`)
             })
         })
-        .catch(err => res.status(500).json(err))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.vetSendChat = (req, res) => {
@@ -53,7 +53,7 @@ exports.vetSendChat = (req, res) => {
             }
         }
     }).then(async _ => {
-        res.status(200).json()
+        res.status(200).json({message: "send chat success"})
         const {io} = req
 
         User.findById(user).select("socketId fcmToken").lean().then(async ({socketId, fcmToken}) => {
@@ -65,18 +65,18 @@ exports.vetSendChat = (req, res) => {
             }
             pushNotif(fcmToken, res.userData.username, `${res.userData.username}: ${message}`)
         })
-    }).catch(err => res.status(500).json(err))
+    }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.userShowChat = (req, res) => {
     const {vet} = req.body
     Chat.findOne({
         user: res.userData.id,
-        vet: vet,
+        vet,
     }).select("message.message message.read message.time message.file status message.user message.vet")
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "User chat message", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.vetShowChat = (req, res) => {
@@ -88,8 +88,8 @@ exports.vetShowChat = (req, res) => {
     })
         .select("message.message message.read message.time message.file status message.vet")
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "User chat message", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.getVet = (req, res) => {
@@ -98,8 +98,8 @@ exports.getVet = (req, res) => {
     }).populate("vet", "username profile_picture")
         .select({message: {$slice: -1}, vet: 1})
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "Vet chat list", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.getUser = (req, res) => {
@@ -108,8 +108,8 @@ exports.getUser = (req, res) => {
     }).populate("user", "username profile_picture")
         .select({message: {$slice: -1}, user: 1})
         .lean()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json(err))
+        .then(data => res.status(200).json({message: "User chat list", data}))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.userFileChat = (req, res) => {
@@ -130,7 +130,7 @@ exports.userFileChat = (req, res) => {
         upsert: true
     }).lean()
         .then(async _ => {
-            res.status(200).json()
+            res.status(200).json({message: "Success send file"})
             const {io} = req
             Vet.findById(vet).select("socketId fcmToken").lean().then(async ({socketId, fcmToken}) => {
                 if (io.sockets.connected[socketId]) {
@@ -142,7 +142,7 @@ exports.userFileChat = (req, res) => {
                 await pushNotif(fcmToken, res.userData.username, `${res.userData.username}: sent you a photo`)
             })
         })
-        .catch(err => res.status(500).json(err))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.vetFileChat = (req, res) => {
@@ -162,8 +162,8 @@ exports.vetFileChat = (req, res) => {
         setDefaultsOnInsert: true,
         upsert: true
     })
-        .then(async _ => {
-            res.status(200).json()
+        .then(async () => {
+            res.status(200).json({message: "Success send file"})
             const {io} = req
             User.findById(user)
                 .select("socketId fcmToken")
@@ -178,15 +178,15 @@ exports.vetFileChat = (req, res) => {
                 await pushNotif(fcmToken, res.userData.username, `${res.userData.username} sent you a photo`)
             })
         })
-        .catch(err => res.status(500).json(err))
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.endChat = (req, res) => {
     const {chatId} = req.body
     Chat.findByIdAndUpdate(chatId, {
         status: false
-    }).then(_ => {
-        res.status(200).json()
+    }).then(() => {
+        res.status(200).json({message: "Success end chat"})
         scheduler.scheduleJob(moment().add({month: 1}).toISOString(), _ => {
             Chat.findById(chatId)
                 .select("message.message message.time message.file message.user message.vet user vet")
@@ -218,7 +218,7 @@ exports.endChat = (req, res) => {
                         }
                         const form_data = new FormData();
                         form_data.append("file", fs.createReadStream(filePath));
-                        const sendToDrive = _ => {
+                        const sendToDrive = () => {
                             Axios.post("bla bla", form_data, {
                                 headers: {
                                     'Content-Type': 'multipart/form-data',
@@ -232,7 +232,7 @@ exports.endChat = (req, res) => {
                         }
                         sendToDrive()
                     })
-                })
+                }).catch(console.log)
         })
-    }).catch(err => res.status(500).json(err))
+    }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }

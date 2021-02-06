@@ -18,16 +18,16 @@ router.post('/verify', verifyEmailVet);
 router.post('/setFCMToken', authMiddleware, vetFCMToken);
 
 //profile
-router.post('/updateProfile', uploadVet.single("image"), authMiddleware, updateProfileVet)
-router.post('/updateLocation', authMiddleware, updateLocation)
+router.put('/updateProfile', uploadVet.single("image"), authMiddleware, updateProfileVet)
+router.put('/updateLocation', authMiddleware, updateLocation)
 
 //appointment router
-router.post('/showAppointment', authMiddleware, showVetAppointment)
+router.get('/showAppointment', authMiddleware, showVetAppointment)
 
 //chat router
 router.post('/fileChat', uploadChat.single("image"), authMiddleware, vetFileChat)
-router.post('/showChatList', authMiddleware, getUser)
-router.post('/showChat', authMiddleware, vetShowChat)
+router.get('/showChatList', authMiddleware, getUser)
+router.get('/showChat', authMiddleware, vetShowChat)
 router.post('/sendChat', authMiddleware, vetSendChat)
 
 module.exports = router;
