@@ -5,33 +5,53 @@ const moment = require('moment');
 const nodeMailer = require('nodemailer');
 
 exports.login = (req, res) => {
-    const {usernameOrEmail, password} = req.body;
-    if (!usernameOrEmail) {
-        return res.status(400).json()
+    const {email, password} = req.body;
+    if (!email) {
+        return res.status(400).json({message: 'Email is required'})
     }
 
-    User.findOne({
-        $or: [
-            {username: usernameOrEmail},
-            {email: usernameOrEmail}
-        ]
-    }).select("username password email ban profile_picture email_status loginWithFacebook loginWithGoogle")
+    User.findOne({email})
+        .select("username password phoneNumber email ban profile_picture email_status loginWithFacebook loginWithGoogle")
         .lean()
         .then(data => {
-        if (data) {
+            if (data) {
+                if (data.ban) {
+                    return res.status(403).json({msg: "You have been banned by admin"})
+                }
+                if (!data.email_status) {
+                    return res.status(403).json({msg: "Your email has not verified"})
+                }
 
-            if (data.ban) {
-                return res.status(403).json({msg: "You have been banned by admin"})
-            }
-            if (!data.email_status) {
-                return res.status(403).json({msg: "Your email has not verified"})
-            }
+                if (!data.loginWithFacebook && !data.loginWithGoogle) {
+                    bcrypt.compare(password, data.password).then(check => {
+                        if (!check) {
+                            return res.status(401).json()
+                        }
 
-            if (!data.loginWithFacebook && !data.loginWithGoogle) {
-                bcrypt.compare(password, data.password).then(check => {
-                    if (!check) {
-                        return res.status(401).json()
-                    }
+                        jwt.sign({
+                            username: data.username,
+                            email: data.email,
+                            id: data._id,
+                            role: "user"
+                        }, process.env.JWTTOKEN, {}, (err, token) => {
+                            return res.status(200).json({
+                                    message: "login successful",
+                                    data: {
+                                        _token: token,
+                                        username: data.username,
+                                        profile_picture: data.profile_picture,
+                                        id: data._id,
+                                        email: data.email,
+                                        phoneNumber: data.phoneNumber,
+                                    }
+                                }
+                            );
+                        })
+                    }).catch(err => {
+                        return res.status(500).json(err)
+                    })
+                } else {
+                    const {profile_picture} = data;
 
                     jwt.sign({
                         username: data.username,
@@ -39,41 +59,26 @@ exports.login = (req, res) => {
                         id: data._id,
                         role: "user"
                     }, process.env.JWTTOKEN, {}, (err, token) => {
+                        data.profile_picture = profile_picture;
                         return res.status(200).json({
-                            _token: token,
-                            username: data.username,
-                            profile_picture: data.profile_picture,
-                            id: data._id,
-                            email: data.email,
-                        });
+                                message: "login successful",
+                                data: {
+                                    _token: token,
+                                    username: data.username,
+                                    profile_picture: data.profile_picture,
+                                    id: data._id,
+                                    email: data.email,
+                                    phoneNumber: data.phoneNumber,
+                                }
+                            }
+                        );
                     })
-                }).catch(err => {
-                    return res.status(500).json(err)
-                })
+                }
+
             } else {
-                const {profile_picture} = data;
-
-                jwt.sign({
-                    username: data.username,
-                    email: data.email,
-                    id: data._id,
-                    role: "user"
-                }, process.env.JWTTOKEN, {}, (err, token) => {
-                    data.profile_picture = profile_picture;
-                    return res.status(200).json({
-                        _token: token,
-                        username: data.username,
-                        profile_picture: data.profile_picture,
-                        id: data._id,
-                        email: data.email,
-                    });
-                })
+                return res.status(200).json({message: 'User not found'});
             }
-
-        } else {
-            return res.status(404).json()
-        }
-    }).catch(err => res.status(200).json(err))
+        }).catch(err => res.status(200).json(err))
 };
 
 exports.register = (req, res) => {
@@ -212,13 +217,13 @@ exports.verifyEmail = (req, res) => {
         email: email,
         email_status: false,
         email_verification_token: parseInt(token),
-        email_expire_token: {$gte: moment().toISOString()}
+        // email_expire_token: {$gte: moment().toISOString()}
     })
         .lean()
         .then(doc => {
             if (doc) {
                 User.findOneAndUpdate({email}, {email_status: true, email_verification_token: null})
-                    .then(_ => res.status(201).json())
+                    .then(_ => res.status(201).json({message: "Email verified."}))
                     .catch(err => res.status(500).json(err))
             } else {
                 return res.status(404).json({msg: "Token not found or has been expired"})
@@ -237,35 +242,35 @@ exports.loginVet = (req, res) => {
     }).select("username password ban email profile_picture email_status")
         .lean()
         .then(data => {
-        if (data.ban) {
-            return res.status(403).json()
-        }
+            if (data.ban) {
+                return res.status(403).json()
+            }
 
-        if (data) {
-            bcrypt.compare(password, data.password).then(check => {
-                if (check) {
-                    jwt.sign({
-                        username: data.username,
-                        email: data.email,
-                        id: data._id,
-                        role: "vet"
-                    }, process.env.JWTTOKEN, {}, (err, token) => {
-                        return res.status(200).json({
-                            _token: token,
+            if (data) {
+                bcrypt.compare(password, data.password).then(check => {
+                    if (check) {
+                        jwt.sign({
                             username: data.username,
-                            profile_picture: data.profile_picture,
                             email: data.email,
-                            id: data._id
-                        });
-                    },)
-                } else {
-                    return res.status(401).json()
-                }
-            }).catch(err => res.status(500).json(err))
-        } else {
-            return res.status(404).json()
-        }
-    }).catch(err => res.status(500).json(err))
+                            id: data._id,
+                            role: "vet"
+                        }, process.env.JWTTOKEN, {}, (err, token) => {
+                            return res.status(200).json({
+                                _token: token,
+                                username: data.username,
+                                profile_picture: data.profile_picture,
+                                email: data.email,
+                                id: data._id
+                            });
+                        },)
+                    } else {
+                        return res.status(401).json()
+                    }
+                }).catch(err => res.status(500).json(err))
+            } else {
+                return res.status(404).json()
+            }
+        }).catch(err => res.status(500).json(err))
 };
 
 exports.registerVet = (req, res) => {
