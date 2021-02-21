@@ -13,8 +13,8 @@ if (process.env.NODE_ENV === "development") {
 } else {
     mongoose.connect(process.env.MONGOURL, {
         auth: {authSource: "admin"},
-        user: "mg-adm01",
-        pass: "4nn15A4176",
+        user: process.env.PROD_MONGOUSER,
+        pass: process.env.PROD_MONGOPASSWORD,
         useNewUrlParser: true,
         keepAlive: true,
         keepAliveInitialDelay: 300000,
