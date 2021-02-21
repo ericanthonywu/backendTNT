@@ -42,7 +42,7 @@ exports.userSendChat = (req, res) => {
 exports.vetSendChat = (req, res) => {
     const {user, message} = req.body
     Chat.findOneAndUpdate({
-        user: user,
+        user,
         vet: res.userData.id,
         status: true
     }, {

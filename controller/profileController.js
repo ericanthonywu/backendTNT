@@ -14,16 +14,17 @@ exports.user_profile = (req, res) => {
 };
 
 exports.add_pet = (req, res) => {
-    const {name, birthdate, status} = req.body;
+    const {name, birthdate, status, species} = req.body;
     const id = mongoose.Types.ObjectId()
     User.findByIdAndUpdate(res.userData.id, {
         $push: {
             pet: {
                 _id: id,
-                name: name,
-                photo: req.file.filename,
+                name,
+                photo: req.file ? req.file.filename : undefined,
                 birthDate: birthdate,
-                status: status
+                status,
+                species
             }
         }
     }).then(() => res.status(201).json({message: "Pet succesfully added", data: {pet_id: id}}))
@@ -31,11 +32,12 @@ exports.add_pet = (req, res) => {
 };
 
 exports.update_pet = (req, res) => {
-    const {petid, name, birthdate, status} = req.body
+    const {petid, name, birthdate, status, species} = req.body
     const updatedData = {
         "pet.$.name": name,
         "pet.$.birthDate": birthdate,
         "pet.$.status": status,
+        "pet.$.species": species,
     };
     if (req.file) {
         updatedData["pet.$.photo"] = req.file.filename
@@ -100,8 +102,9 @@ exports.update_profile = (req, res) => {
         updatedData.profile_picture_last_changed_at = moment(Date.now()).toISOString()
     }
     if (email) {
-        updatedData.email = email
         const token = generateToken()
+
+        updatedData.email = email
         updatedData.email_verification_token = token;
         updatedData.email_expire_token = moment().add(3, "minutes").toISOString();
 

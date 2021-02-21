@@ -19,9 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update email">
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="fix bug">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/model.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +312,13 @@
       <workItem from="1611429331752" duration="11000" />
       <workItem from="1611753493711" duration="404000" />
       <workItem from="1611762770623" duration="568000" />
-      <workItem from="1612600744881" duration="5744000" />
+      <workItem from="1612600744881" duration="6774000" />
+      <workItem from="1612756862052" duration="1397000" />
+      <workItem from="1613037169674" duration="1354000" />
+      <workItem from="1613039421622" duration="3255000" />
+      <workItem from="1613049378237" duration="136000" />
+      <workItem from="1613049757802" duration="2157000" />
+      <workItem from="1613482115624" duration="4496000" />
     </task>
     <task id="LOCAL-00001" summary="add database model">
       <created>1572361255920</created>
@@ -589,7 +600,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612604050989</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="fix bug">
+      <created>1612609960508</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1612609960508</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -614,7 +632,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="end chat with api drive &amp;&amp; add ban" />
     <MESSAGE value="update beberapa buat admin endpoint" />
     <MESSAGE value="update model and env for prod" />
     <MESSAGE value="admin backend done" />
@@ -639,6 +656,7 @@
     <MESSAGE value="update email configuration" />
     <MESSAGE value="remove validation backend" />
     <MESSAGE value="update email" />
-    <option name="LAST_COMMIT_MESSAGE" value="update email" />
+    <MESSAGE value="fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug" />
   </component>
 </project>

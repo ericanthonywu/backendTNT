@@ -80,11 +80,7 @@ exports.userAddNotification = (user, updatedData) => {
  * @type {Mail}
  */
 exports.transpoter = nodeMailer.createTransport({
-    host: process.env.EMAILHOST,
-    port: process.env.EMAILPORT,
-    secure: false,
     service: "Gmail",
-    requireTLS: false,
     auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAILPASSWORD
