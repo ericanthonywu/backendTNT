@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 
-if (process.env.NODE_ENV === "development") {
-    mongoose.connect(process.env.MONGOURL, {
-        useNewUrlParser: true,
-        keepAlive: true,
-        keepAliveInitialDelay: 300000,
-        useFindAndModify: false,
-        useCreateIndex: true,
-        useUnifiedTopology: true
-    }).then(_ => mongoose.connection.db.on('error', console.error.bind(console, 'connection error:')))
-        .catch(err => console.log(err));
-} else {
+// if (process.env.NODE_ENV === "development") {
+//     mongoose.connect(process.env.MONGOURL, {
+//         useNewUrlParser: true,
+//         keepAlive: true,
+//         keepAliveInitialDelay: 300000,
+//         useFindAndModify: false,
+//         useCreateIndex: true,
+//         useUnifiedTopology: true
+//     }).then(_ => mongoose.connection.db.on('error', console.error.bind(console, 'connection error:')))
+//         .catch(err => console.log(err));
+// } else {
     mongoose.connect(process.env.MONGOURL, {
         auth: {authSource: "admin"},
         user: process.env.PROD_MONGOUSER,
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "development") {
         useUnifiedTopology: true
     }).then(_ => mongoose.connection.db.on('error', console.error.bind(console, 'connection error:')))
         .catch(err => console.log(err));
-}
+// }
 
 const vetSchema = new mongoose.Schema({
     username: {type: String, required: true, trim: true, unique: true},
