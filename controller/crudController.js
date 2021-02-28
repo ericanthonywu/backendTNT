@@ -92,7 +92,7 @@ exports.showVetClinic = (req, res) => {
         .skip(offset)
         .populate("vet", "username createdAt cert_id expYear KTP")
         .lean()
-        .then(({vet}) => res.status(200).json({message: "Vet clinic data", vet}))
+        .then(({vet}) => res.status(200).json({message: "Vet clinic data", data: vet}))
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
@@ -236,7 +236,7 @@ exports.addVet = (req, res) => {
             password: password,
             session
         }).save()
-            .then(({_id}) => res.status(201).json({message: "vet added", id: _id}))
+            .then(({_id}) => res.status(201).json({message: "vet added", data: {id: _id}}))
             .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
     }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
     // } else {

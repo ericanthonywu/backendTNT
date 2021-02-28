@@ -123,7 +123,7 @@ const userSchema = new mongoose.Schema({
     password_last_changed_at: {type: Date},
     archived_chat: [{type: mongoose.Schema.Types.ObjectID, ref: 'chat'}],
     appointment: [{
-        vet: {type: mongoose.Schema.Types.ObjectID},
+        vet: {type: mongoose.Schema.Types.ObjectID, ref: 'vet'},
         pet: {type: mongoose.Schema.Types.ObjectID},
         time: {type: Date, default: Date.now()}
     }],

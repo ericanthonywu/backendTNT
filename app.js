@@ -98,6 +98,7 @@ app.get('/blog/:id', (req, res) => {
     if (!id) {
         return res.status(400).json({message: "Id is required"})
     }
+
     Blog.findById(mongoose.Types.ObjectId(id))
         .then(data => res.render('blog', data))
         .catch(err => res.status(500).json(err))

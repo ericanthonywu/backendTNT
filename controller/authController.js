@@ -23,6 +23,9 @@ exports.login = (req, res) => {
                 }
 
                 if (!data.loginWithFacebook && !data.loginWithGoogle) {
+                    if (!password){
+                        return res.status(401).json({message: "email already registered"})
+                    }
                     bcrypt.compare(password, data.password).then(check => {
                         if (!check) {
                             return res.status(401).json({message: "Your password is incorrect"})
@@ -33,7 +36,7 @@ exports.login = (req, res) => {
                             email: data.email,
                             id: data._id,
                             role: "user"
-                        }, process.env.JWTTOKEN, {}, (err, token) => {
+                        }, process.env.JWTTOKEN,(err, token) => {
                             return res.status(200).json({
                                     message: "login successful",
                                     data: {
@@ -47,8 +50,6 @@ exports.login = (req, res) => {
                                 }
                             );
                         })
-                    }).catch(err => {
-                        return res.status(500).json(err)
                     })
                 } else {
                     const {profile_picture} = data;
@@ -78,11 +79,11 @@ exports.login = (req, res) => {
             } else {
                 return res.status(401).json({message: 'Email / password wrong'});
             }
-        }).catch(err => res.status(500).json(err))
+        })
 };
 
 exports.register = (req, res) => {
-    const {username, password, email, noHp, loginWithGoogle, loginWithFacebook} = req.body;
+    const {username, password, email, noHp, loginWithGoogle, loginWithFacebook, photo} = req.body;
     if (!username && !email && !loginWithFacebook && !loginWithGoogle && !password) {
         return res.status(400).json({message: "request required"})
     }
@@ -92,7 +93,8 @@ exports.register = (req, res) => {
         email: email,
         phoneNumber: noHp || "0",
         loginWithGoogle: loginWithGoogle || "",
-        loginWithFacebook: loginWithFacebook || ""
+        loginWithFacebook: loginWithFacebook || "",
+        profile_picture: photo
     };
     if (email) {
         if (!loginWithFacebook && !loginWithGoogle) {
@@ -306,7 +308,7 @@ exports.registerVet = (req, res) => {
 exports.loginClinic = (req, res) => {
     const {username, password} = req.body
     Clinic.findOne({
-        username: username
+        username
     }).select("password").lean().then(data => {
         if (!data) {
             return res.status(404).json()
@@ -322,17 +324,20 @@ exports.loginClinic = (req, res) => {
             }
 
             jwt.sign({
-                id: data.id,
-                username: data.username,
+                id: data._id,
+                username,
                 role: "clinic"
-            }, process.env.JWTTOKEN, {}, (err, token) => {
+            }, process.env.JWTTOKEN,(err, token) => {
                 if (err) {
                     return res.status(500).json(err)
                 }
                 return res.status(200).json({
-                    token,
-                    username: username,
-                    id: data.id
+                    message: "clinic login",
+                    data:{
+                        token,
+                        username: username,
+                        id: data.id
+                    },
                 })
             })
         }).catch(err => res.status(500).json(err))
@@ -366,9 +371,12 @@ exports.loginAdmin = (req, res) => {
                 }
 
                 res.status(200).json({
-                    token,
-                    username: username,
-                    id: id
+                    message: "login data",
+                    data: {
+                        token,
+                        username,
+                        id,
+                    }
                 })
             })
         }).catch(err => res.status(500).json(err))

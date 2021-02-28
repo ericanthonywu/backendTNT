@@ -16,7 +16,7 @@ exports.addAppointment = (req, res) => {
                 $gte: moment(time),
                 $lte: moment(time).add(1, "hour")
             },
-            vet: vet,
+            vet,
         }).lean()
             .then(c => {
                 if (c < 4) {
