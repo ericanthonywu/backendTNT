@@ -23,7 +23,7 @@ router.post('/setFCMToken', authMiddleware, userFCMToken);
 //care router
 router.post('/searchVet', authMiddleware, searchVet);
 router.post('/searchClinic', authMiddleware, searchClinic);
-router.get('/getClinicByVet', authMiddleware, getClinicByVet);
+router.post('/getClinicByVet', authMiddleware, getClinicByVet);
 
 //profile router
 router.get('/user_profile', authMiddleware, user_profile);

@@ -2,7 +2,7 @@ const {vet: Vet, clinic: Clinic} = require('../model')
 
 exports.searchVet = (req, res) => {
     const {lat, long, vet, offset, maxDistance, minDistance} = req.body
-    if (lat || long || vet) {
+    if (lat || long) {
         Vet.aggregate([
             {
                 $geoNear: {
@@ -16,9 +16,9 @@ exports.searchVet = (req, res) => {
                     // maxDistance: (maxDistance || 0) * 1000,
                     // minDistance: (minDistance || 0) * 1000,
                     spherical: true,
-                    query: {
+                    query: vet ? {
                         username: {$regex: `(?i)${vet}.*`}
-                    }
+                    } : {}
                 },
             },
             {
