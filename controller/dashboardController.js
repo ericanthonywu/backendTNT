@@ -41,7 +41,7 @@ exports.searchVet = (req, res) => {
 
 exports.searchClinic = async (req, res) => {
     const {lat, long, clinic, offset, maxDistance, minDistance} = req.body
-    if (lat || long || clinic) {
+    if (lat || long) {
         Clinic.aggregate([
             {
                 $geoNear: {
@@ -55,9 +55,9 @@ exports.searchClinic = async (req, res) => {
                     // maxDistance: (maxDistance || 0) * 1000,
                     // minDistance: (minDistance || 0) * 1000,
                     spherical: true,
-                    query: {
+                    query: clinic ? {
                         username: {$regex: `(?i)${clinic}.*`}
-                    }
+                    } : {}
                 },
             },
             {
