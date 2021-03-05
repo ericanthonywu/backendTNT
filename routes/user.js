@@ -6,12 +6,13 @@ const express = require('express'),
     {showUserAppointment, addAppointment, showUsersTodayAppointment, showVetAvailable, cancelAppointment, reScheduleAppointment} = require("../controller/appointmentController"),
     {userShowChat, userFileChat, userSendChat, endChat, getVet} = require("../controller/chatController"),
     {update_pet, add_pet, delete_pet, update_profile, user_profile} = require("../controller/profileController"),
-    {getClinicByVet, searchVet, searchClinic} = require("../controller/dashboardController"),
+    {getClinicByVet, searchVet, searchClinic, getDetailClinic} = require("../controller/dashboardController"),
     {getBlog} = require("../controller/crudController"),
 
 //middleware
     {authMiddleware} = require('../middleware/authMiddleware'),
     {uploadPet, uploadChat} = require('../middleware/uploadFileMiddleware');
+const {getDetailVet} = require("../controller/dashboardController");
 
 //user auth router
 router.post('/login', login);
@@ -24,11 +25,13 @@ router.post('/setFCMToken', authMiddleware, userFCMToken);
 router.post('/searchVet', authMiddleware, searchVet);
 router.post('/searchClinic', authMiddleware, searchClinic);
 router.post('/getClinicByVet', authMiddleware, getClinicByVet);
+router.post('/getDetailClinic', authMiddleware, getDetailClinic);
+router.post('/getDetailVet', authMiddleware, getDetailVet);
 
 //profile router
 router.get('/user_profile', authMiddleware, user_profile);
 router.put('/update_profile', authMiddleware, update_profile);
-router.post('/delete_pet', authMiddleware, delete_pet);
+router.delete('/delete_pet', authMiddleware, delete_pet);
 router.post('/add_pet', uploadPet.single('image'), authMiddleware, add_pet);
 router.put('/update_pet', uploadPet.single('image'), authMiddleware, update_pet);
 

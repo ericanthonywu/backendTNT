@@ -34,6 +34,7 @@ const vetSchema = new mongoose.Schema({
     password: {type: String, required: true, select: false},
     promoted: {type: Boolean, default: false},
     street: {type: String},
+    bio: {String},
     session: {
         device_name: {type: String},
         device_token: {type: String},
