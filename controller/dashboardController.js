@@ -10,8 +10,8 @@ exports.searchVet = (req, res) => {
                         type: "Point",
                         coordinates: [parseFloat(long), parseFloat(lat)]
                     },
-                    distanceField: "dist.calculated",
-                    includeLocs: "dist.location",
+                    distanceField: "session.calculated",
+                    includeLocs: "session.location",
                     distanceMultiplier: 0.001,
                     // maxDistance: (maxDistance || 0) * 1000,
                     // minDistance: (minDistance || 0) * 1000,
@@ -26,7 +26,7 @@ exports.searchVet = (req, res) => {
                     _id: 1,
                     username: 1,
                     profile_picture: 1,
-                    dist: 1,
+                    session: 1,
                 }
             },
             {$limit: 10},
@@ -49,8 +49,8 @@ exports.searchClinic = async (req, res) => {
                         type: "Point",
                         coordinates: [parseFloat(long), parseFloat(lat)]
                     },
-                    distanceField: "dist.calculated",
-                    includeLocs: "dist.location",
+                    distanceField: "session.calculated",
+                    includeLocs: "session.coordinates",
                     distanceMultiplier: 0.001,
                     // maxDistance: (maxDistance || 0) * 1000,
                     // minDistance: (minDistance || 0) * 1000,
@@ -65,7 +65,7 @@ exports.searchClinic = async (req, res) => {
                     _id: 1,
                     username: 1,
                     address: 1,
-                    dist: 1,
+                    session: 1,
                     vet: 1
                 }
             },
