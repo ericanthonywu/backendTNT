@@ -186,7 +186,7 @@ exports.showUserAppointment = (req, res) => {
         user: res.userData.id,
     })
         .populate("vet", "username profile_picture")
-        .populate("clinic", "username")
+        .populate("clinic", "username address")
         .select("time status clinic vet")
         .sort({time: -1})
         .lean()
