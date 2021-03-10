@@ -19,9 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="add minus">
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update minus">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/appointmentController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -328,14 +327,7 @@
       <workItem from="1615220733696" duration="127000" />
       <workItem from="1615228059583" duration="57000" />
       <workItem from="1615287654076" duration="354000" />
-      <workItem from="1615304962754" duration="2004000" />
-    </task>
-    <task id="LOCAL-00003" summary="backend search by distance &amp;&amp; profiling">
-      <created>1573464488237</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1573464488237</updated>
+      <workItem from="1615304962754" duration="3149000" />
     </task>
     <task id="LOCAL-00004" summary="update profile, add pet &amp;&amp; update pet">
       <created>1573564675265</created>
@@ -673,7 +665,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615305564478</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="update minus">
+      <created>1615307543150</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1615307543150</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -698,7 +697,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="add default appointmentController.js and default helper for send data in FCM" />
     <MESSAGE value="production upload" />
     <MESSAGE value="edit .env" />
     <MESSAGE value="backend upload vet and appointmentController.js" />
@@ -723,6 +721,7 @@
     <MESSAGE value="update" />
     <MESSAGE value="add endpoint" />
     <MESSAGE value="add minus" />
-    <option name="LAST_COMMIT_MESSAGE" value="add minus" />
+    <MESSAGE value="update minus" />
+    <option name="LAST_COMMIT_MESSAGE" value="update minus" />
   </component>
 </project>

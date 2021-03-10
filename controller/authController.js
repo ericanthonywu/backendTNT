@@ -23,7 +23,7 @@ exports.login = (req, res) => {
                 }
 
                 if (!data.loginWithFacebook && !data.loginWithGoogle) {
-                    if (!password){
+                    if (!password) {
                         return res.status(401).json({message: "email already registered"})
                     }
                     bcrypt.compare(password, data.password).then(check => {
@@ -36,7 +36,7 @@ exports.login = (req, res) => {
                             email: data.email,
                             id: data._id,
                             role: "user"
-                        }, process.env.JWTTOKEN,(err, token) => {
+                        }, process.env.JWTTOKEN, (err, token) => {
                             return res.status(200).json({
                                     message: "login successful",
                                     data: {
@@ -122,13 +122,16 @@ exports.register = (req, res) => {
                                     email: userData.email,
                                     id: userDataDatabase._id,
                                     role: "user"
-                                }, process.env.JWTTOKEN,(err, token) =>
+                                }, process.env.JWTTOKEN, (err, token) =>
                                     res.status(201).json({
-                                        token,
-                                        id: userDataDatabase._id,
-                                        profile_picture: userDataDatabase.profile_picture,
-                                        username: userData.username,
-                                        email: userData.email,
+                                        message: "login successful",
+                                        data: {
+                                            token,
+                                            id: userDataDatabase._id,
+                                            profile_picture: userDataDatabase.profile_picture,
+                                            username: userData.username,
+                                            email: userData.email,
+                                        }
                                     })
                             )
                         });
@@ -148,18 +151,21 @@ exports.register = (req, res) => {
                         role: "user"
                     }, process.env.JWTTOKEN, {}, (err, token) => {
                         return res.status(201).json({
-                            token,
-                            id: userDataDatabase._id,
-                            profile_picture: userDataDatabase.profile_picture,
-                            username: userData.username,
-                            email: userData.email,
+                            message: "login successful",
+                            data: {
+                                token,
+                                id: userDataDatabase._id,
+                                profile_picture: userDataDatabase.profile_picture,
+                                username: userData.username,
+                                email: userData.email,
+                            }
                         });
                     })
                 })
                 .catch(err => res.status(500).json(err))
         }
     } else {
-        return res.status(403).json()
+        return res.status(403).json({message: "email is required"})
     }
 };
 
@@ -327,13 +333,13 @@ exports.loginClinic = (req, res) => {
                 id: data._id,
                 username,
                 role: "clinic"
-            }, process.env.JWTTOKEN,(err, token) => {
+            }, process.env.JWTTOKEN, (err, token) => {
                 if (err) {
                     return res.status(500).json(err)
                 }
                 return res.status(200).json({
                     message: "clinic login",
-                    data:{
+                    data: {
                         token,
                         username: username,
                         id: data.id
