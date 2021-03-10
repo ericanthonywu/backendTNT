@@ -124,7 +124,7 @@ exports.register = (req, res) => {
                                     role: "user"
                                 }, process.env.JWTTOKEN, (err, token) =>
                                     res.status(201).json({
-                                        message: "login successful",
+                                        message: "register successful",
                                         data: {
                                             token,
                                             id: userDataDatabase._id,
@@ -151,7 +151,7 @@ exports.register = (req, res) => {
                         role: "user"
                     }, process.env.JWTTOKEN, {}, (err, token) => {
                         return res.status(201).json({
-                            message: "login successful",
+                            message: "register successful",
                             data: {
                                 token,
                                 id: userDataDatabase._id,
