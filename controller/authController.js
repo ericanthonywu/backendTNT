@@ -83,7 +83,7 @@ exports.login = (req, res) => {
 };
 
 exports.register = (req, res) => {
-    const {username, password, email, noHp, loginWithGoogle, loginWithFacebook, photo} = req.body;
+    const {username, password, email, noHp, loginWithGoogle, loginWithFacebook} = req.body;
     if (!username && !email && !loginWithFacebook && !loginWithGoogle && !password) {
         return res.status(400).json({message: "request required"})
     }
@@ -94,7 +94,6 @@ exports.register = (req, res) => {
         phoneNumber: noHp || "0",
         loginWithGoogle: loginWithGoogle || "",
         loginWithFacebook: loginWithFacebook || "",
-        profile_picture: photo
     };
     if (email) {
         if (!loginWithFacebook && !loginWithGoogle) {

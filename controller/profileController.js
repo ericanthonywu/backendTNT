@@ -15,6 +15,9 @@ exports.user_profile = (req, res) => {
 
 exports.add_pet = (req, res) => {
     const {name, birthdate, status, species} = req.body;
+    if(!req.file){
+        return res.status(400).json({message: "file required"})
+    }
     const id = mongoose.Types.ObjectId()
     User.findByIdAndUpdate(res.userData.id, {
         $push: {

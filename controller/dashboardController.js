@@ -98,13 +98,13 @@ exports.getClinicByVet = (req, res) => {
 
 exports.getDetailClinic = (req, res) => {
     const {clinicId} = req.body
-    if (!clinicId){
+    if (!clinicId) {
         return res.status(400).json({message: "clinic id is required"})
     }
 
     Clinic.findById(clinicId)
         .select('vet username address photo')
-        .populate('vet','username profile_picture dayOfDuty')
+        .populate('vet', 'username profile_picture dayOfDuty')
         .lean()
         .then(data => res.status(200).json({message: "clinic detail data", data: {data, prefix: "uploads/clinic"}}))
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
@@ -112,7 +112,7 @@ exports.getDetailClinic = (req, res) => {
 
 exports.getDetailVet = (req, res) => {
     const {vetId} = req.body
-    if (!vetId){
+    if (!vetId) {
         return res.status(400).json({message: "clinic id is required"})
     }
     Vet.findById(vetId)
@@ -123,7 +123,11 @@ exports.getDetailVet = (req, res) => {
                 .select('username')
                 .lean()
                 .then(clinicData => {
-                    res.status(200).json({message: "vet detail data", data: {...vetData, clinic: clinicData}, prefix: "uploads/vet"})
+                    res.status(200).json({
+                        message: "vet detail data",
+                        data: {...vetData, clinic: clinicData},
+                        prefix: "uploads/vet"
+                    })
                 })
                 .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
         })

@@ -24,17 +24,20 @@ exports.userSendChat = (req, res) => {
         upsert: true
     })
         .then(async _ => {
-            res.status(200).json({message: "Send chat success"})
             const {io} = req
-            Vet.findById(vet).select("socketId fcmToken").lean().then(async ({socketId, fcmToken}) => {
-                if (io.sockets.connected[socketId]) {
-                    io.sockets.connected[socketId].emit('newChat', {
-                        message: message,
-                        from: res.userData.id
-                    })
-                }
-                await pushNotif(fcmToken, res.userData.username, `${res.userData.username}: ${message}`)
-            })
+            Vet.findById(vet).select("socketId fcmToken")
+                .lean()
+                .then(({socketId, fcmToken}) => {
+                    if (io.sockets.connected[socketId]) {
+                        io.sockets.connected[socketId].emit('newChat', {
+                            message: message,
+                            from: res.userData.id
+                        })
+                    }
+                    pushNotif(fcmToken, res.userData.username, `${res.userData.username}: ${message}`)
+
+                    res.status(200).json({message: "Send chat success"})
+                })
         })
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
@@ -52,11 +55,11 @@ exports.vetSendChat = (req, res) => {
                 message: message
             }
         }
-    }).then(async _ => {
+    }).then(() => {
         res.status(200).json({message: "send chat success"})
         const {io} = req
 
-        User.findById(user).select("socketId fcmToken").lean().then(async ({socketId, fcmToken}) => {
+        User.findById(user).select("socketId fcmToken").lean().then(({socketId, fcmToken}) => {
             if (io.sockets.connected[socketId]) {
                 io.sockets.connected[socketId].emit('newChat', {
                     message: message,
@@ -169,14 +172,14 @@ exports.vetFileChat = (req, res) => {
                 .select("socketId fcmToken")
                 .lean()
                 .then(async ({socketId, fcmToken}) => {
-                if (io.sockets.connected[socketId]) {
-                    io.sockets.connected[socketId].emit('newChat', {
-                        file: req.file.filename,
-                        from: res.userData.id
-                    })
-                }
-                await pushNotif(fcmToken, res.userData.username, `${res.userData.username} sent you a photo`)
-            })
+                    if (io.sockets.connected[socketId]) {
+                        io.sockets.connected[socketId].emit('newChat', {
+                            file: req.file.filename,
+                            from: res.userData.id
+                        })
+                    }
+                    await pushNotif(fcmToken, res.userData.username, `${res.userData.username} sent you a photo`)
+                })
         })
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
@@ -201,7 +204,7 @@ exports.endChat = (req, res) => {
                     // define file path
                     const filePath = path.join(__dirname, `../chatBackupTemp/${chatId + Date.now().toString() + user + vet}log.txt`);
 
-                    fs.writeFile(filePath, await async function(){
+                    fs.writeFile(filePath, await async function () {
                         let chatMessage = ""
                         await message.forEach(({message, time, file, user, vet}) => {
                             const spaceBar = " ";

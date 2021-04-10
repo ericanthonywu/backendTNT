@@ -21,6 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update minus">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/dashboardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/dashboardController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +117,19 @@
       <command value="nodemon bin/ww" />
       <command value="nodemon bin/www" />
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -327,21 +344,15 @@
       <workItem from="1615220733696" duration="127000" />
       <workItem from="1615228059583" duration="57000" />
       <workItem from="1615287654076" duration="354000" />
-      <workItem from="1615304962754" duration="3149000" />
-    </task>
-    <task id="LOCAL-00004" summary="update profile, add pet &amp;&amp; update pet">
-      <created>1573564675265</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1573564675265</updated>
-    </task>
-    <task id="LOCAL-00005" summary="update profile not tested">
-      <created>1574608201789</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1574608201789</updated>
+      <workItem from="1615304962754" duration="4993000" />
+      <workItem from="1615410172555" duration="338000" />
+      <workItem from="1615642181464" duration="1135000" />
+      <workItem from="1615647918867" duration="273000" />
+      <workItem from="1615669423793" duration="421000" />
+      <workItem from="1615669865914" duration="534000" />
+      <workItem from="1616068572902" duration="1979000" />
+      <workItem from="1616072260491" duration="318000" />
+      <workItem from="1618053196103" duration="3814000" />
     </task>
     <task id="LOCAL-00006" summary="update profile not tested">
       <created>1574946390903</created>
@@ -672,7 +683,21 @@
       <option name="project" value="LOCAL" />
       <updated>1615307543150</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="update minus">
+      <created>1615401947094</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1615401947095</updated>
+    </task>
+    <task id="LOCAL-00054" summary="update minus">
+      <created>1615402102892</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1615402102892</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -723,5 +748,17 @@
     <MESSAGE value="add minus" />
     <MESSAGE value="update minus" />
     <option name="LAST_COMMIT_MESSAGE" value="update minus" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/controller/dashboardController.js</url>
+          <line>101</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
