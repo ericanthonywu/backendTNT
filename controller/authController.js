@@ -134,8 +134,7 @@ exports.register = (req, res) => {
                                     })
                             )
                         });
-                    })
-                    .catch(err => res.status(500).json(err))
+                    }).catch(err => res.status(500).json(err))
             }).catch(err => res.status(500).json(err))
         } else {
             userData.email_status = true;

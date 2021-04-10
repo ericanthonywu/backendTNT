@@ -223,7 +223,7 @@ exports.showAllVet = (req, res) => {
 }
 
 exports.addVet = (req, res) => {
-    const {cert_id, KTP, vet_name, vet_email, expYear, address, password, session} = req.body
+    const {cert_id, KTP, vet_name, vet_email, expYear, address, password, lat,long} = req.body
     // if (cert_id && KTP && vet_email && vet_name && expYear && address && password && session) {
     bcrypt.hash(password, parseInt(process.env.BcryptSalt)).then(password => {
         new Vet({
@@ -232,13 +232,14 @@ exports.addVet = (req, res) => {
             email: vet_email,
             username: vet_name,
             expYear: expYear,
-            street: address,
+            address,
             password: password,
-            session
+            session: {coordinates: [long,lat]}
         }).save()
             .then(({_id}) => res.status(201).json({message: "vet added", data: {id: _id}}))
             .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
-    }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
+    })
+        .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
     // } else {
     //     return res.status(400).json({msg: "input must be filled"})
     // }
@@ -247,14 +248,14 @@ exports.addVet = (req, res) => {
 exports.detailVet = (req, res) => {
     const {vetId} = req.body
     Vet.findById(vetId)
-        .select("username profile_picture email expYear KTP cert_id createdAt session.coordinates")
+        .select("username profile_picture email expYear address KTP cert_id createdAt session.coordinates")
         .lean()
         .then(data => res.status(200).json({message: "Detail vet", data}))
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
 exports.editVet = (req, res) => {
-    const {password, _id: id, cert_id, KTP, email, username, expYear, address} = req.body
+    const {password, _id: id, cert_id, KTP, email, username, expYear, address, session} = req.body
     const {file} = req
 
     const updatedData = {
@@ -263,7 +264,8 @@ exports.editVet = (req, res) => {
         email,
         username,
         expYear,
-        address
+        address,
+        "session.coordinates": session.coordinates
     }
 
     if (password) {

@@ -52,7 +52,7 @@ exports.vetSendChat = (req, res) => {
         $push: {
             message: {
                 vet: res.userData.id,
-                message: message
+                message
             }
         }
     }).then(() => {
@@ -165,8 +165,7 @@ exports.vetFileChat = (req, res) => {
         setDefaultsOnInsert: true,
         upsert: true
     })
-        .then(async () => {
-            res.status(200).json({message: "Success send file"})
+        .then(() => {
             const {io} = req
             User.findById(user)
                 .select("socketId fcmToken")
@@ -178,7 +177,8 @@ exports.vetFileChat = (req, res) => {
                             from: res.userData.id
                         })
                     }
-                    await pushNotif(fcmToken, res.userData.username, `${res.userData.username} sent you a photo`)
+                    pushNotif(fcmToken, res.userData.username, `${res.userData.username} sent you a photo`)
+                    res.status(200).json({message: "Success send file"})
                 })
         })
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))

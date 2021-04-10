@@ -33,11 +33,9 @@ const vetSchema = new mongoose.Schema({
     cert_id: {type: String, trim: true, select: false},
     password: {type: String, required: true, select: false},
     promoted: {type: Boolean, default: false},
-    street: {type: String},
+    address: {type: String},
     bio: {String},
     session: {
-        device_name: {type: String},
-        device_token: {type: String},
         type: {type: String, default: 'Point'},
         coordinates: {type: [Number], index: '2dsphere'},
         last_login: {type: Date},

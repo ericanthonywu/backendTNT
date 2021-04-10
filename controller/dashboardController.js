@@ -113,7 +113,7 @@ exports.getDetailClinic = (req, res) => {
 exports.getDetailVet = (req, res) => {
     const {vetId} = req.body
     if (!vetId) {
-        return res.status(400).json({message: "clinic id is required"})
+        return res.status(400).json({message: "vet id is required"})
     }
     Vet.findById(vetId)
         .select('bio photo profile_picture username expYear')
