@@ -116,7 +116,7 @@ exports.getDetailVet = (req, res) => {
         return res.status(400).json({message: "vet id is required"})
     }
     Vet.findById(vetId)
-        .select('bio photo profile_picture username expYear')
+        .select('bio photo profile_picture dayOfDuty username expYear')
         .lean()
         .then(vetData => {
             Clinic.find({vet: vetId})

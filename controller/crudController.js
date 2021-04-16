@@ -16,10 +16,6 @@ exports.addClinic = async (req, res) => {
     } = req;
 
     if (username && password && email && address && lat && long) {
-        const filenameArr = []
-
-        await files.forEach(({filename}) => filenameArr.push(filename))
-
         bcrypt.hash(password, 10).then(hashedPassword => {
             new Clinic({
                 username,
@@ -29,13 +25,13 @@ exports.addClinic = async (req, res) => {
                 session: {
                     coordinates: [long, lat]
                 },
-                photo: filenameArr
+                photo: files.map(({filename}) => filename)
             }).save()
                 .then(({_id: id}) => res.status(201).json({id}))
                 .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
         }).catch(err => res.status(500).json({message: "Failed to run query", error: err}))
     } else {
-        return res.status(400).json()
+        return res.status(400).json({message: "invalid request"})
     }
 }
 
@@ -223,18 +219,19 @@ exports.showAllVet = (req, res) => {
 }
 
 exports.addVet = (req, res) => {
-    const {cert_id, KTP, vet_name, vet_email, expYear, address, password, lat,long} = req.body
+    const {cert_id, KTP, vet_name, vet_email, expYear, address, password, lat,long,bio} = req.body
     // if (cert_id && KTP && vet_email && vet_name && expYear && address && password && session) {
     bcrypt.hash(password, parseInt(process.env.BcryptSalt)).then(password => {
         new Vet({
-            cert_id: cert_id,
-            KTP: KTP,
+            cert_id,
+            KTP,
             email: vet_email,
             username: vet_name,
-            expYear: expYear,
+            expYear,
             address,
             password: password,
-            session: {coordinates: [long,lat]}
+            session: {coordinates: [long,lat]},
+            bio
         }).save()
             .then(({_id}) => res.status(201).json({message: "vet added", data: {id: _id}}))
             .catch(err => res.status(500).json({message: "Failed to run query", error: err}))

@@ -133,16 +133,16 @@ exports.userFileChat = (req, res) => {
         upsert: true
     }).lean()
         .then(async _ => {
-            res.status(200).json({message: "Success send file"})
             const {io} = req
-            Vet.findById(vet).select("socketId fcmToken").lean().then(async ({socketId, fcmToken}) => {
+            Vet.findById(vet).select("socketId fcmToken").lean().then(({socketId, fcmToken}) => {
                 if (io.sockets.connected[socketId]) {
                     io.sockets.connected[socketId].emit('newChat', {
                         file: req.file.filename,
                         from: res.userData.id
                     })
                 }
-                await pushNotif(fcmToken, res.userData.username, `${res.userData.username}: sent you a photo`)
+                pushNotif(fcmToken, res.userData.username, `${res.userData.username}: sent you a photo`)
+                res.status(200).json({message: "Success send file"})
             })
         })
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))

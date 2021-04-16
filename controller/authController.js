@@ -89,11 +89,12 @@ exports.register = (req, res) => {
     }
 
     const userData = {
-        username: username,
-        email: email,
+        username,
+        email,
         phoneNumber: noHp || "0",
-        loginWithGoogle: loginWithGoogle || "",
-        loginWithFacebook: loginWithFacebook || "",
+        loginWithGoogle,
+        loginWithFacebook,
+        address: ""
     };
     if (email) {
         if (!loginWithFacebook && !loginWithGoogle) {

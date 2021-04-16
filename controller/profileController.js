@@ -81,7 +81,7 @@ exports.delete_pet = (req, res) => {
         _id: res.userData.id,
         pet: {$elemMatch: {_id: petId}},
     }).select("pet.photo pet._id").lean()
-        .then(async ({pet}) => {
+        .then(({pet}) => {
             // fs.unlinkSync(path.join(__dirname, "../uploads/pet/" + realPhoto))
 
             User.findByIdAndUpdate(res.userData.id, {
