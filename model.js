@@ -112,7 +112,7 @@ const userSchema = new mongoose.Schema({
         birthDate: {type: Date},
         gender: {type: String},
         status: {type: String},
-        species: {String},
+        species: {type: String},
         createdAt: {type: Date, default: Date.now()}
     }],
     forgot_password_token: {type: String},

@@ -122,13 +122,13 @@ exports.getDetailVet = (req, res) => {
             Clinic.find({vet: vetId})
                 .select('username')
                 .lean()
-                .then(clinicData => {
+                .then(clinic =>
                     res.status(200).json({
                         message: "vet detail data",
-                        data: {...vetData, clinic: clinicData},
+                        data: {...vetData, clinic},
                         prefix: "uploads/vet"
-                    })
-                })
+                    }).compare()
+                )
                 .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
         })
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))

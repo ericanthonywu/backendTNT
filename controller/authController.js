@@ -77,9 +77,9 @@ exports.login = (req, res) => {
                 }
 
             } else {
-                return res.status(401).json({message: 'Email / password wrong'});
+                return res.status(404).json({message: 'Email / password wrong'});
             }
-        })
+        }).catch(err => res.status(500).json(err))
 };
 
 exports.register = (req, res) => {

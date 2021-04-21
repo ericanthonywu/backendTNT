@@ -36,19 +36,18 @@ exports.vetPushNotif = (vet, title, body, data = {}) => {
  */
 exports.pushNotif = (fcmToken, title, body = "", data = {}) => {
     if (fcmToken) {
-        Axios.post(`https://fcm.googleapis.com/fcm/send`, {
+        return Axios.post(`https://fcm.googleapis.com/fcm/send`, {
             to: fcmToken,
             notification: {
                 title: title,
                 body: body,
                 show_in_foreground: true
             },
-            data: data,
+            data,
             content_available: true,
             show_in_foreground: true
         }, {
             headers: {
-                "Content-Type": "application/json",
                 Authorization: `key=${process.env.FCMLEGACYKEY}`
             }
         })

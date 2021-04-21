@@ -19,13 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="fix crud vet">
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="add">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/chatController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/chatController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/crudController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/crudController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/dashboardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/dashboardController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -343,14 +341,7 @@
       <workItem from="1618053196103" duration="9042000" />
       <workItem from="1618079288188" duration="104000" />
       <workItem from="1618079401428" duration="4292000" />
-      <workItem from="1618215156074" duration="2003000" />
-    </task>
-    <task id="LOCAL-00008" summary="optimize live chat w/ push notif">
-      <created>1578796952538</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1578796952538</updated>
+      <workItem from="1618215156074" duration="7200000" />
     </task>
     <task id="LOCAL-00009" summary="optimize live chat w/ push notif">
       <created>1578797184608</created>
@@ -688,7 +679,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618071828492</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="add">
+      <created>1618570578244</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1618570578244</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -713,7 +711,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="edit .env" />
     <MESSAGE value="backend upload vet and appointmentController.js" />
     <MESSAGE value="beautify" />
     <MESSAGE value="add eslint &amp;&amp; controller" />
@@ -738,6 +735,7 @@
     <MESSAGE value="add minus" />
     <MESSAGE value="update minus" />
     <MESSAGE value="fix crud vet" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix crud vet" />
+    <MESSAGE value="add" />
+    <option name="LAST_COMMIT_MESSAGE" value="add" />
   </component>
 </project>
