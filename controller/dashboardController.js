@@ -103,7 +103,7 @@ exports.getDetailClinic = (req, res) => {
     }
 
     Clinic.findById(clinicId)
-        .select('vet username address photo')
+        .select('vet username address phot dayOfDuty')
         .populate('vet', 'username profile_picture dayOfDuty')
         .lean()
         .then(data => res.status(200).json({message: "clinic detail data", data: {data, prefix: "uploads/clinic"}}))

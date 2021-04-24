@@ -1,4 +1,4 @@
-const {clinic: Clinic, vet: Vet, user: User, appointment: Appointment, blog: Blog} = require('../model')
+const {clinic: Clinic, vet: Vet, blog: Blog} = require('../model')
 const bcrypt = require('bcryptjs')
 const {pushNotif} = require("../globalHelper");
 
@@ -58,7 +58,7 @@ exports.deleteClinic = (req, res) => {
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 }
 
-exports.showClinic = (req, res) => {
+exports.showClinic = (req, res) =>  {
     const {offset} = req.body
     Clinic.aggregate([
         {

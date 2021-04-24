@@ -167,6 +167,7 @@ const clinicSchema = new mongoose.Schema({
     email_expire_token: {type: Date},
     socketId: {type: String},
     photo: [{type: String, unique: true}],
+    dayOfDuty: [{type: String, unique: true}],
     session: {
         type: {type: String, default: 'Point'},
         coordinates: [{type: Number, index: '2dsphere'}],

@@ -19,11 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="add">
+    <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/crudController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/crudController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/dashboardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/dashboardController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/globalHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/globalHelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/model.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -342,13 +343,8 @@
       <workItem from="1618079288188" duration="104000" />
       <workItem from="1618079401428" duration="4292000" />
       <workItem from="1618215156074" duration="7200000" />
-    </task>
-    <task id="LOCAL-00009" summary="optimize live chat w/ push notif">
-      <created>1578797184608</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1578797184608</updated>
+      <workItem from="1618995221793" duration="2033000" />
+      <workItem from="1619265780067" duration="364000" />
     </task>
     <task id="LOCAL-00010" summary="appointment reschedule, cancel and make scheduler push notif reminder">
       <created>1578799696388</created>
@@ -686,7 +682,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618570578244</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="fix">
+      <created>1618995458364</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1618995458365</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -711,7 +714,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="backend upload vet and appointmentController.js" />
     <MESSAGE value="beautify" />
     <MESSAGE value="add eslint &amp;&amp; controller" />
     <MESSAGE value="add clinic photo" />
@@ -736,6 +738,7 @@
     <MESSAGE value="update minus" />
     <MESSAGE value="fix crud vet" />
     <MESSAGE value="add" />
-    <option name="LAST_COMMIT_MESSAGE" value="add" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
 </project>
