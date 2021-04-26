@@ -9,7 +9,7 @@ exports.user_profile = (req, res) => {
     User.findById(res.userData.id)
         .select("username email profile_picture pet phoneNumber address loginWithGoogle loginWithFacebook")
         .lean()
-        .then(data => res.status(200).json({message: "user profile", data}))
+        .then(data => res.status(200).json({message: "user profile", data: {data, prefix: "uploads/pet"}}))
         .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
 };
 
