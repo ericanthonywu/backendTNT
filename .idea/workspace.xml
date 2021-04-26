@@ -22,6 +22,7 @@
     <list default="true" id="3a03e0f2-3905-44eb-9ef8-216b911485e0" name="Default Changelist" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/dashboardController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/dashboardController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/profileController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controller/profileController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -343,14 +344,7 @@
       <workItem from="1618995221793" duration="2033000" />
       <workItem from="1619265780067" duration="850000" />
       <workItem from="1619436907446" duration="71000" />
-      <workItem from="1619437052595" duration="284000" />
-    </task>
-    <task id="LOCAL-00011" summary="optimize push notif">
-      <created>1578801178562</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1578801178562</updated>
+      <workItem from="1619437052595" duration="565000" />
     </task>
     <task id="LOCAL-00012" summary="agenda">
       <created>1579255292273</created>
@@ -688,7 +682,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619266151261</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="update">
+      <created>1619437735250</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1619437735250</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
