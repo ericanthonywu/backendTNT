@@ -130,7 +130,7 @@ exports.getDetailVet = (req, res) => {
                         message: "vet detail data",
                         data: {...vetData, clinic},
                         prefix: "uploads/vet"
-                    }).compare()
+                    })
                 )
                 .catch(err => res.status(500).json({message: "Failed to run query", error: err}))
         })
