@@ -119,6 +119,9 @@ exports.getDetailVet = (req, res) => {
         .select('bio photo profile_picture dayOfDuty username expYear')
         .lean()
         .then(vetData => {
+            if (!vetData){
+                return res.status(404).json({message: "vet not found"})
+            }
             Clinic.find({vet: vetId})
                 .select('username')
                 .lean()
